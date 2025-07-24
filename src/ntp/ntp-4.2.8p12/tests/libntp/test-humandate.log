@@ -1,0 +1,13 @@
+humandate.c:9:test_RegularTime:PASS
+humandate.c:10:test_CurrentTime:PASS
+
+-----------------------
+2 Tests: 
+2 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-humandate (exit status: 0)

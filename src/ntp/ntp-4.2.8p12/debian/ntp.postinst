@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "configure" ]; then
+	addgroup --system --quiet ntp
+	adduser --system --quiet --ingroup ntp --no-create-home --home /nonexistent ntp
+	chown ntp:ntp /var/lib/ntp /var/log/ntpstats
+
+	# Bug#863857, the experimental version shipped a broken systemd wrapper
+	# writing a bogus PIDFILE on the root partition
+	if [ "$2" = "1:4.2.8p10+dfsg-3+exp2" ]; then
+		rm -f /-g
+	fi
+fi
+
+if [ "$1" = "triggered" ]; then
+	# The default configuration uses a leapfile from tzdata
+	# restart ntp on changes
+	invoke-rc.d ntp try-restart || true
+fi
+
+installinit_error() {
+	exit $?
+}
+
+#DEBHELPER#

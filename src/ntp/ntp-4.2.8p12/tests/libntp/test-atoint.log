@@ -1,0 +1,17 @@
+atoint.c:7:test_RegularPositive:PASS
+atoint.c:8:test_RegularNegative:PASS
+atoint.c:9:test_PositiveOverflowBoundary:PASS
+atoint.c:10:test_NegativeOverflowBoundary:PASS
+atoint.c:11:test_PositiveOverflowBig:PASS
+atoint.c:12:test_IllegalCharacter:PASS
+
+-----------------------
+6 Tests: 
+6 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-atoint (exit status: 0)

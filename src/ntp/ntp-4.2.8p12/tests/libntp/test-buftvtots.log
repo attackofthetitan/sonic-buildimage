@@ -1,0 +1,15 @@
+buftvtots.c:14:test_ZeroBuffer:PASS
+buftvtots.c:15:test_IntegerAndFractionalBuffer:PASS
+buftvtots.c:16:test_IllegalMicroseconds:PASS
+buftvtots.c:93:test_AlwaysFalseOnWindows:IGNORE: Non-Windows test, skipping...
+
+-----------------------
+4 Tests: 
+3 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+1 Ignored 
+
+OK
+PASS test-buftvtots (exit status: 0)

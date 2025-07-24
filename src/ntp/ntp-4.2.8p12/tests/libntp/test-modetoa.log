@@ -1,0 +1,13 @@
+modetoa.c:8:test_KnownMode:PASS
+modetoa.c:9:test_UnknownMode:PASS
+
+-----------------------
+2 Tests: 
+2 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-modetoa (exit status: 0)

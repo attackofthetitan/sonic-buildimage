@@ -1,0 +1,19 @@
+ntp_restrict.c:63:test_RestrictionsAreEmptyAfterInit:PASS
+ntp_restrict.c:90:test_ReturnsCorrectDefaultRestrictions:PASS
+ntp_restrict.c:103:test_HackingDefaultRestriction:PASS
+ntp_restrict.c:129:test_CantRemoveDefaultEntry:PASS
+ntp_restrict.c:143:test_AddingNewRestriction:PASS
+ntp_restrict.c:159:test_TheMostFittingRestrictionIsMatched:PASS
+ntp_restrict.c:184:test_DeletedRestrictionIsNotMatched:PASS
+ntp_restrict.c:211:test_RestrictUnflagWorks:PASS
+
+-----------------------
+8 Tests: 
+8 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-ntp_restrict (exit status: 0)

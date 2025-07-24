@@ -1,0 +1,17 @@
+t-ntp_signd.c:67:test_connect_incorrect_socket:PASS
+t-ntp_signd.c:68:test_connect_correct_socket:PASS
+t-ntp_signd.c:69:test_write_all:PASS
+t-ntp_signd.c:70:test_send_packet:PASS
+t-ntp_signd.c:157:test_recv_packet:IGNORE: test_recv_packet() needs work
+t-ntp_signd.c:72:test_send_via_ntp_signd:PASS
+
+-----------------------
+6 Tests: 
+5 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+1 Ignored 
+
+OK
+PASS test-ntp_signd (exit status: 0)

@@ -1,0 +1,22 @@
+t-ntp_scanner.c:8:test_keywordIncorrectToken:PASS
+t-ntp_scanner.c:16:test_keywordServerToken:PASS
+t-ntp_scanner.c:24:test_DropUninitializedStack:PASS
+t-ntp_scanner.c:30:test_IncorrectlyInitializeLexStack:PASS
+t-ntp_scanner.c:38:test_InitializeLexStack:PASS
+t-ntp_scanner.c:49:test_PopEmptyStack:PASS
+t-ntp_scanner.c:57:test_IsInteger:PASS
+t-ntp_scanner.c:76:test_IsUint:PASS
+t-ntp_scanner.c:90:test_IsDouble:PASS
+t-ntp_scanner.c:104:test_SpecialSymbols:PASS
+t-ntp_scanner.c:115:test_EOC:PASS
+
+-----------------------
+11 Tests: 
+11 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-ntp_scanner (exit status: 0)

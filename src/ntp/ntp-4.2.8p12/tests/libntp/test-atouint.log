@@ -1,0 +1,16 @@
+atouint.c:9:test_RegularPositive:PASS
+atouint.c:10:test_PositiveOverflowBoundary:PASS
+atouint.c:11:test_PositiveOverflowBig:PASS
+atouint.c:12:test_Negative:PASS
+atouint.c:13:test_IllegalChar:PASS
+
+-----------------------
+5 Tests: 
+5 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-atouint (exit status: 0)

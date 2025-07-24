@@ -1,0 +1,24 @@
+authkeys.c:79:test_AddTrustedKeys:PASS
+authkeys.c:92:test_AddUntrustedKey:PASS
+authkeys.c:102:test_HaveKeyCorrect:PASS
+authkeys.c:113:test_HaveKeyIncorrect:PASS
+authkeys.c:122:test_AddWithAuthUseKey:PASS
+authkeys.c:131:test_EmptyKey:PASS
+authkeys.c:160:test_auth_log2:PASS
+authkeys.c:203:test_AddrMatch_anull:PASS
+authkeys.c:234:test_AddrMatch_self4:PASS
+authkeys.c:245:test_AddrMatch_self6:PASS
+authkeys.c:256:test_AddrMatch_afmix:PASS
+authkeys.c:268:test_AddrMatch_ipv4:PASS
+authkeys.c:298:test_AddrMatch_ipv6:PASS
+
+-----------------------
+13 Tests: 
+13 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-authkeys (exit status: 0)

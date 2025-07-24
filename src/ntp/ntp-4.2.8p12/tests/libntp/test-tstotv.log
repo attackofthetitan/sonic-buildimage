@@ -1,0 +1,14 @@
+tstotv.c:8:test_Seconds:PASS
+tstotv.c:9:test_MicrosecondsExact:PASS
+tstotv.c:10:test_MicrosecondsRounding:PASS
+
+-----------------------
+3 Tests: 
+3 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-tstotv (exit status: 0)

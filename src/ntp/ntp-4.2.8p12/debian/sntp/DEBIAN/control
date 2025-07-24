@@ -1,0 +1,21 @@
+Package: sntp
+Source: ntp
+Version: 1:4.2.8p12+dfsg-4+deb10u2
+Architecture: amd64
+Maintainer: Debian NTP Team <ntp@packages.debian.org>
+Installed-Size: 281
+Depends: libc6 (>= 2.17), libevent-core-2.1-6 (>= 2.1.8-stable), libevent-pthreads-2.1-6 (>= 2.1.8-stable), libopts25 (>= 1:5.18.12), libssl1.1 (>= 1.1.0)
+Breaks: ntp (<< 1:4.2.8p10+dfsg-3+exp3)
+Replaces: ntp (<< 1:4.2.8p10+dfsg-3+exp3)
+Section: net
+Priority: optional
+Homepage: http://support.ntp.org/
+Description: Network Time Protocol - sntp client
+ NTP, the Network Time Protocol, is used to keep computer clocks
+ accurate by synchronizing them over the Internet or a local network,
+ or by following an accurate hardware receiver that interprets GPS,
+ DCF-77, NIST or similar time signals.
+ .
+ sntp can be used as an SNTP client to query a NTP or SNTP server and
+ either display the time or set the local system's time. It is not
+ sufficient, however, for maintaining an accurate clock in the long run.

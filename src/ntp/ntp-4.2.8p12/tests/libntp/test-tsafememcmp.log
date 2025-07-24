@@ -1,0 +1,17 @@
+tsafememcmp.c:10:test_Empty:PASS
+tsafememcmp.c:11:test_Equal:PASS
+tsafememcmp.c:12:test_FirstByte:PASS
+tsafememcmp.c:13:test_LastByte:PASS
+tsafememcmp.c:14:test_MiddleByte:PASS
+tsafememcmp.c:15:test_MiddleByteUpLo:PASS
+
+-----------------------
+6 Tests: 
+6 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-tsafememcmp (exit status: 0)

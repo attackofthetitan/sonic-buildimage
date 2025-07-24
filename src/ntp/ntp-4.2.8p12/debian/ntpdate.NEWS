@@ -1,0 +1,30 @@
+ntp (1:4.2.8p12+dfsg-2) unstable; urgency=low
+
+  TL;DR: The ntpdate package does NOT ship triggers for ifupdown to run
+  a one-time sync every time an interface comes up anymore. These hooks
+  will also be removed on upgrades to Buster. It is strongly recommended
+  to switch to a permanent NTP daemon like ntp, systemd-timesyncd or chrony.
+  If you need a one-time sync in your setup please arrange for it
+  yourselves, i.e. by calling sntp with the appropriate parameters in
+  /etc/network/interfaces(.d) .
+
+  Historically the package ntpdate has included both /usr/bin/ntpdate (which is
+  the historic go-to program for one-shot NTP querying) and ifupdown hooks to
+  execute a one-shot NTP query on every interface up event.
+
+  The ifupdown hooks have introduced buggy behaviour by syncing too often
+  (on every ifup), too seldom (never again) and are likely to interfere with
+  other time-keeping measures on the same system including ntpd. The hooks
+  frequently caused dependency problems with local DNS resolvers or uncommon
+  network configurations. They have therefor been dropped from the ntpdate
+  package.
+
+  For time synchronisation purpose please use one of the many timekeeping
+  daemons in Debian (ntp, systemd-timesyncd, chrony).
+
+  For the manual use, /usr/bin/ntpdate has been deprecated upstream and
+  replaced by /usr/bin/sntp (in the sntp binary package). If you want a
+  proper one-shot sync against a pool of servers you may also consider the
+  -q option of ntpd.
+
+ -- Bernhard Schmidt <berni@debian.org>  Sat, 08 Sep 2018 01:03:52 +0200

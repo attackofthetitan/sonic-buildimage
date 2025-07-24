@@ -1,0 +1,19 @@
+msyslog.c:14:test_msnprintf:PASS
+msyslog.c:15:test_msnprintfLiteralPercentm:PASS
+msyslog.c:16:test_msnprintfBackslashLiteralPercentm:PASS
+msyslog.c:17:test_msnprintfBackslashPercent:PASS
+msyslog.c:18:test_msnprintfHangingPercent:PASS
+msyslog.c:127:test_format_errmsgHangingPercent:IGNORE: VSNPRINTF_PERCENT_M is defined
+msyslog.c:20:test_msnprintfNullTarget:PASS
+msyslog.c:21:test_msnprintfTruncate:PASS
+
+-----------------------
+8 Tests: 
+7 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+1 Ignored 
+
+OK
+PASS test-msyslog (exit status: 0)

@@ -21,10 +21,10 @@ include $(PLATFORM_PATH)/one-aboot.mk
 include $(PLATFORM_PATH)/libsaithrift-dev.mk
 
 BCMCMD = bcmcmd
-$(BCMCMD)_URL = "https://sonicstorage.blob.core.windows.net/public/20190307/bcmcmd"
+$(BCMCMD)_URL = "https://packages.trafficmanager.net/public/20190307/bcmcmd"
 
 DSSERVE = dsserve
-$(DSSERVE)_URL = "https://sonicstorage.blob.core.windows.net/public/20190307/dsserve"
+$(DSSERVE)_URL = "https://packages.trafficmanager.net/public/20190307/dsserve"
 
 SONIC_ONLINE_FILES += $(BCMCMD) $(DSSERVE)
 

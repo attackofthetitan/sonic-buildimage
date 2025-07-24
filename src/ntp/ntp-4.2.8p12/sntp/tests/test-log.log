@@ -1,0 +1,19 @@
+TESTING sntp_init_logging()
+TEST_PROGNAME[9891]: TESTING sntp_init_logging()
+Cannot open log file abcXX
+12345 ABC
+t-log.c:10:testChangePrognameInMysyslog:PASS
+t-log.c:11:testOpenLogfileTest:PASS
+TEST_PROGNAME3[9891]: 12345 ABC
+t-log.c:12:testWriteInCustomLogfile:PASS
+
+-----------------------
+3 Tests: 
+3 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-log (exit status: 0)

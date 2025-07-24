@@ -1,0 +1,12 @@
+numtohost.c:9:test_LoopbackNetNonResolve:PASS
+
+-----------------------
+1 Tests: 
+1 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-numtohost (exit status: 0)

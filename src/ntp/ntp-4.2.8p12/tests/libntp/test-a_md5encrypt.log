@@ -1,0 +1,16 @@
+a_md5encrypt.c:40:test_Encrypt:PASS
+a_md5encrypt.c:41:test_DecryptValid:PASS
+a_md5encrypt.c:42:test_DecryptInvalid:PASS
+a_md5encrypt.c:43:test_IPv4AddressToRefId:PASS
+a_md5encrypt.c:109:test_IPv6AddressToRefId:IGNORE: Skipping because of big endian problem?
+
+-----------------------
+5 Tests: 
+4 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+1 Ignored 
+
+OK
+PASS test-a_md5encrypt (exit status: 0)

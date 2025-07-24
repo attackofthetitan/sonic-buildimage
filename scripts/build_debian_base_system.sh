@@ -25,9 +25,9 @@ if [ "$ENABLE_VERSION_CONTROL_DEB" != "y" ]; then
             sudo mkdir -p $FILESYSTEM_ROOT/usr/bin
             sudo cp /usr/bin/qemu*static $FILESYSTEM_ROOT/usr/bin || true
         fi
-        sudo http_proxy=$HTTP_PROXY SKIP_BUILD_HOOK=y debootstrap --variant=minbase --arch $CONFIGURED_ARCH $IMAGE_DISTRO $FILESYSTEM_ROOT http://deb.debian.org/debian
+        sudo http_proxy=$HTTP_PROXY SKIP_BUILD_HOOK=y debootstrap --variant=minbase --arch $CONFIGURED_ARCH $IMAGE_DISTRO $FILESYSTEM_ROOT http://archive.debian.org/debian
     else
-        sudo http_proxy=$HTTP_PROXY SKIP_BUILD_HOOK=y debootstrap --variant=minbase --arch $CONFIGURED_ARCH $IMAGE_DISTRO $FILESYSTEM_ROOT http://debian-archive.trafficmanager.net/debian
+        sudo http_proxy=$HTTP_PROXY SKIP_BUILD_HOOK=y debootstrap --variant=minbase --arch $CONFIGURED_ARCH $IMAGE_DISTRO $FILESYSTEM_ROOT http://packages.trafficmanager.net/public/debian
     fi
     RET=$?
     if [ $RET -ne 0 ]; then
@@ -83,7 +83,8 @@ done
 touch $APTDEBIAN
 touch $DEBOOTSTRAP_BASE
 (cd $BASEIMAGE_TARBALLPATH && fakeroot tar -zcf $BASEIMAGE_TARBALL .)
-
+sudo umount fsroot/proc 2>/dev/null || true
+sudo mount -t proc proc fsroot/proc
 sudo debootstrap --verbose --variant=minbase --arch $CONFIGURED_ARCH --unpack-tarball=$BASEIMAGE_TARBALL $IMAGE_DISTRO $FILESYSTEM_ROOT
 RET=$?
 if [ $RET -ne 0 ]; then

@@ -1,0 +1,20 @@
+[Unit]
+Description=database-chassis container
+Requires=docker.service
+ConditionPathExists=/etc/sonic/chassisdb.conf
+After=docker.service
+After=config-chassisdb.service
+Requires=config-chassisdb.service
+StartLimitIntervalSec=1200
+StartLimitBurst=3
+
+[Service]
+User=root
+ExecStartPre=/usr/bin/database.sh start chassisdb
+ExecStart=/usr/bin/database.sh wait chassisdb
+ExecStop=/usr/bin/database.sh stop chassisdb
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

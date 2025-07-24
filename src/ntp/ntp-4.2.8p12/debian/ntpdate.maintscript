@@ -1,0 +1,1 @@
+rm_conffile /etc/network/if-up.d/ntpdate 1:4.2.8p12+dfsg-2~

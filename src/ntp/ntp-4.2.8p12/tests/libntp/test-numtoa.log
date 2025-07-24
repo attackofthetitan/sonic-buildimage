@@ -1,0 +1,13 @@
+numtoa.c:9:test_Address:PASS
+numtoa.c:10:test_Netmask:PASS
+
+-----------------------
+2 Tests: 
+2 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-numtoa (exit status: 0)

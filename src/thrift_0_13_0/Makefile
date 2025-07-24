@@ -10,7 +10,7 @@ DERIVED_TARGETS = libthrift-dev_$(THRIFT_VERSION_FULL)_$(CONFIGURED_ARCH).deb \
 		  python3-thrift_$(THRIFT_VERSION_FULL)_$(CONFIGURED_ARCH).deb \
 		  thrift-compiler_$(THRIFT_VERSION_FULL)_$(CONFIGURED_ARCH).deb
 
-THRIFT_LINK_PRE = http://deb.debian.org/debian/pool/main/t/thrift/
+THRIFT_LINK_PRE = http://archive.debian.org/debian/pool/main/t/thrift/
 
 $(addprefix $(DEST)/, $(MAIN_TARGET)): $(DEST)/% :
 	rm -rf thrift-$(THRIFT_VERSION)

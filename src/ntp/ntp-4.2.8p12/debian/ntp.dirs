@@ -1,0 +1,4 @@
+usr/sbin
+usr/share/apport/package-hooks
+var/lib/ntp
+var/log/ntpstats

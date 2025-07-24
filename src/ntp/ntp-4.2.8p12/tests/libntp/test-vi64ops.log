@@ -1,0 +1,17 @@
+0.4d2 but was 0.4d2
+vi64ops.c:10:test_ParseVUI64_pos:PASS
+ffffffff.fffffb2e but was ffffffff.fffffb2e
+vi64ops.c:11:test_ParseVUI64_neg:PASS
+1234567.89abcdef but was 1234567.89abcdef
+vi64ops.c:12:test_ParseVUI64_case:PASS
+
+-----------------------
+3 Tests: 
+3 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-vi64ops (exit status: 0)

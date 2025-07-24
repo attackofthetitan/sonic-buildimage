@@ -1,0 +1,15 @@
+netof.c:12:test_ClassBAddress:PASS
+netof.c:13:test_ClassCAddress:PASS
+netof.c:14:test_ClassAAddress:PASS
+netof.c:15:test_IPv6Address:PASS
+
+-----------------------
+4 Tests: 
+4 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-netof (exit status: 0)

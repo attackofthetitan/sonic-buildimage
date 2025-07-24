@@ -1,0 +1,44 @@
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: Incredible packet length: 47.  Discarding.
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: Incredible packet length: 47.  Discarding.
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: Incredible packet length: 54.  Discarding.
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: Incredible packet length: 51.  Discarding.
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: Missing extension field.  Discarding.
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: Packet shows wrong version (0)
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: Packet shows wrong version (5)
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: mode 3 stratum 0
+24 Jul 03:00:32 test-packetProcessing[9905]: UnitTest: 0.0.0.0 not in sync, skipping this server
+24 Jul 03:00:32 test-packetProcessing[9905]: 0.0.0.0 response org expected to match sent xmt
+24 Jul 03:00:32 test-packetProcessing[9905]: resp org: 000003e8.00000000  Thu, Feb  7 2036  6:44:56.000
+24 Jul 03:00:32 test-packetProcessing[9905]: sent xmt: 000007d0.00000000  Thu, Feb  7 2036  7:01:36.000
+packetProcessing.c:23:test_TooShortLength:PASS
+packetProcessing.c:24:test_LengthNotMultipleOfFour:PASS
+packetProcessing.c:25:test_TooShortExtensionFieldLength:PASS
+packetProcessing.c:26:test_UnauthenticatedPacketReject:PASS
+Crypto NAK = 0x00000000 from 0.0.0.0
+packetProcessing.c:27:test_CryptoNAKPacketReject:PASS
+packetProcessing.c:28:test_AuthenticatedPacketInvalid:PASS
+unrecognized key ID = 0x00000032
+packetProcessing.c:29:test_AuthenticatedPacketUnknownKey:PASS
+packetProcessing.c:30:test_ServerVersionTooOld:PASS
+packetProcessing.c:31:test_ServerVersionTooNew:PASS
+packetProcessing.c:32:test_NonWantedMode:PASS
+packetProcessing.c:33:test_KoDRate:PASS
+packetProcessing.c:34:test_KoDDeny:PASS
+packetProcessing.c:35:test_RejectUnsyncedServer:PASS
+packetProcessing.c:36:test_RejectWrongResponseServerMode:PASS
+packetProcessing.c:37:test_AcceptNoSentPacketBroadcastMode:PASS
+packetProcessing.c:38:test_CorrectUnauthenticatedPacket:PASS
+packetProcessing.c:39:test_CorrectAuthenticatedPacketMD5:PASS
+packetProcessing.c:40:test_CorrectAuthenticatedPacketSHA1:PASS
+packetProcessing.c:488:test_CorrectAuthenticatedPacketCMAC:IGNORE: OpenSSL CMAC not used, skipping...
+
+-----------------------
+19 Tests: 
+18 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+1 Ignored 
+
+OK
+PASS test-packetProcessing (exit status: 0)

@@ -1,0 +1,18 @@
+ntp_prio_q.c:38:test_AllocateDeallocateNode:PASS
+ntp_prio_q.c:46:test_EmptyQueue:PASS
+ntp_prio_q.c:61:test_OneElementQueue:PASS
+ntp_prio_q.c:90:test_MultipleElementQueue:PASS
+ntp_prio_q.c:129:test_CustomOrderQueue:PASS
+ntp_prio_q.c:187:test_DestroyNonEmptyQueue:PASS
+ntp_prio_q.c:211:test_AppendQueues:PASS
+
+-----------------------
+7 Tests: 
+7 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-ntp_prio_q (exit status: 0)

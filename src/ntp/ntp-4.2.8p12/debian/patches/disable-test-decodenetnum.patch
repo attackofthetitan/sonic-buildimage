@@ -1,0 +1,15 @@
+Subject: Disable failing test-decodenetnum unit test
+From: Bernhard Schmidt <berni@debian.org>
+Bug: https://bugs.debian.org/908780
+Bug-NTP: http://bugs.ntp.org/show_bug.cgi?id=3531
+
+--- a/tests/libntp/Makefile.am
++++ b/tests/libntp/Makefile.am
+@@ -24,7 +24,6 @@
+ 	test-caltontp		\
+ 	test-calyearstart	\
+ 	test-clocktime		\
+-	test-decodenetnum	\
+ 	test-hextoint		\
+ 	test-hextolfp		\
+ 	test-humandate		\

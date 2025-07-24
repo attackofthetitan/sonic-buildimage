@@ -1,0 +1,18 @@
+ssl_init.c:20:test_MD5KeyTypeWithoutDigestLength:PASS
+ssl_init.c:21:test_MD5KeyTypeWithDigestLength:PASS
+ssl_init.c:22:test_SHA1KeyTypeWithDigestLength:PASS
+ssl_init.c:23:test_CMACKeyTypeWithDigestLength:PASS
+ssl_init.c:24:test_MD5KeyName:PASS
+ssl_init.c:25:test_SHA1KeyName:PASS
+ssl_init.c:26:test_CMACKeyName:PASS
+
+-----------------------
+7 Tests: 
+7 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-ssl_init (exit status: 0)

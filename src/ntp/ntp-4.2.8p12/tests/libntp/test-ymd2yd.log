@@ -1,0 +1,15 @@
+ymd2yd.c:7:test_NonLeapYearFebruary:PASS
+ymd2yd.c:8:test_NonLeapYearJune:PASS
+ymd2yd.c:9:test_LeapYearFebruary:PASS
+ymd2yd.c:10:test_LeapYearDecember:PASS
+
+-----------------------
+4 Tests: 
+4 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-ymd2yd (exit status: 0)

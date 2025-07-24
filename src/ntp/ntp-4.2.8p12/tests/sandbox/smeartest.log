@@ -1,0 +1,36 @@
+rtol: 254 00800000: refid 0xfe800000, smear -2.00000000
+rtol: 254 00800001: refid 0xfe800001, smear -1.99999976
+rtol: 254 008ffffe: refid 0xfe8ffffe, smear -1.75000048
+rtol: 254 008fffff: refid 0xfe8fffff, smear -1.75000024
+rtol: 254 00f00000: refid 0xfef00000, smear -0.25000000
+rtol: 254 00f00001: refid 0xfef00001, smear -0.24999976
+rtol: 254 00fffffe: refid 0xfefffffe, smear -0.00000048
+rtol: 254 00ffffff: refid 0xfeffffff, smear -0.00000024
+rtol: 254 00000000: refid 0xfe000000, smear 0.00000000
+rtol: 254 00000001: refid 0xfe000001, smear 0.00000024
+rtol: 254 006ffffe: refid 0xfe6ffffe, smear 1.74999952
+rtol: 254 006fffff: refid 0xfe6fffff, smear 1.74999976
+rtol: 254 00700000: refid 0xfe700000, smear 1.75000000
+rtol: 254 00700001: refid 0xfe700001, smear 1.75000024
+rtol: 254 007ffffe: refid 0xfe7ffffe, smear 1.99999952
+rtol: 254 007fffff: refid 0xfe7fffff, smear 1.99999976
+rtoltor: 254 00800000: 254 00800000: smear -2.00000000, refid 0xfe800000
+rtoltor: 254 00800001: 254 00800001: smear -1.99999976, refid 0xfe800001
+rtoltor: 254 008ffffe: 254 008ffffe: smear -1.75000048, refid 0xfe8ffffe
+rtoltor: 254 008fffff: 254 008fffff: smear -1.75000024, refid 0xfe8fffff
+rtoltor: 254 00f00000: 254 00f00000: smear -0.25000000, refid 0xfef00000
+rtoltor: 254 00f00001: 254 00f00001: smear -0.24999976, refid 0xfef00001
+rtoltor: 254 00fffffe: 254 00fffffe: smear -0.00000048, refid 0xfefffffe
+rtoltor: 254 00ffffff: 254 00ffffff: smear -0.00000024, refid 0xfeffffff
+rtoltor: 254 00000000: 254 00000000: smear 0.00000000, refid 0xfe000000
+rtoltor: 254 00000001: 254 00000001: smear 0.00000024, refid 0xfe000001
+rtoltor: 254 006ffffe: 254 006ffffe: smear 1.74999952, refid 0xfe6ffffe
+rtoltor: 254 006fffff: 254 006fffff: smear 1.74999976, refid 0xfe6fffff
+rtoltor: 254 00700000: 254 00700000: smear 1.75000000, refid 0xfe700000
+rtoltor: 254 00700001: 254 00700001: smear 1.75000024, refid 0xfe700001
+rtoltor: 254 007ffffe: 254 007ffffe: smear 1.99999952, refid 0xfe7ffffe
+rtoltor: 254 007fffff: 254 007fffff: smear 1.99999976, refid 0xfe7fffff
+ltor: 254 00c458b0: smear -0.93208700, refid 0xfec458b0
+rtol: 254 00c458b0: refid 0xfec458b0, smear -0.93208694
+fec458b0 -> 254.196.88.176
+PASS smeartest (exit status: 0)

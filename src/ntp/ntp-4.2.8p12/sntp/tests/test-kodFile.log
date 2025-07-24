@@ -1,0 +1,17 @@
+kodFile.c:19:test_ReadEmptyFile:PASS
+kodFile.c:20:test_ReadCorrectFile:PASS
+kodFile.c:21:test_ReadFileWithBlankLines:PASS
+kodFile.c:22:test_WriteEmptyFile:PASS
+kodFile.c:23:test_WriteFileWithSingleEntry:PASS
+kodFile.c:24:test_WriteFileWithMultipleEntries:PASS
+
+-----------------------
+6 Tests: 
+6 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-kodFile (exit status: 0)

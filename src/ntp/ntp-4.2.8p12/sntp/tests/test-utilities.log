@@ -1,0 +1,18 @@
+utilities.c:16:test_IPv4Address:PASS
+utilities.c:17:test_IPv6Address:PASS
+utilities.c:18:test_SetLiVnMode1:PASS
+utilities.c:19:test_SetLiVnMode2:PASS
+Comparision failed on line 2utilities.c:20:test_PktOutput:PASS
+utilities.c:21:test_LfpOutputBinaryFormat:PASS
+utilities.c:22:test_LfpOutputDecimalFormat:PASS
+
+-----------------------
+7 Tests: 
+7 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-utilities (exit status: 0)

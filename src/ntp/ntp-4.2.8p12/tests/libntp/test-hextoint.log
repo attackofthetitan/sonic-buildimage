@@ -1,0 +1,16 @@
+hextoint.c:9:test_SingleDigit:PASS
+hextoint.c:10:test_MultipleDigits:PASS
+hextoint.c:11:test_MaxUnsigned:PASS
+hextoint.c:12:test_Overflow:PASS
+hextoint.c:13:test_IllegalChar:PASS
+
+-----------------------
+5 Tests: 
+5 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-hextoint (exit status: 0)

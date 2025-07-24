@@ -1,0 +1,17 @@
+socktoa.c:11:test_IPv4AddressWithPort:PASS
+socktoa.c:64:test_IPv6AddressWithPort:IGNORE: IPV6 disabled in build, skipping.
+socktoa.c:155:test_IgnoreIPv6Fields:IGNORE: IPV6 disabled in build, skipping.
+socktoa.c:14:test_ScopedIPv6AddressWithPort:PASS
+socktoa.c:15:test_HashEqual:PASS
+IPv4 comparision failed, expected: 192.0.2.1(192.0.2.1) but was: 192.0.2.1(192.0.2.2)socktoa.c:16:test_HashNotEqual:PASS
+
+-----------------------
+6 Tests: 
+4 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+2 Ignored 
+
+OK
+PASS test-socktoa (exit status: 0)

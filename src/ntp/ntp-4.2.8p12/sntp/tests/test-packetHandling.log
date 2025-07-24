@@ -1,0 +1,23 @@
+24 Jul 03:00:32 test-packetHandling[9904]: KOD code DENY from 192.0.2.1 192.0.2.1
+24 Jul 03:00:32 test-packetHandling[9904]: 2025-07-24 03:00:32.721295 (+0000) -0 +/- 39065.977619  0.0.0.0 s16 no-leap
+packetHandling.c:17:test_GenerateUnauthenticatedPacket:PASS
+packetHandling.c:18:test_GenerateAuthenticatedPacket:PASS
+packetHandling.c:19:test_OffsetCalculationPositiveOffset:PASS
+packetHandling.c:20:test_OffsetCalculationNegativeOffset:PASS
+packetHandling.c:21:test_HandleUnusableServer:PASS
+packetHandling.c:22:test_HandleUnusablePacket:PASS
+packetHandling.c:23:test_HandleServerAuthenticationFailure:PASS
+packetHandling.c:24:test_HandleKodDemobilize:PASS
+packetHandling.c:25:test_HandleKodRate:PASS
+packetHandling.c:26:test_HandleCorrectPacket:PASS
+
+-----------------------
+10 Tests: 
+10 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-packetHandling (exit status: 0)

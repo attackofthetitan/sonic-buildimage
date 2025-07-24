@@ -1,0 +1,15 @@
+remoteconfig_cmdlength("good") returned 4, expected 4: yes
+remoteconfig_cmdlength("nul") returned 3, expected 3: yes
+remoteconfig_cmdlength("trailing space ") returned 14, expected 14: yes
+sec-2853.c:10:test_main:PASS
+
+-----------------------
+1 Tests: 
+1 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS sec-2853 (exit status: 0)

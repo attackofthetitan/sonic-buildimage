@@ -1,0 +1,14 @@
+tvtots.c:10:test_Seconds:PASS
+tvtots.c:11:test_MicrosecondsRounded:PASS
+tvtots.c:12:test_MicrosecondsExact:PASS
+
+-----------------------
+3 Tests: 
+3 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-tvtots (exit status: 0)

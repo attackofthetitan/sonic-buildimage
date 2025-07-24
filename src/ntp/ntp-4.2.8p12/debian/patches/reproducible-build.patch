@@ -1,0 +1,11 @@
+--- a/scripts/build/mkver.in
++++ b/scripts/build/mkver.in
+@@ -15,8 +15,6 @@
+  *) ConfStr="${ConfStr}-@VER_SUFFIX@" ;;
+ esac
+ 
+-ConfStr="$ConfStr `LC_TIME=C TZ=UTC date`"
+-
+ if [ ! -f .version ]; then
+   echo 0 > .version
+ fi

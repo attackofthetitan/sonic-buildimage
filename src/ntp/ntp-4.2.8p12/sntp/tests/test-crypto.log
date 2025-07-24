@@ -1,0 +1,19 @@
+crypto.c:15:test_MakeMd5Mac:PASS
+crypto.c:16:test_MakeSHA1Mac:PASS
+crypto.c:111:test_MakeCMac:IGNORE: OpenSSL not found, skipping...
+crypto.c:18:test_VerifyCorrectMD5:PASS
+crypto.c:19:test_VerifySHA1:PASS
+crypto.c:202:test_VerifyCMAC:IGNORE: OpenSSL not found, skipping...
+crypto.c:21:test_VerifyFailure:PASS
+crypto.c:22:test_PacketSizeNotMultipleOfFourBytes:PASS
+
+-----------------------
+8 Tests: 
+6 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+2 Ignored 
+
+OK
+PASS test-crypto (exit status: 0)

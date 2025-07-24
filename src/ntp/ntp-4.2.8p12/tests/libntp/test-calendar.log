@@ -1,0 +1,28 @@
+calendar.c:24:test_DaySplitMerge:PASS
+calendar.c:25:test_SplitYearDays1:PASS
+calendar.c:26:test_SplitYearDays2:PASS
+calendar.c:27:test_RataDie1:PASS
+calendar.c:28:test_LeapYears1:PASS
+calendar.c:29:test_LeapYears2:PASS
+calendar.c:30:test_RoundTripDate:PASS
+calendar.c:31:test_RoundTripYearStart:PASS
+calendar.c:32:test_RoundTripMonthStart:PASS
+calendar.c:33:test_RoundTripWeekStart:PASS
+calendar.c:34:test_RoundTripDayStart:PASS
+calendar.c:35:test_IsoCalYearsToWeeks:PASS
+calendar.c:36:test_IsoCalWeeksToYearStart:PASS
+calendar.c:37:test_IsoCalWeeksToYearEnd:PASS
+calendar.c:38:test_DaySecToDate:PASS
+calendar.c:40:test_NtpToNtp:PASS
+calendar.c:41:test_NtpToTime:PASS
+
+-----------------------
+17 Tests: 
+17 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-calendar (exit status: 0)

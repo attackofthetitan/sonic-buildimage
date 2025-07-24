@@ -1,0 +1,12 @@
+refidsmear.c:36:test_refidsmear:PASS
+
+-----------------------
+1 Tests: 
+1 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-refidsmear (exit status: 0)

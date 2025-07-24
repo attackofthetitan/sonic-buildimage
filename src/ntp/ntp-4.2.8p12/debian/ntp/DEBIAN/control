@@ -1,0 +1,26 @@
+Package: ntp
+Version: 1:4.2.8p12+dfsg-4+deb10u2
+Architecture: amd64
+Maintainer: Debian NTP Team <ntp@packages.debian.org>
+Installed-Size: 2010
+Depends: adduser, lsb-base (>= 3.2-13), netbase, tzdata, libc6 (>= 2.17), libcap2 (>= 1:2.10), libedit2 (>= 2.11-20080614-0), libopts25 (>= 1:5.18.12), libssl1.1 (>= 1.1.0)
+Recommends: sntp, perl:any
+Suggests: ntp-doc
+Breaks: apparmor-profiles-extra (<< 1.8)
+Replaces: apparmor-profiles-extra (<< 1.8)
+Section: net
+Priority: optional
+Homepage: http://support.ntp.org/
+Description: Network Time Protocol daemon and utility programs
+ NTP, the Network Time Protocol, is used to keep computer clocks
+ accurate by synchronizing them over the Internet or a local network,
+ or by following an accurate hardware receiver that interprets GPS,
+ DCF-77, NIST or similar time signals.
+ .
+ This package contains the NTP daemon and utility programs.  An NTP
+ daemon needs to be running on each host that is to have its clock
+ accuracy controlled by NTP.  The same NTP daemon is also used to
+ provide NTP service to other hosts.
+ .
+ For more information about the NTP protocol and NTP server
+ configuration and operation, install the package "ntp-doc".

@@ -1,0 +1,16 @@
+openssl_libdir.patch
+dfsg.patch
+includes.patch
+ntpdate-ipv6.patch
+ntpd-linux-caps-runtime.patch
+openssl-disable-check.patch
+libedit.patch
+reproducible-build.patch
+sntp-sysexits.patch
+debian-locfile.patch
+sntp-kod-location.patch
+disable-test-decodenetnum.patch
+CVE-2019-8936.patch
+# This series applies on GIT commit d09f041a49c61971f59fc29f505446c63aea51b1
+bug1970-UNLINK_EXPR_SLIST_empty_list.patch
+update_ENOBUFS_log_level.patch

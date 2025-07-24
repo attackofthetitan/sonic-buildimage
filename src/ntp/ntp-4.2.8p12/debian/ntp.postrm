@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+installinit_error() {
+	exit $?
+}
+
+#DEBHELPER#
+
+if [ "$1" = "purge" ]; then
+	deluser --system --quiet ntp || true
+	rm -rf /var/lib/ntp/
+	rm -rf /var/log/ntpstats/
+fi

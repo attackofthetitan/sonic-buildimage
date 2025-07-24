@@ -9,8 +9,8 @@ $(addprefix $(DEST)/, $(MAIN_TARGET)): $(DEST)/% :
 	rm -rf ./ntp-$(NTP_VERSION) ./ntp_$(NTP_VERSION).orig.tar.xz ./ntp_$(NTP_VERSION)-4.debian.tar.xz
 
 	# Get ntp release, debian files
-	wget http://deb.debian.org/debian/pool/main/n/ntp/ntp_$(NTP_VERSION).orig.tar.xz
-	wget http://deb.debian.org/debian/pool/main/n/ntp/ntp_$(NTP_VERSION)-4.debian.tar.xz
+	wget http://archive.debian.org/debian/pool/main/n/ntp/ntp_$(NTP_VERSION).orig.tar.xz
+	wget http://archive.debian.org/debian/pool/main/n/ntp/ntp_$(NTP_VERSION)-4.debian.tar.xz
 
 	# UnTar ntp release
 	xzcat ntp_$(NTP_VERSION).orig.tar.xz | tar -xvf -

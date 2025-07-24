@@ -1,0 +1,76 @@
+#!/usr/bin/make -f
+
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+
+CPPFLAGS = $(shell dpkg-buildflags --get CPPFLAGS) -D_GNU_SOURCE
+CFLAGS   = $(shell dpkg-buildflags --get CFLAGS) -fno-strict-aliasing
+LDFLAGS  = $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+
+%:
+	# autoreconf is already called by ./bootstrap
+	dh $@ --without autoreconf
+
+override_dh_auto_configure:
+ifeq (hurd, $(DEB_HOST_ARCH_OS))
+	# hurd does not provided the system calls needed for ntpd to work.
+	exit 1
+endif
+	# This is necessary for the changes in sntp-kod-location.patch to
+	# take effect
+	rm sntp/sntp-opts.c
+	./bootstrap
+
+	dh_auto_configure -- CFLAGS='$(CFLAGS)' CPPFLAGS='$(CPPFLAGS)' LDFLAGS='$(LDFLAGS)' \
+		--build=$(DEB_BUILD_GNU_TYPE) \
+		--host=$(DEB_HOST_GNU_TYPE) \
+		--prefix=/usr \
+		--enable-all-clocks --enable-parse-clocks --enable-SHM \
+		--enable-debugging --sysconfdir=/var/lib/ntp \
+		--with-lineeditlibs=edit \
+		--without-ntpsnmpd \
+		--disable-local-libopts \
+		--disable-local-libevent \
+		--enable-ntp-signd \
+		--disable-dependency-tracking \
+		--with-locfile=debian \
+		--with-openssl-libdir=/usr/lib/$(DEB_HOST_MULTIARCH)
+
+override_dh_install:
+	install -D -m 0755 scripts/ntpsweep/ntpsweep debian/ntp/usr/bin/ntpsweep
+	install -D -m 0644 debian/ntp.dhcp debian/ntp/etc/dhcp/dhclient-exit-hooks.d/ntp
+	install -D -m 0755 debian/ntp.networkmanager debian/ntp/etc/NetworkManager/dispatcher.d/ntp
+	install -D -m 0644 debian/ntpdate.dhcp debian/ntpdate/etc/dhcp/dhclient-exit-hooks.d/ntpdate
+	install -D -m 0755 debian/ntpdate-debian debian/ntpdate/usr/sbin/ntpdate-debian
+
+	install -D -m 0644 debian/ntp.conf debian/ntp/etc/ntp.conf
+
+	# install apparmor profile
+	install -D -m 0644 debian/apparmor-profile debian/ntp/etc/apparmor.d/usr.sbin.ntpd
+	install -D -m 0644 debian/apparmor-profile.tunable debian/ntp/etc/apparmor.d/tunables/ntpd
+	dh_link -pntp etc/apparmor.d/usr.sbin.ntpd etc/apparmor/init/network-interface-security/usr.sbin.ntpd
+
+	# install apport hook
+	install -D -m 644 debian/source_ntp.py debian/ntp/usr/share/apport/package-hooks/source_ntp.py
+
+	# Remove empty directory (/usr/libexec/)
+	find debian/tmp -type d -empty -delete
+
+	ls -laR debian/tmp/usr/share/man/
+	dh_install --fail-missing
+
+	rm -f debian/ntp-doc/usr/share/doc/ntp-doc/html/hints/solaris*
+
+override_dh_installinit:
+	dh_installinit -pntp --error-handler=installinit_error --no-restart-after-upgrade
+	dh_installinit -pntpdate --no-restart-after-upgrade
+	dh_apparmor --profile-name=usr.sbin.ntpd -pntp
+
+override_dh_auto_test:
+# Make the test suite fatal on arches where it works
+ifneq (,$(filter amd64 i386 arm64 armhf mips64el, $(DEB_HOST_ARCH)))
+	dh_auto_test
+else
+	dh_auto_test || echo "Ignoring testsuite error"
+endif

@@ -1,0 +1,34 @@
+From: Miroslav Lichvar
+Subject: Building 4.2.8p8 with disabled local libopts fails
+Bug: http://bugs.ntp.org/show_bug.cgi?id=3132
+
+When trying to build 4.2.8p8 with the --disable-local-libopts option on Fedora,
+it fails with the following error:
+
+main.c: In function ‘sntp_main’:
+main.c:143:8: error: ‘EX_SOFTWARE’ undeclared (first use in this function)
+   exit(EX_SOFTWARE);      
+        ^~~~~~~~~~~        
+...
+
+
+It seems the problem is that sntp/main.c is missing "#include <sysexits.h>".
+The configure script detects that the system has sysexits.h, but then the sntp
+code doesn't use it, expecting the local definitions of the EX_* macros.
+
+The following patch fixes the problem for me:
+
+--- ntp-4.2.8p8/sntp/main.c.orig        2016-10-19 10:18:41.690800420 +0200
++++ ntp-4.2.8p8/sntp/main.c     2016-10-19 10:19:31.900966925 +0200
+@@ -8,6 +8,10 @@
+ # include <event2/thread.h>
+ #endif
+
++#ifdef HAVE_SYSEXITS_H
++#include <sysexits.h>
++#endif
++
+ #include "main.h"
+ #include "ntp_libopts.h"
+ #include "kod_management.h"
+

@@ -1,0 +1,20 @@
+lfpfunc.c:48:test_AdditionLR:PASS
+lfpfunc.c:49:test_AdditionRL:PASS
+lfpfunc.c:50:test_SubtractionLR:PASS
+lfpfunc.c:51:test_SubtractionRL:PASS
+lfpfunc.c:52:test_Negation:PASS
+lfpfunc.c:53:test_Absolute:PASS
+lfpfunc.c:54:test_FDF_RoundTrip:PASS
+lfpfunc.c:55:test_SignedRelOps:PASS
+lfpfunc.c:56:test_UnsignedRelOps:PASS
+
+-----------------------
+9 Tests: 
+9 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-lfpfunc (exit status: 0)

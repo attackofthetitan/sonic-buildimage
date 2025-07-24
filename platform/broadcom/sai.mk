@@ -1,6 +1,6 @@
 LIBSAIBCM_XGS_VERSION = 4.3.12.2
 LIBSAIBCM_BRANCH_NAME = REL_4.3_202012
-LIBSAIBCM_XGS_URL_PREFIX = "https://sonicstorage.blob.core.windows.net/public/sai/bcmsai/$(LIBSAIBCM_BRANCH_NAME)/$(LIBSAIBCM_XGS_VERSION)"
+LIBSAIBCM_XGS_URL_PREFIX = "https://packages.trafficmanager.net/public/sai/bcmsai/$(LIBSAIBCM_BRANCH_NAME)/$(LIBSAIBCM_XGS_VERSION)"
 
 BRCM_SAI = libsaibcm_$(LIBSAIBCM_XGS_VERSION)_amd64.deb
 $(BRCM_SAI)_URL = "$(LIBSAIBCM_XGS_URL_PREFIX)/$(BRCM_SAI)"

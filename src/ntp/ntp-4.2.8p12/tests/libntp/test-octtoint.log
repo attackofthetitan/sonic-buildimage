@@ -1,0 +1,18 @@
+octtoint.c:8:test_SingleDigit:PASS
+octtoint.c:9:test_MultipleDigits:PASS
+octtoint.c:10:test_Zero:PASS
+octtoint.c:11:test_MaximumUnsigned32bit:PASS
+octtoint.c:12:test_Overflow:PASS
+octtoint.c:13:test_IllegalCharacter:PASS
+octtoint.c:14:test_IllegalDigit:PASS
+
+-----------------------
+7 Tests: 
+7 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-octtoint (exit status: 0)

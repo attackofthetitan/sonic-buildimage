@@ -1,0 +1,15 @@
+caltontp.c:5:test_DateGivenMonthDay:PASS
+caltontp.c:6:test_DateGivenYearDay:PASS
+caltontp.c:7:test_DateLeapYear:PASS
+caltontp.c:8:test_WraparoundDateIn2036:PASS
+
+-----------------------
+4 Tests: 
+4 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-caltontp (exit status: 0)

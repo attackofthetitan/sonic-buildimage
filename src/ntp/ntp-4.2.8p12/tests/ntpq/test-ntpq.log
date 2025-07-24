@@ -1,0 +1,12 @@
+t-ntpq.c:20:testPrimary:PASS
+
+-----------------------
+1 Tests: 
+1 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-ntpq (exit status: 0)

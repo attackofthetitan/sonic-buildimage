@@ -1,0 +1,496 @@
+timetv 0|0000000, tvlast  0|0000000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0000000, tvlast  0|0100000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|0200000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|0300000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|0400000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|0500000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|0600000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|0700000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|0800000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|0900000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0000000, tvlast  0|1000000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0000000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0100000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0200000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0300000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: -2|0700000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0400000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: -2|0600000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0500000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: -2|0500000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0600000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: -2|0400000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0700000: tvdiff_old: 1|0700000 -> 1, tvdiff_new: -2|0300000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0800000: tvdiff_old: 1|0800000 -> 1, tvdiff_new: -2|0200000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|0900000: tvdiff_old: 1|0900000 -> 1, tvdiff_new: -2|0100000 -> 1, same cond: yes
+timetv 0|0000000, tvlast  1|1000000: tvdiff_old: 2|0000000 -> 1, tvdiff_new: -2|0000000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  0|0000000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0100000, tvlast  0|0100000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0100000, tvlast  0|0200000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  0|0300000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  0|0400000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  0|0500000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  0|0600000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  0|0700000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  0|0800000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  0|0900000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  0|1000000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  1|0000000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0100000, tvlast  1|0100000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|0200000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|0300000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|0400000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: -2|0700000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|0500000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: -2|0600000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|0600000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: -2|0500000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|0700000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: -2|0400000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|0800000: tvdiff_old: 1|0700000 -> 1, tvdiff_new: -2|0300000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|0900000: tvdiff_old: 1|0800000 -> 1, tvdiff_new: -2|0200000 -> 1, same cond: yes
+timetv 0|0100000, tvlast  1|1000000: tvdiff_old: 1|0900000 -> 1, tvdiff_new: -2|0100000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  0|0000000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|0200000, tvlast  0|0100000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0200000, tvlast  0|0200000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0200000, tvlast  0|0300000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  0|0400000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  0|0500000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  0|0600000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  0|0700000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  0|0800000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  0|0900000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  0|1000000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  1|0000000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  1|0100000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0200000, tvlast  1|0200000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  1|0300000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  1|0400000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  1|0500000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: -2|0700000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  1|0600000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: -2|0600000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  1|0700000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: -2|0500000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  1|0800000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: -2|0400000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  1|0900000: tvdiff_old: 1|0700000 -> 1, tvdiff_new: -2|0300000 -> 1, same cond: yes
+timetv 0|0200000, tvlast  1|1000000: tvdiff_old: 1|0800000 -> 1, tvdiff_new: -2|0200000 -> 1, same cond: yes
+timetv 0|0300000, tvlast  0|0000000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 0|0300000, tvlast  0|0100000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|0300000, tvlast  0|0200000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0300000, tvlast  0|0300000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0300000, tvlast  0|0400000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  0|0500000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  0|0600000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  0|0700000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  0|0800000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  0|0900000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  0|1000000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  1|0000000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  1|0100000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  1|0200000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0300000, tvlast  1|0300000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0300000, tvlast  1|0400000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0300000, tvlast  1|0500000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0300000, tvlast  1|0600000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: -2|0700000 -> 1, same cond: yes
+timetv 0|0300000, tvlast  1|0700000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: -2|0600000 -> 1, same cond: yes
+timetv 0|0300000, tvlast  1|0800000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: -2|0500000 -> 1, same cond: yes
+timetv 0|0300000, tvlast  1|0900000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: -2|0400000 -> 1, same cond: yes
+timetv 0|0300000, tvlast  1|1000000: tvdiff_old: 1|0700000 -> 1, tvdiff_new: -2|0300000 -> 1, same cond: yes
+timetv 0|0400000, tvlast  0|0000000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 0|0400000, tvlast  0|0100000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 0|0400000, tvlast  0|0200000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|0400000, tvlast  0|0300000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0400000, tvlast  0|0400000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0400000, tvlast  0|0500000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  0|0600000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  0|0700000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  0|0800000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  0|0900000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  0|1000000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  1|0000000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  1|0100000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  1|0200000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  1|0300000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0400000, tvlast  1|0400000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0400000, tvlast  1|0500000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0400000, tvlast  1|0600000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0400000, tvlast  1|0700000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: -2|0700000 -> 1, same cond: yes
+timetv 0|0400000, tvlast  1|0800000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: -2|0600000 -> 1, same cond: yes
+timetv 0|0400000, tvlast  1|0900000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: -2|0500000 -> 1, same cond: yes
+timetv 0|0400000, tvlast  1|1000000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: -2|0400000 -> 1, same cond: yes
+timetv 0|0500000, tvlast  0|0000000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 0|0500000, tvlast  0|0100000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 0|0500000, tvlast  0|0200000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 0|0500000, tvlast  0|0300000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|0500000, tvlast  0|0400000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0500000, tvlast  0|0500000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0500000, tvlast  0|0600000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  0|0700000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  0|0800000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  0|0900000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  0|1000000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  1|0000000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  1|0100000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  1|0200000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  1|0300000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  1|0400000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0500000, tvlast  1|0500000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0500000, tvlast  1|0600000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0500000, tvlast  1|0700000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0500000, tvlast  1|0800000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: -2|0700000 -> 1, same cond: yes
+timetv 0|0500000, tvlast  1|0900000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: -2|0600000 -> 1, same cond: yes
+timetv 0|0500000, tvlast  1|1000000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: -2|0500000 -> 1, same cond: yes
+timetv 0|0600000, tvlast  0|0000000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 0|0600000, tvlast  0|0100000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 0|0600000, tvlast  0|0200000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 0|0600000, tvlast  0|0300000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 0|0600000, tvlast  0|0400000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|0600000, tvlast  0|0500000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0600000, tvlast  0|0600000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0600000, tvlast  0|0700000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  0|0800000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  0|0900000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  0|1000000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  1|0000000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  1|0100000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  1|0200000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  1|0300000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  1|0400000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  1|0500000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0600000, tvlast  1|0600000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0600000, tvlast  1|0700000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0600000, tvlast  1|0800000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0600000, tvlast  1|0900000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: -2|0700000 -> 1, same cond: yes
+timetv 0|0600000, tvlast  1|1000000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: -2|0600000 -> 1, same cond: yes
+timetv 0|0700000, tvlast  0|0000000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 0|0700000, tvlast  0|0100000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 0|0700000, tvlast  0|0200000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 0|0700000, tvlast  0|0300000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 0|0700000, tvlast  0|0400000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 0|0700000, tvlast  0|0500000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|0700000, tvlast  0|0600000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0700000, tvlast  0|0700000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0700000, tvlast  0|0800000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  0|0900000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  0|1000000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  1|0000000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  1|0100000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  1|0200000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  1|0300000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  1|0400000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  1|0500000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  1|0600000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0700000, tvlast  1|0700000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0700000, tvlast  1|0800000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0700000, tvlast  1|0900000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0700000, tvlast  1|1000000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: -2|0700000 -> 1, same cond: yes
+timetv 0|0800000, tvlast  0|0000000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0100000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0200000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0300000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0400000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0500000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0600000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0700000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0800000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0800000, tvlast  0|0900000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  0|1000000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0000000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0100000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0200000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0300000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0400000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0500000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0600000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0700000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0800000, tvlast  1|0800000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0800000, tvlast  1|0900000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|0800000, tvlast  1|1000000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: -2|0800000 -> 1, same cond: yes
+timetv 0|0900000, tvlast  0|0000000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0100000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0200000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0300000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0400000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0500000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0600000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0700000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0800000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|0900000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|0900000, tvlast  0|1000000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0000000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0100000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0200000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0300000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0400000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0500000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0600000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0700000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0800000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|0900000, tvlast  1|0900000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 0|0900000, tvlast  1|1000000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: -2|0900000 -> 1, same cond: yes
+timetv 0|1000000, tvlast  0|0000000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 0|1000000, tvlast  0|0100000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|0200000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|0300000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|0400000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|0500000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|0600000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|0700000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|0800000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|0900000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  0|1000000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  1|0000000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 0|1000000, tvlast  1|0100000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|0200000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|0300000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|0400000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|0500000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|0600000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|0700000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|0800000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|0900000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 0|1000000, tvlast  1|1000000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 1|0000000, tvlast  0|0000000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0000000, tvlast  0|0100000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|0200000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|0300000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|0400000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|0500000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|0600000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|0700000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|0800000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|0900000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  0|1000000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  1|0000000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0000000, tvlast  1|0100000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|0200000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|0300000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|0400000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|0500000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|0600000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|0700000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|0800000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|0900000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 1|0000000, tvlast  1|1000000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: -1|0000000 -> 1, same cond: yes
+timetv 1|0100000, tvlast  0|0000000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0100000, tvlast  0|0100000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0100000, tvlast  0|0200000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  0|0300000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  0|0400000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  0|0500000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  0|0600000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  0|0700000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  0|0800000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  0|0900000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  0|1000000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  1|0000000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  1|0100000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0100000, tvlast  1|0200000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0100000, tvlast  1|0300000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0100000, tvlast  1|0400000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 1|0100000, tvlast  1|0500000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 1|0100000, tvlast  1|0600000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 1|0100000, tvlast  1|0700000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 1|0100000, tvlast  1|0800000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 1|0100000, tvlast  1|0900000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 1|0100000, tvlast  1|1000000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: -1|0100000 -> 1, same cond: NO <<
+timetv 1|0200000, tvlast  0|0000000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|0200000, tvlast  0|0100000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0200000, tvlast  0|0200000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0200000, tvlast  0|0300000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  0|0400000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  0|0500000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  0|0600000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  0|0700000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  0|0800000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  0|0900000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  0|1000000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  1|0000000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  1|0100000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  1|0200000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0200000, tvlast  1|0300000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0200000, tvlast  1|0400000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0200000, tvlast  1|0500000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 1|0200000, tvlast  1|0600000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 1|0200000, tvlast  1|0700000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 1|0200000, tvlast  1|0800000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 1|0200000, tvlast  1|0900000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 1|0200000, tvlast  1|1000000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: -1|0200000 -> 1, same cond: NO <<
+timetv 1|0300000, tvlast  0|0000000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: 1|0300000 -> 1, same cond: yes
+timetv 1|0300000, tvlast  0|0100000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|0300000, tvlast  0|0200000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0300000, tvlast  0|0300000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0300000, tvlast  0|0400000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  0|0500000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  0|0600000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  0|0700000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  0|0800000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  0|0900000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  0|1000000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  1|0000000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  1|0100000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  1|0200000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  1|0300000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0300000, tvlast  1|0400000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0300000, tvlast  1|0500000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0300000, tvlast  1|0600000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 1|0300000, tvlast  1|0700000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 1|0300000, tvlast  1|0800000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 1|0300000, tvlast  1|0900000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 1|0300000, tvlast  1|1000000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: -1|0300000 -> 1, same cond: NO <<
+timetv 1|0400000, tvlast  0|0000000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: 1|0400000 -> 1, same cond: yes
+timetv 1|0400000, tvlast  0|0100000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: 1|0300000 -> 1, same cond: yes
+timetv 1|0400000, tvlast  0|0200000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|0400000, tvlast  0|0300000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0400000, tvlast  0|0400000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0400000, tvlast  0|0500000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  0|0600000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  0|0700000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  0|0800000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  0|0900000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  0|1000000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  1|0000000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  1|0100000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  1|0200000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  1|0300000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  1|0400000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0400000, tvlast  1|0500000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0400000, tvlast  1|0600000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0400000, tvlast  1|0700000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 1|0400000, tvlast  1|0800000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 1|0400000, tvlast  1|0900000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 1|0400000, tvlast  1|1000000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: -1|0400000 -> 1, same cond: NO <<
+timetv 1|0500000, tvlast  0|0000000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: 1|0500000 -> 1, same cond: yes
+timetv 1|0500000, tvlast  0|0100000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: 1|0400000 -> 1, same cond: yes
+timetv 1|0500000, tvlast  0|0200000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: 1|0300000 -> 1, same cond: yes
+timetv 1|0500000, tvlast  0|0300000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|0500000, tvlast  0|0400000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0500000, tvlast  0|0500000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0500000, tvlast  0|0600000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  0|0700000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  0|0800000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  0|0900000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  0|1000000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  1|0000000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  1|0100000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  1|0200000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  1|0300000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  1|0400000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  1|0500000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0500000, tvlast  1|0600000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0500000, tvlast  1|0700000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0500000, tvlast  1|0800000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 1|0500000, tvlast  1|0900000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 1|0500000, tvlast  1|1000000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: -1|0500000 -> 1, same cond: NO <<
+timetv 1|0600000, tvlast  0|0000000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: 1|0600000 -> 1, same cond: yes
+timetv 1|0600000, tvlast  0|0100000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: 1|0500000 -> 1, same cond: yes
+timetv 1|0600000, tvlast  0|0200000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: 1|0400000 -> 1, same cond: yes
+timetv 1|0600000, tvlast  0|0300000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: 1|0300000 -> 1, same cond: yes
+timetv 1|0600000, tvlast  0|0400000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|0600000, tvlast  0|0500000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0600000, tvlast  0|0600000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0600000, tvlast  0|0700000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  0|0800000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  0|0900000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  0|1000000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  1|0000000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  1|0100000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  1|0200000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  1|0300000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  1|0400000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  1|0500000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  1|0600000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0600000, tvlast  1|0700000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0600000, tvlast  1|0800000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0600000, tvlast  1|0900000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 1|0600000, tvlast  1|1000000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: -1|0600000 -> 1, same cond: NO <<
+timetv 1|0700000, tvlast  0|0000000: tvdiff_old: 1|0700000 -> 1, tvdiff_new: 1|0700000 -> 1, same cond: yes
+timetv 1|0700000, tvlast  0|0100000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: 1|0600000 -> 1, same cond: yes
+timetv 1|0700000, tvlast  0|0200000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: 1|0500000 -> 1, same cond: yes
+timetv 1|0700000, tvlast  0|0300000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: 1|0400000 -> 1, same cond: yes
+timetv 1|0700000, tvlast  0|0400000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: 1|0300000 -> 1, same cond: yes
+timetv 1|0700000, tvlast  0|0500000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|0700000, tvlast  0|0600000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0700000, tvlast  0|0700000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0700000, tvlast  0|0800000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  0|0900000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  0|1000000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0000000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0100000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0200000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0300000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0400000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0500000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0600000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0700000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0700000, tvlast  1|0800000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0700000, tvlast  1|0900000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0700000, tvlast  1|1000000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: -1|0700000 -> 1, same cond: NO <<
+timetv 1|0800000, tvlast  0|0000000: tvdiff_old: 1|0800000 -> 1, tvdiff_new: 1|0800000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0100000: tvdiff_old: 1|0700000 -> 1, tvdiff_new: 1|0700000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0200000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: 1|0600000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0300000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: 1|0500000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0400000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: 1|0400000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0500000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: 1|0300000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0600000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0700000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0800000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0800000, tvlast  0|0900000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  0|1000000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0000000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0100000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0200000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0300000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0400000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0500000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0600000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0700000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0800000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0800000, tvlast  1|0900000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|0800000, tvlast  1|1000000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: -1|0800000 -> 1, same cond: NO <<
+timetv 1|0900000, tvlast  0|0000000: tvdiff_old: 1|0900000 -> 1, tvdiff_new: 1|0900000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0100000: tvdiff_old: 1|0800000 -> 1, tvdiff_new: 1|0800000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0200000: tvdiff_old: 1|0700000 -> 1, tvdiff_new: 1|0700000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0300000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: 1|0600000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0400000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: 1|0500000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0500000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: 1|0400000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0600000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: 1|0300000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0700000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0800000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|0900000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|0900000, tvlast  0|1000000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0000000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0100000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0200000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0300000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0400000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0500000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0600000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0700000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0800000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|0900000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+timetv 1|0900000, tvlast  1|1000000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: -1|0900000 -> 1, same cond: NO <<
+timetv 1|1000000, tvlast  0|0000000: tvdiff_old: 2|0000000 -> 1, tvdiff_new: 2|0000000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0100000: tvdiff_old: 1|0900000 -> 1, tvdiff_new: 1|0900000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0200000: tvdiff_old: 1|0800000 -> 1, tvdiff_new: 1|0800000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0300000: tvdiff_old: 1|0700000 -> 1, tvdiff_new: 1|0700000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0400000: tvdiff_old: 1|0600000 -> 1, tvdiff_new: 1|0600000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0500000: tvdiff_old: 1|0500000 -> 1, tvdiff_new: 1|0500000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0600000: tvdiff_old: 1|0400000 -> 1, tvdiff_new: 1|0400000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0700000: tvdiff_old: 1|0300000 -> 1, tvdiff_new: 1|0300000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0800000: tvdiff_old: 1|0200000 -> 1, tvdiff_new: 1|0200000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|0900000: tvdiff_old: 1|0100000 -> 1, tvdiff_new: 1|0100000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  0|1000000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  1|0000000: tvdiff_old: 1|0000000 -> 1, tvdiff_new: 1|0000000 -> 1, same cond: yes
+timetv 1|1000000, tvlast  1|0100000: tvdiff_old: 0|0900000 -> 0, tvdiff_new: 0|0900000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|0200000: tvdiff_old: 0|0800000 -> 0, tvdiff_new: 0|0800000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|0300000: tvdiff_old: 0|0700000 -> 0, tvdiff_new: 0|0700000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|0400000: tvdiff_old: 0|0600000 -> 0, tvdiff_new: 0|0600000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|0500000: tvdiff_old: 0|0500000 -> 0, tvdiff_new: 0|0500000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|0600000: tvdiff_old: 0|0400000 -> 0, tvdiff_new: 0|0400000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|0700000: tvdiff_old: 0|0300000 -> 0, tvdiff_new: 0|0300000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|0800000: tvdiff_old: 0|0200000 -> 0, tvdiff_new: 0|0200000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|0900000: tvdiff_old: 0|0100000 -> 0, tvdiff_new: 0|0100000 -> 0, same cond: yes
+timetv 1|1000000, tvlast  1|1000000: tvdiff_old: 0|0000000 -> 0, tvdiff_new: 0|0000000 -> 0, same cond: yes
+bug-2803.c:18:test_main:PASS
+
+-----------------------
+1 Tests: 
+1 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS bug-2803 (exit status: 0)

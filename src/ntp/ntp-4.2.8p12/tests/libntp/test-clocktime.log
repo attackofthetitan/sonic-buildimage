@@ -1,0 +1,19 @@
+clocktime.c:11:test_CurrentYear:PASS
+clocktime.c:12:test_CurrentYearFuzz:PASS
+clocktime.c:13:test_TimeZoneOffset:PASS
+clocktime.c:14:test_WrongYearStart:PASS
+clocktime.c:15:test_PreviousYear:PASS
+clocktime.c:16:test_NextYear:PASS
+clocktime.c:17:test_NoReasonableConversion:PASS
+clocktime.c:19:test_AlwaysInLimit:PASS
+
+-----------------------
+8 Tests: 
+8 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-clocktime (exit status: 0)

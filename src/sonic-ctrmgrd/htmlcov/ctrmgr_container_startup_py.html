@@ -1,0 +1,625 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <title>Coverage for ctrmgr/container_startup.py: 86%</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.isonscreen.js"></script>
+    <script type="text/javascript" src="coverage_html.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(coverage.pyfile_ready);
+    </script>
+</head>
+<body class="pyfile">
+
+<div id="header">
+    <div class="content">
+        <h1>Coverage for <b>ctrmgr/container_startup.py</b> :
+            <span class="pc_cov">86%</span>
+        </h1>
+
+        <h2 class="stats">
+            139 statements &nbsp;
+            <span class="run hide_run shortkey_r button_toggle_run">120 run</span>
+            <span class="mis shortkey_m button_toggle_mis">19 missing</span>
+            <span class="exc shortkey_x button_toggle_exc">0 excluded</span>
+
+            
+        </h2>
+    </div>
+</div>
+
+<div id="source">
+    <table>
+        <tr>
+            <td class="linenos">
+<p id="n1" class="pln"><a href="#n1">1</a></p>
+<p id="n2" class="pln"><a href="#n2">2</a></p>
+<p id="n3" class="stm run hide_run"><a href="#n3">3</a></p>
+<p id="n4" class="stm run hide_run"><a href="#n4">4</a></p>
+<p id="n5" class="stm run hide_run"><a href="#n5">5</a></p>
+<p id="n6" class="stm run hide_run"><a href="#n6">6</a></p>
+<p id="n7" class="stm run hide_run"><a href="#n7">7</a></p>
+<p id="n8" class="stm run hide_run"><a href="#n8">8</a></p>
+<p id="n9" class="stm run hide_run"><a href="#n9">9</a></p>
+<p id="n10" class="pln"><a href="#n10">10</a></p>
+<p id="n11" class="stm run hide_run"><a href="#n11">11</a></p>
+<p id="n12" class="pln"><a href="#n12">12</a></p>
+<p id="n13" class="pln"><a href="#n13">13</a></p>
+<p id="n14" class="stm run hide_run"><a href="#n14">14</a></p>
+<p id="n15" class="pln"><a href="#n15">15</a></p>
+<p id="n16" class="stm run hide_run"><a href="#n16">16</a></p>
+<p id="n17" class="stm run hide_run"><a href="#n17">17</a></p>
+<p id="n18" class="stm run hide_run"><a href="#n18">18</a></p>
+<p id="n19" class="stm run hide_run"><a href="#n19">19</a></p>
+<p id="n20" class="stm run hide_run"><a href="#n20">20</a></p>
+<p id="n21" class="stm run hide_run"><a href="#n21">21</a></p>
+<p id="n22" class="pln"><a href="#n22">22</a></p>
+<p id="n23" class="stm run hide_run"><a href="#n23">23</a></p>
+<p id="n24" class="stm run hide_run"><a href="#n24">24</a></p>
+<p id="n25" class="pln"><a href="#n25">25</a></p>
+<p id="n26" class="stm run hide_run"><a href="#n26">26</a></p>
+<p id="n27" class="pln"><a href="#n27">27</a></p>
+<p id="n28" class="pln"><a href="#n28">28</a></p>
+<p id="n29" class="stm run hide_run"><a href="#n29">29</a></p>
+<p id="n30" class="stm run hide_run"><a href="#n30">30</a></p>
+<p id="n31" class="stm run hide_run"><a href="#n31">31</a></p>
+<p id="n32" class="pln"><a href="#n32">32</a></p>
+<p id="n33" class="pln"><a href="#n33">33</a></p>
+<p id="n34" class="stm run hide_run"><a href="#n34">34</a></p>
+<p id="n35" class="pln"><a href="#n35">35</a></p>
+<p id="n36" class="stm run hide_run"><a href="#n36">36</a></p>
+<p id="n37" class="pln"><a href="#n37">37</a></p>
+<p id="n38" class="pln"><a href="#n38">38</a></p>
+<p id="n39" class="stm run hide_run"><a href="#n39">39</a></p>
+<p id="n40" class="stm run hide_run"><a href="#n40">40</a></p>
+<p id="n41" class="pln"><a href="#n41">41</a></p>
+<p id="n42" class="pln"><a href="#n42">42</a></p>
+<p id="n43" class="pln"><a href="#n43">43</a></p>
+<p id="n44" class="pln"><a href="#n44">44</a></p>
+<p id="n45" class="pln"><a href="#n45">45</a></p>
+<p id="n46" class="pln"><a href="#n46">46</a></p>
+<p id="n47" class="pln"><a href="#n47">47</a></p>
+<p id="n48" class="pln"><a href="#n48">48</a></p>
+<p id="n49" class="stm run hide_run"><a href="#n49">49</a></p>
+<p id="n50" class="pln"><a href="#n50">50</a></p>
+<p id="n51" class="pln"><a href="#n51">51</a></p>
+<p id="n52" class="stm run hide_run"><a href="#n52">52</a></p>
+<p id="n53" class="stm run hide_run"><a href="#n53">53</a></p>
+<p id="n54" class="stm run hide_run"><a href="#n54">54</a></p>
+<p id="n55" class="pln"><a href="#n55">55</a></p>
+<p id="n56" class="stm run hide_run"><a href="#n56">56</a></p>
+<p id="n57" class="stm run hide_run"><a href="#n57">57</a></p>
+<p id="n58" class="pln"><a href="#n58">58</a></p>
+<p id="n59" class="stm run hide_run"><a href="#n59">59</a></p>
+<p id="n60" class="stm run hide_run"><a href="#n60">60</a></p>
+<p id="n61" class="stm run hide_run"><a href="#n61">61</a></p>
+<p id="n62" class="pln"><a href="#n62">62</a></p>
+<p id="n63" class="stm run hide_run"><a href="#n63">63</a></p>
+<p id="n64" class="pln"><a href="#n64">64</a></p>
+<p id="n65" class="pln"><a href="#n65">65</a></p>
+<p id="n66" class="stm run hide_run"><a href="#n66">66</a></p>
+<p id="n67" class="pln"><a href="#n67">67</a></p>
+<p id="n68" class="pln"><a href="#n68">68</a></p>
+<p id="n69" class="pln"><a href="#n69">69</a></p>
+<p id="n70" class="pln"><a href="#n70">70</a></p>
+<p id="n71" class="stm run hide_run"><a href="#n71">71</a></p>
+<p id="n72" class="stm run hide_run"><a href="#n72">72</a></p>
+<p id="n73" class="pln"><a href="#n73">73</a></p>
+<p id="n74" class="pln"><a href="#n74">74</a></p>
+<p id="n75" class="pln"><a href="#n75">75</a></p>
+<p id="n76" class="pln"><a href="#n76">76</a></p>
+<p id="n77" class="stm run hide_run"><a href="#n77">77</a></p>
+<p id="n78" class="stm run hide_run"><a href="#n78">78</a></p>
+<p id="n79" class="stm run hide_run"><a href="#n79">79</a></p>
+<p id="n80" class="stm run hide_run"><a href="#n80">80</a></p>
+<p id="n81" class="pln"><a href="#n81">81</a></p>
+<p id="n82" class="stm run hide_run"><a href="#n82">82</a></p>
+<p id="n83" class="pln"><a href="#n83">83</a></p>
+<p id="n84" class="pln"><a href="#n84">84</a></p>
+<p id="n85" class="stm run hide_run"><a href="#n85">85</a></p>
+<p id="n86" class="pln"><a href="#n86">86</a></p>
+<p id="n87" class="pln"><a href="#n87">87</a></p>
+<p id="n88" class="stm run hide_run"><a href="#n88">88</a></p>
+<p id="n89" class="stm run hide_run"><a href="#n89">89</a></p>
+<p id="n90" class="stm run hide_run"><a href="#n90">90</a></p>
+<p id="n91" class="stm run hide_run"><a href="#n91">91</a></p>
+<p id="n92" class="pln"><a href="#n92">92</a></p>
+<p id="n93" class="pln"><a href="#n93">93</a></p>
+<p id="n94" class="stm run hide_run"><a href="#n94">94</a></p>
+<p id="n95" class="pln"><a href="#n95">95</a></p>
+<p id="n96" class="pln"><a href="#n96">96</a></p>
+<p id="n97" class="pln"><a href="#n97">97</a></p>
+<p id="n98" class="pln"><a href="#n98">98</a></p>
+<p id="n99" class="stm run hide_run"><a href="#n99">99</a></p>
+<p id="n100" class="stm run hide_run"><a href="#n100">100</a></p>
+<p id="n101" class="stm run hide_run"><a href="#n101">101</a></p>
+<p id="n102" class="pln"><a href="#n102">102</a></p>
+<p id="n103" class="pln"><a href="#n103">103</a></p>
+<p id="n104" class="stm run hide_run"><a href="#n104">104</a></p>
+<p id="n105" class="pln"><a href="#n105">105</a></p>
+<p id="n106" class="pln"><a href="#n106">106</a></p>
+<p id="n107" class="stm run hide_run"><a href="#n107">107</a></p>
+<p id="n108" class="stm run hide_run"><a href="#n108">108</a></p>
+<p id="n109" class="stm run hide_run"><a href="#n109">109</a></p>
+<p id="n110" class="pln"><a href="#n110">110</a></p>
+<p id="n111" class="pln"><a href="#n111">111</a></p>
+<p id="n112" class="stm run hide_run"><a href="#n112">112</a></p>
+<p id="n113" class="pln"><a href="#n113">113</a></p>
+<p id="n114" class="pln"><a href="#n114">114</a></p>
+<p id="n115" class="pln"><a href="#n115">115</a></p>
+<p id="n116" class="stm run hide_run"><a href="#n116">116</a></p>
+<p id="n117" class="stm run hide_run"><a href="#n117">117</a></p>
+<p id="n118" class="stm run hide_run"><a href="#n118">118</a></p>
+<p id="n119" class="stm run hide_run"><a href="#n119">119</a></p>
+<p id="n120" class="pln"><a href="#n120">120</a></p>
+<p id="n121" class="pln"><a href="#n121">121</a></p>
+<p id="n122" class="stm run hide_run"><a href="#n122">122</a></p>
+<p id="n123" class="pln"><a href="#n123">123</a></p>
+<p id="n124" class="pln"><a href="#n124">124</a></p>
+<p id="n125" class="pln"><a href="#n125">125</a></p>
+<p id="n126" class="stm mis"><a href="#n126">126</a></p>
+<p id="n127" class="stm mis"><a href="#n127">127</a></p>
+<p id="n128" class="stm mis"><a href="#n128">128</a></p>
+<p id="n129" class="stm mis"><a href="#n129">129</a></p>
+<p id="n130" class="stm mis"><a href="#n130">130</a></p>
+<p id="n131" class="stm mis"><a href="#n131">131</a></p>
+<p id="n132" class="stm mis"><a href="#n132">132</a></p>
+<p id="n133" class="stm mis"><a href="#n133">133</a></p>
+<p id="n134" class="stm mis"><a href="#n134">134</a></p>
+<p id="n135" class="stm mis"><a href="#n135">135</a></p>
+<p id="n136" class="stm mis"><a href="#n136">136</a></p>
+<p id="n137" class="stm mis"><a href="#n137">137</a></p>
+<p id="n138" class="pln"><a href="#n138">138</a></p>
+<p id="n139" class="pln"><a href="#n139">139</a></p>
+<p id="n140" class="stm mis"><a href="#n140">140</a></p>
+<p id="n141" class="pln"><a href="#n141">141</a></p>
+<p id="n142" class="stm mis"><a href="#n142">142</a></p>
+<p id="n143" class="pln"><a href="#n143">143</a></p>
+<p id="n144" class="stm mis"><a href="#n144">144</a></p>
+<p id="n145" class="pln"><a href="#n145">145</a></p>
+<p id="n146" class="pln"><a href="#n146">146</a></p>
+<p id="n147" class="stm run hide_run"><a href="#n147">147</a></p>
+<p id="n148" class="pln"><a href="#n148">148</a></p>
+<p id="n149" class="stm run hide_run"><a href="#n149">149</a></p>
+<p id="n150" class="stm run hide_run"><a href="#n150">150</a></p>
+<p id="n151" class="pln"><a href="#n151">151</a></p>
+<p id="n152" class="stm run hide_run"><a href="#n152">152</a></p>
+<p id="n153" class="stm run hide_run"><a href="#n153">153</a></p>
+<p id="n154" class="pln"><a href="#n154">154</a></p>
+<p id="n155" class="pln"><a href="#n155">155</a></p>
+<p id="n156" class="stm run hide_run"><a href="#n156">156</a></p>
+<p id="n157" class="pln"><a href="#n157">157</a></p>
+<p id="n158" class="pln"><a href="#n158">158</a></p>
+<p id="n159" class="pln"><a href="#n159">159</a></p>
+<p id="n160" class="pln"><a href="#n160">160</a></p>
+<p id="n161" class="pln"><a href="#n161">161</a></p>
+<p id="n162" class="pln"><a href="#n162">162</a></p>
+<p id="n163" class="pln"><a href="#n163">163</a></p>
+<p id="n164" class="stm run hide_run"><a href="#n164">164</a></p>
+<p id="n165" class="pln"><a href="#n165">165</a></p>
+<p id="n166" class="pln"><a href="#n166">166</a></p>
+<p id="n167" class="pln"><a href="#n167">167</a></p>
+<p id="n168" class="pln"><a href="#n168">168</a></p>
+<p id="n169" class="pln"><a href="#n169">169</a></p>
+<p id="n170" class="pln"><a href="#n170">170</a></p>
+<p id="n171" class="pln"><a href="#n171">171</a></p>
+<p id="n172" class="stm run hide_run"><a href="#n172">172</a></p>
+<p id="n173" class="pln"><a href="#n173">173</a></p>
+<p id="n174" class="stm run hide_run"><a href="#n174">174</a></p>
+<p id="n175" class="pln"><a href="#n175">175</a></p>
+<p id="n176" class="stm run hide_run"><a href="#n176">176</a></p>
+<p id="n177" class="pln"><a href="#n177">177</a></p>
+<p id="n178" class="stm run hide_run"><a href="#n178">178</a></p>
+<p id="n179" class="stm run hide_run"><a href="#n179">179</a></p>
+<p id="n180" class="pln"><a href="#n180">180</a></p>
+<p id="n181" class="pln"><a href="#n181">181</a></p>
+<p id="n182" class="stm run hide_run"><a href="#n182">182</a></p>
+<p id="n183" class="pln"><a href="#n183">183</a></p>
+<p id="n184" class="pln"><a href="#n184">184</a></p>
+<p id="n185" class="pln"><a href="#n185">185</a></p>
+<p id="n186" class="stm run hide_run"><a href="#n186">186</a></p>
+<p id="n187" class="stm run hide_run"><a href="#n187">187</a></p>
+<p id="n188" class="pln"><a href="#n188">188</a></p>
+<p id="n189" class="stm run hide_run"><a href="#n189">189</a></p>
+<p id="n190" class="stm run hide_run"><a href="#n190">190</a></p>
+<p id="n191" class="stm mis"><a href="#n191">191</a></p>
+<p id="n192" class="pln"><a href="#n192">192</a></p>
+<p id="n193" class="pln"><a href="#n193">193</a></p>
+<p id="n194" class="stm run hide_run"><a href="#n194">194</a></p>
+<p id="n195" class="pln"><a href="#n195">195</a></p>
+<p id="n196" class="pln"><a href="#n196">196</a></p>
+<p id="n197" class="pln"><a href="#n197">197</a></p>
+<p id="n198" class="pln"><a href="#n198">198</a></p>
+<p id="n199" class="pln"><a href="#n199">199</a></p>
+<p id="n200" class="pln"><a href="#n200">200</a></p>
+<p id="n201" class="pln"><a href="#n201">201</a></p>
+<p id="n202" class="pln"><a href="#n202">202</a></p>
+<p id="n203" class="pln"><a href="#n203">203</a></p>
+<p id="n204" class="pln"><a href="#n204">204</a></p>
+<p id="n205" class="pln"><a href="#n205">205</a></p>
+<p id="n206" class="pln"><a href="#n206">206</a></p>
+<p id="n207" class="pln"><a href="#n207">207</a></p>
+<p id="n208" class="pln"><a href="#n208">208</a></p>
+<p id="n209" class="pln"><a href="#n209">209</a></p>
+<p id="n210" class="stm run hide_run"><a href="#n210">210</a></p>
+<p id="n211" class="stm run hide_run"><a href="#n211">211</a></p>
+<p id="n212" class="pln"><a href="#n212">212</a></p>
+<p id="n213" class="stm run hide_run"><a href="#n213">213</a></p>
+<p id="n214" class="pln"><a href="#n214">214</a></p>
+<p id="n215" class="pln"><a href="#n215">215</a></p>
+<p id="n216" class="stm run hide_run"><a href="#n216">216</a></p>
+<p id="n217" class="stm run hide_run"><a href="#n217">217</a></p>
+<p id="n218" class="pln"><a href="#n218">218</a></p>
+<p id="n219" class="stm run hide_run"><a href="#n219">219</a></p>
+<p id="n220" class="stm run hide_run"><a href="#n220">220</a></p>
+<p id="n221" class="stm run hide_run"><a href="#n221">221</a></p>
+<p id="n222" class="pln"><a href="#n222">222</a></p>
+<p id="n223" class="stm run hide_run"><a href="#n223">223</a></p>
+<p id="n224" class="stm run hide_run"><a href="#n224">224</a></p>
+<p id="n225" class="stm run hide_run"><a href="#n225">225</a></p>
+<p id="n226" class="pln"><a href="#n226">226</a></p>
+<p id="n227" class="stm run hide_run"><a href="#n227">227</a></p>
+<p id="n228" class="stm run hide_run"><a href="#n228">228</a></p>
+<p id="n229" class="stm run hide_run"><a href="#n229">229</a></p>
+<p id="n230" class="pln"><a href="#n230">230</a></p>
+<p id="n231" class="stm run hide_run"><a href="#n231">231</a></p>
+<p id="n232" class="pln"><a href="#n232">232</a></p>
+<p id="n233" class="stm run hide_run"><a href="#n233">233</a></p>
+<p id="n234" class="stm run hide_run"><a href="#n234">234</a></p>
+<p id="n235" class="stm run hide_run"><a href="#n235">235</a></p>
+<p id="n236" class="stm run hide_run"><a href="#n236">236</a></p>
+<p id="n237" class="pln"><a href="#n237">237</a></p>
+<p id="n238" class="stm run hide_run"><a href="#n238">238</a></p>
+<p id="n239" class="pln"><a href="#n239">239</a></p>
+<p id="n240" class="pln"><a href="#n240">240</a></p>
+<p id="n241" class="stm run hide_run"><a href="#n241">241</a></p>
+<p id="n242" class="stm run hide_run"><a href="#n242">242</a></p>
+<p id="n243" class="stm run hide_run"><a href="#n243">243</a></p>
+<p id="n244" class="stm run hide_run"><a href="#n244">244</a></p>
+<p id="n245" class="stm run hide_run"><a href="#n245">245</a></p>
+<p id="n246" class="pln"><a href="#n246">246</a></p>
+<p id="n247" class="stm run hide_run"><a href="#n247">247</a></p>
+<p id="n248" class="stm run hide_run"><a href="#n248">248</a></p>
+<p id="n249" class="pln"><a href="#n249">249</a></p>
+<p id="n250" class="stm run hide_run"><a href="#n250">250</a></p>
+<p id="n251" class="pln"><a href="#n251">251</a></p>
+<p id="n252" class="pln"><a href="#n252">252</a></p>
+<p id="n253" class="pln"><a href="#n253">253</a></p>
+<p id="n254" class="pln"><a href="#n254">254</a></p>
+<p id="n255" class="stm mis"><a href="#n255">255</a></p>
+<p id="n256" class="pln"><a href="#n256">256</a></p>
+<p id="n257" class="pln"><a href="#n257">257</a></p>
+<p id="n258" class="stm mis"><a href="#n258">258</a></p>
+<p id="n259" class="stm run hide_run"><a href="#n259">259</a></p>
+<p id="n260" class="stm run hide_run"><a href="#n260">260</a></p>
+<p id="n261" class="pln"><a href="#n261">261</a></p>
+<p id="n262" class="pln"><a href="#n262">262</a></p>
+<p id="n263" class="stm run hide_run"><a href="#n263">263</a></p>
+<p id="n264" class="pln"><a href="#n264">264</a></p>
+<p id="n265" class="stm run hide_run"><a href="#n265">265</a></p>
+<p id="n266" class="pln"><a href="#n266">266</a></p>
+<p id="n267" class="pln"><a href="#n267">267</a></p>
+<p id="n268" class="stm run hide_run"><a href="#n268">268</a></p>
+<p id="n269" class="stm run hide_run"><a href="#n269">269</a></p>
+<p id="n270" class="pln"><a href="#n270">270</a></p>
+<p id="n271" class="stm run hide_run"><a href="#n271">271</a></p>
+<p id="n272" class="stm run hide_run"><a href="#n272">272</a></p>
+<p id="n273" class="stm run hide_run"><a href="#n273">273</a></p>
+<p id="n274" class="pln"><a href="#n274">274</a></p>
+<p id="n275" class="stm run hide_run"><a href="#n275">275</a></p>
+<p id="n276" class="stm run hide_run"><a href="#n276">276</a></p>
+<p id="n277" class="pln"><a href="#n277">277</a></p>
+<p id="n278" class="pln"><a href="#n278">278</a></p>
+<p id="n279" class="pln"><a href="#n279">279</a></p>
+<p id="n280" class="stm run hide_run"><a href="#n280">280</a></p>
+<p id="n281" class="stm mis"><a href="#n281">281</a></p>
+
+            </td>
+            <td class="text">
+<p id="t1" class="pln"><span class="com">#!/usr/bin/env python3</span><span class="strut">&nbsp;</span></p>
+<p id="t2" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t3" class="stm run hide_run"><span class="key">import</span> <span class="nam">argparse</span><span class="strut">&nbsp;</span></p>
+<p id="t4" class="stm run hide_run"><span class="key">import</span> <span class="nam">datetime</span><span class="strut">&nbsp;</span></p>
+<p id="t5" class="stm run hide_run"><span class="key">import</span> <span class="nam">inspect</span><span class="strut">&nbsp;</span></p>
+<p id="t6" class="stm run hide_run"><span class="key">import</span> <span class="nam">json</span><span class="strut">&nbsp;</span></p>
+<p id="t7" class="stm run hide_run"><span class="key">import</span> <span class="nam">subprocess</span><span class="strut">&nbsp;</span></p>
+<p id="t8" class="stm run hide_run"><span class="key">import</span> <span class="nam">syslog</span><span class="strut">&nbsp;</span></p>
+<p id="t9" class="stm run hide_run"><span class="key">import</span> <span class="nam">time</span><span class="strut">&nbsp;</span></p>
+<p id="t10" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t11" class="stm run hide_run"><span class="key">from</span> <span class="nam">swsscommon</span> <span class="key">import</span> <span class="nam">swsscommon</span><span class="strut">&nbsp;</span></p>
+<p id="t12" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t13" class="pln"><span class="com"># DB field names</span><span class="strut">&nbsp;</span></p>
+<p id="t14" class="stm run hide_run"><span class="nam">SET_OWNER</span> <span class="op">=</span> <span class="str">"set_owner"</span><span class="strut">&nbsp;</span></p>
+<p id="t15" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t16" class="stm run hide_run"><span class="nam">CURRENT_OWNER</span> <span class="op">=</span> <span class="str">"current_owner"</span><span class="strut">&nbsp;</span></p>
+<p id="t17" class="stm run hide_run"><span class="nam">UPD_TIMESTAMP</span> <span class="op">=</span> <span class="str">"update_time"</span><span class="strut">&nbsp;</span></p>
+<p id="t18" class="stm run hide_run"><span class="nam">DOCKER_ID</span> <span class="op">=</span> <span class="str">"container_id"</span><span class="strut">&nbsp;</span></p>
+<p id="t19" class="stm run hide_run"><span class="nam">REMOTE_STATE</span> <span class="op">=</span> <span class="str">"remote_state"</span><span class="strut">&nbsp;</span></p>
+<p id="t20" class="stm run hide_run"><span class="nam">VERSION</span> <span class="op">=</span> <span class="str">"container_version"</span><span class="strut">&nbsp;</span></p>
+<p id="t21" class="stm run hide_run"><span class="nam">SYSTEM_STATE</span> <span class="op">=</span> <span class="str">"system_state"</span><span class="strut">&nbsp;</span></p>
+<p id="t22" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t23" class="stm run hide_run"><span class="nam">KUBE_LABEL_TABLE</span> <span class="op">=</span> <span class="str">"KUBE_LABELS"</span><span class="strut">&nbsp;</span></p>
+<p id="t24" class="stm run hide_run"><span class="nam">KUBE_LABEL_SET_KEY</span> <span class="op">=</span> <span class="str">"SET"</span><span class="strut">&nbsp;</span></p>
+<p id="t25" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t26" class="stm run hide_run"><span class="nam">UNIT_TESTING</span> <span class="op">=</span> <span class="num">0</span><span class="strut">&nbsp;</span></p>
+<p id="t27" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t28" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t29" class="stm run hide_run"><span class="key">def</span> <span class="nam">debug_msg</span><span class="op">(</span><span class="nam">m</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t30" class="stm run hide_run">    <span class="nam">msg</span> <span class="op">=</span> <span class="str">"{}: {}"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="nam">inspect</span><span class="op">.</span><span class="nam">stack</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="num">1</span><span class="op">]</span><span class="op">[</span><span class="num">3</span><span class="op">]</span><span class="op">,</span> <span class="nam">m</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t31" class="stm run hide_run">    <span class="nam">syslog</span><span class="op">.</span><span class="nam">syslog</span><span class="op">(</span><span class="nam">syslog</span><span class="op">.</span><span class="nam">LOG_DEBUG</span><span class="op">,</span> <span class="nam">msg</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t32" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t33" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t34" class="stm run hide_run"><span class="key">def</span> <span class="nam">_get_version_key</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t35" class="pln">    <span class="com"># Coin label for version control</span><span class="strut">&nbsp;</span></p>
+<p id="t36" class="stm run hide_run">    <span class="key">return</span> <span class="str">"{}_{}_enabled"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t37" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t38" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t39" class="stm run hide_run"><span class="key">def</span> <span class="nam">read_data</span><span class="op">(</span><span class="nam">feature</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t40" class="stm run hide_run">    <span class="nam">state_data</span> <span class="op">=</span> <span class="op">{</span><span class="strut">&nbsp;</span></p>
+<p id="t41" class="pln">            <span class="nam">CURRENT_OWNER</span><span class="op">:</span> <span class="str">"none"</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t42" class="pln">            <span class="nam">UPD_TIMESTAMP</span><span class="op">:</span> <span class="str">""</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t43" class="pln">            <span class="nam">DOCKER_ID</span><span class="op">:</span> <span class="str">""</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t44" class="pln">            <span class="nam">REMOTE_STATE</span><span class="op">:</span> <span class="str">"none"</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t45" class="pln">            <span class="nam">VERSION</span><span class="op">:</span> <span class="str">"0.0.0"</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t46" class="pln">            <span class="nam">SYSTEM_STATE</span><span class="op">:</span> <span class="str">""</span><span class="strut">&nbsp;</span></p>
+<p id="t47" class="pln">            <span class="op">}</span><span class="strut">&nbsp;</span></p>
+<p id="t48" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t49" class="stm run hide_run">    <span class="nam">set_owner</span> <span class="op">=</span> <span class="str">"local"</span><span class="strut">&nbsp;</span></p>
+<p id="t50" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t51" class="pln">    <span class="com"># read owner from config-db and current state data from state-db.</span><span class="strut">&nbsp;</span></p>
+<p id="t52" class="stm run hide_run">    <span class="nam">db</span> <span class="op">=</span> <span class="nam">swsscommon</span><span class="op">.</span><span class="nam">DBConnector</span><span class="op">(</span><span class="str">"CONFIG_DB"</span><span class="op">,</span> <span class="num">0</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t53" class="stm run hide_run">    <span class="nam">tbl</span> <span class="op">=</span> <span class="nam">swsscommon</span><span class="op">.</span><span class="nam">Table</span><span class="op">(</span><span class="nam">db</span><span class="op">,</span> <span class="str">'FEATURE'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t54" class="stm run hide_run">    <span class="nam">data</span> <span class="op">=</span> <span class="nam">dict</span><span class="op">(</span><span class="nam">tbl</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="nam">feature</span><span class="op">)</span><span class="op">[</span><span class="num">1</span><span class="op">]</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t55" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t56" class="stm run hide_run">    <span class="key">if</span> <span class="op">(</span><span class="nam">SET_OWNER</span> <span class="key">in</span> <span class="nam">data</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t57" class="stm run hide_run">        <span class="nam">set_owner</span> <span class="op">=</span> <span class="nam">data</span><span class="op">[</span><span class="nam">SET_OWNER</span><span class="op">]</span><span class="strut">&nbsp;</span></p>
+<p id="t58" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t59" class="stm run hide_run">    <span class="nam">state_db</span> <span class="op">=</span> <span class="nam">swsscommon</span><span class="op">.</span><span class="nam">DBConnector</span><span class="op">(</span><span class="str">"STATE_DB"</span><span class="op">,</span> <span class="num">0</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t60" class="stm run hide_run">    <span class="nam">tbl</span> <span class="op">=</span> <span class="nam">swsscommon</span><span class="op">.</span><span class="nam">Table</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="str">'FEATURE'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t61" class="stm run hide_run">    <span class="nam">state_data</span><span class="op">.</span><span class="nam">update</span><span class="op">(</span><span class="nam">dict</span><span class="op">(</span><span class="nam">tbl</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="nam">feature</span><span class="op">)</span><span class="op">[</span><span class="num">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t62" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t63" class="stm run hide_run">    <span class="key">return</span> <span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">set_owner</span><span class="op">,</span> <span class="nam">state_data</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t64" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t65" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t66" class="stm run hide_run"><span class="key">def</span> <span class="nam">read_fields</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">fields</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t67" class="pln">    <span class="com"># Read directly from STATE-DB, given fields</span><span class="strut">&nbsp;</span></p>
+<p id="t68" class="pln">    <span class="com"># for given feature. </span><span class="strut">&nbsp;</span></p>
+<p id="t69" class="pln">    <span class="com"># Fields is a list of tuples (&lt;field name>, &lt;default val>)</span><span class="strut">&nbsp;</span></p>
+<p id="t70" class="pln">    <span class="com">#</span><span class="strut">&nbsp;</span></p>
+<p id="t71" class="stm run hide_run">    <span class="nam">tbl</span> <span class="op">=</span> <span class="nam">swsscommon</span><span class="op">.</span><span class="nam">Table</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="str">'FEATURE'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t72" class="stm run hide_run">    <span class="nam">ret</span> <span class="op">=</span> <span class="op">[</span><span class="op">]</span><span class="strut">&nbsp;</span></p>
+<p id="t73" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t74" class="pln">    <span class="com"># tbl.get for non-existing feature would return</span><span class="strut">&nbsp;</span></p>
+<p id="t75" class="pln">    <span class="com"># [False, {} ]</span><span class="strut">&nbsp;</span></p>
+<p id="t76" class="pln">    <span class="com">#</span><span class="strut">&nbsp;</span></p>
+<p id="t77" class="stm run hide_run">    <span class="nam">data</span> <span class="op">=</span> <span class="nam">dict</span><span class="op">(</span><span class="nam">tbl</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="nam">feature</span><span class="op">)</span><span class="op">[</span><span class="num">1</span><span class="op">]</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t78" class="stm run hide_run">    <span class="key">for</span> <span class="op">(</span><span class="nam">field</span><span class="op">,</span> <span class="nam">default</span><span class="op">)</span> <span class="key">in</span> <span class="nam">fields</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t79" class="stm run hide_run">        <span class="nam">val</span> <span class="op">=</span> <span class="nam">data</span><span class="op">[</span><span class="nam">field</span><span class="op">]</span> <span class="key">if</span> <span class="nam">field</span> <span class="key">in</span> <span class="nam">data</span> <span class="key">else</span> <span class="nam">default</span><span class="strut">&nbsp;</span></p>
+<p id="t80" class="stm run hide_run">        <span class="nam">ret</span> <span class="op">+=</span> <span class="op">[</span><span class="nam">val</span><span class="op">]</span><span class="strut">&nbsp;</span></p>
+<p id="t81" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t82" class="stm run hide_run">    <span class="key">return</span> <span class="nam">tuple</span><span class="op">(</span><span class="nam">ret</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t83" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t84" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t85" class="stm run hide_run"><span class="key">def</span> <span class="nam">check_version_blocked</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t86" class="pln">    <span class="com"># Ensure this version is *not* blocked explicitly.</span><span class="strut">&nbsp;</span></p>
+<p id="t87" class="pln">    <span class="com">#</span><span class="strut">&nbsp;</span></p>
+<p id="t88" class="stm run hide_run">    <span class="nam">tbl</span> <span class="op">=</span> <span class="nam">swsscommon</span><span class="op">.</span><span class="nam">Table</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">KUBE_LABEL_TABLE</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t89" class="stm run hide_run">    <span class="nam">labels</span> <span class="op">=</span> <span class="nam">dict</span><span class="op">(</span><span class="nam">tbl</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="nam">KUBE_LABEL_SET_KEY</span><span class="op">)</span><span class="op">[</span><span class="num">1</span><span class="op">]</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t90" class="stm run hide_run">    <span class="nam">key</span> <span class="op">=</span> <span class="nam">_get_version_key</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t91" class="stm run hide_run">    <span class="key">return</span> <span class="op">(</span><span class="nam">key</span> <span class="key">in</span> <span class="nam">labels</span><span class="op">)</span> <span class="key">and</span> <span class="op">(</span><span class="nam">labels</span><span class="op">[</span><span class="nam">key</span><span class="op">]</span><span class="op">.</span><span class="nam">lower</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="str">"false"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t92" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t93" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t94" class="stm run hide_run"><span class="key">def</span> <span class="nam">drop_label</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t95" class="pln">    <span class="com"># Mark given feature version as dropped in labels.</span><span class="strut">&nbsp;</span></p>
+<p id="t96" class="pln">    <span class="com"># Update is done in state-db.</span><span class="strut">&nbsp;</span></p>
+<p id="t97" class="pln">    <span class="com"># ctrmgrd sets it with kube API server per reaschability</span><span class="strut">&nbsp;</span></p>
+<p id="t98" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t99" class="stm run hide_run">    <span class="nam">tbl</span> <span class="op">=</span> <span class="nam">swsscommon</span><span class="op">.</span><span class="nam">Table</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">KUBE_LABEL_TABLE</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t100" class="stm run hide_run">    <span class="nam">name</span> <span class="op">=</span> <span class="nam">_get_version_key</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t101" class="stm run hide_run">    <span class="nam">tbl</span><span class="op">.</span><span class="nam">set</span><span class="op">(</span><span class="nam">KUBE_LABEL_SET_KEY</span><span class="op">,</span> <span class="op">[</span> <span class="op">(</span><span class="nam">name</span><span class="op">,</span> <span class="str">"false"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t102" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t103" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t104" class="stm run hide_run"><span class="key">def</span> <span class="nam">update_data</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">data</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t105" class="pln">    <span class="com"># Update STATE-DB entry for this feature with given data</span><span class="strut">&nbsp;</span></p>
+<p id="t106" class="pln">    <span class="com">#</span><span class="strut">&nbsp;</span></p>
+<p id="t107" class="stm run hide_run">    <span class="nam">debug_msg</span><span class="op">(</span><span class="str">"{}: {}"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">str</span><span class="op">(</span><span class="nam">data</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t108" class="stm run hide_run">    <span class="nam">tbl</span> <span class="op">=</span> <span class="nam">swsscommon</span><span class="op">.</span><span class="nam">Table</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="str">"FEATURE"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t109" class="stm run hide_run">    <span class="nam">tbl</span><span class="op">.</span><span class="nam">set</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">list</span><span class="op">(</span><span class="nam">data</span><span class="op">.</span><span class="nam">items</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t110" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t111" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t112" class="stm run hide_run"><span class="key">def</span> <span class="nam">get_docker_id</span><span class="op">(</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t113" class="pln">    <span class="com"># Read the container-id</span><span class="strut">&nbsp;</span></p>
+<p id="t114" class="pln">    <span class="com"># Note: This script runs inside the context of container</span><span class="strut">&nbsp;</span></p>
+<p id="t115" class="pln">    <span class="com">#</span><span class="strut">&nbsp;</span></p>
+<p id="t116" class="stm run hide_run">    <span class="nam">cmd</span> <span class="op">=</span> <span class="str">'cat /proc/self/cgroup | grep -e ":memory:" | rev | cut -f1 -d\'/\' | rev'</span><span class="strut">&nbsp;</span></p>
+<p id="t117" class="stm run hide_run">    <span class="nam">proc</span> <span class="op">=</span> <span class="nam">subprocess</span><span class="op">.</span><span class="nam">Popen</span><span class="op">(</span><span class="nam">cmd</span><span class="op">,</span> <span class="nam">shell</span><span class="op">=</span><span class="key">True</span><span class="op">,</span> <span class="nam">stdout</span><span class="op">=</span><span class="nam">subprocess</span><span class="op">.</span><span class="nam">PIPE</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t118" class="stm run hide_run">    <span class="nam">output</span> <span class="op">=</span> <span class="nam">proc</span><span class="op">.</span><span class="nam">communicate</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="num">0</span><span class="op">]</span><span class="op">.</span><span class="nam">decode</span><span class="op">(</span><span class="str">"utf-8"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t119" class="stm run hide_run">    <span class="key">return</span> <span class="nam">output</span><span class="op">.</span><span class="nam">strip</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="op">:</span><span class="num">12</span><span class="op">]</span><span class="strut">&nbsp;</span></p>
+<p id="t120" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t121" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t122" class="stm run hide_run"><span class="key">def</span> <span class="nam">instance_higher</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">ct_version</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t123" class="pln">    <span class="com"># Compares given version against current version in STATE-DB.</span><span class="strut">&nbsp;</span></p>
+<p id="t124" class="pln">    <span class="com"># Return True if this version is higher than current.</span><span class="strut">&nbsp;</span></p>
+<p id="t125" class="pln">    <span class="com">#</span><span class="strut">&nbsp;</span></p>
+<p id="t126" class="stm mis">    <span class="nam">ret</span> <span class="op">=</span> <span class="key">False</span><span class="strut">&nbsp;</span></p>
+<p id="t127" class="stm mis">    <span class="key">if</span> <span class="nam">ct_version</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t128" class="stm mis">        <span class="nam">ct</span> <span class="op">=</span> <span class="nam">ct_version</span><span class="op">.</span><span class="nam">split</span><span class="op">(</span><span class="str">'.'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t129" class="stm mis">        <span class="nam">nxt</span> <span class="op">=</span> <span class="nam">version</span><span class="op">.</span><span class="nam">split</span><span class="op">(</span><span class="str">'.'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t130" class="stm mis">        <span class="key">for</span> <span class="nam">cs</span><span class="op">,</span> <span class="nam">ns</span> <span class="key">in</span> <span class="nam">zip</span><span class="op">(</span><span class="nam">ct</span><span class="op">,</span> <span class="nam">nxt</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t131" class="stm mis">            <span class="nam">c</span> <span class="op">=</span> <span class="nam">int</span><span class="op">(</span><span class="nam">cs</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t132" class="stm mis">            <span class="nam">n</span> <span class="op">=</span> <span class="nam">int</span><span class="op">(</span><span class="nam">ns</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t133" class="stm mis">            <span class="key">if</span> <span class="nam">n</span> <span class="op">&lt;</span> <span class="nam">c</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t134" class="stm mis">                <span class="key">break</span><span class="strut">&nbsp;</span></p>
+<p id="t135" class="stm mis">            <span class="key">elif</span> <span class="nam">n</span> <span class="op">></span> <span class="nam">c</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t136" class="stm mis">                <span class="nam">ret</span> <span class="op">=</span> <span class="key">True</span><span class="strut">&nbsp;</span></p>
+<p id="t137" class="stm mis">                <span class="key">break</span><span class="strut">&nbsp;</span></p>
+<p id="t138" class="pln">    <span class="key">else</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t139" class="pln">        <span class="com"># Empty version implies no one is running.</span><span class="strut">&nbsp;</span></p>
+<p id="t140" class="stm mis">        <span class="nam">ret</span> <span class="op">=</span> <span class="key">True</span><span class="strut">&nbsp;</span></p>
+<p id="t141" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t142" class="stm mis">    <span class="nam">debug_msg</span><span class="op">(</span><span class="str">"compare version: new:{} current:{} res={}"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="strut">&nbsp;</span></p>
+<p id="t143" class="pln">        <span class="nam">version</span><span class="op">,</span> <span class="nam">ct_version</span><span class="op">,</span> <span class="nam">ret</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t144" class="stm mis">    <span class="key">return</span> <span class="nam">ret</span><span class="strut">&nbsp;</span></p>
+<p id="t145" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t146" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t147" class="stm run hide_run"><span class="key">def</span> <span class="nam">is_active</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">system_state</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t148" class="pln">    <span class="com"># Check current system state of the feature</span><span class="strut">&nbsp;</span></p>
+<p id="t149" class="stm run hide_run">    <span class="key">if</span> <span class="nam">system_state</span> <span class="op">==</span> <span class="str">"up"</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t150" class="stm run hide_run">        <span class="key">return</span> <span class="key">True</span><span class="strut">&nbsp;</span></p>
+<p id="t151" class="pln">    <span class="key">else</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t152" class="stm run hide_run">        <span class="nam">syslog</span><span class="op">.</span><span class="nam">syslog</span><span class="op">(</span><span class="nam">syslog</span><span class="op">.</span><span class="nam">LOG_ERR</span><span class="op">,</span> <span class="str">"Found inactive for {}"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="nam">feature</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t153" class="stm run hide_run">        <span class="key">return</span> <span class="key">False</span><span class="strut">&nbsp;</span></p>
+<p id="t154" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t155" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t156" class="stm run hide_run"><span class="key">def</span> <span class="nam">update_state</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">owner</span><span class="op">=</span><span class="key">None</span><span class="op">,</span> <span class="nam">version</span><span class="op">=</span><span class="key">None</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t157" class="pln">    <span class="str">"""</span><span class="strut">&nbsp;</span></p>
+<p id="t158" class="pln"><span class="str">    sets owner, version &amp; container-id for this feature in state-db.</span><span class="strut">&nbsp;</span></p>
+<p id="t159" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t160" class="pln"><span class="str">    If owner is local, update label to block remote deploying same version or</span><span class="strut">&nbsp;</span></p>
+<p id="t161" class="pln"><span class="str">    if kube, sets state to "running". </span><span class="strut">&nbsp;</span></p>
+<p id="t162" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t163" class="pln"><span class="str">    """</span><span class="strut">&nbsp;</span></p>
+<p id="t164" class="stm run hide_run">    <span class="nam">data</span> <span class="op">=</span> <span class="op">{</span><span class="strut">&nbsp;</span></p>
+<p id="t165" class="pln">            <span class="nam">CURRENT_OWNER</span><span class="op">:</span> <span class="nam">owner</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t166" class="pln">            <span class="nam">DOCKER_ID</span><span class="op">:</span> <span class="nam">get_docker_id</span><span class="op">(</span><span class="op">)</span> <span class="key">if</span> <span class="nam">owner</span> <span class="op">!=</span> <span class="str">"local"</span> <span class="key">else</span> <span class="nam">feature</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t167" class="pln">            <span class="nam">UPD_TIMESTAMP</span><span class="op">:</span> <span class="nam">str</span><span class="op">(</span><span class="nam">datetime</span><span class="op">.</span><span class="nam">datetime</span><span class="op">.</span><span class="nam">now</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">strftime</span><span class="op">(</span><span class="str">"%Y-%m-%d %H:%M:%S"</span><span class="op">)</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t168" class="pln">            <span class="str">"hello"</span><span class="op">:</span> <span class="str">"world"</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t169" class="pln">            <span class="nam">VERSION</span><span class="op">:</span> <span class="nam">version</span><span class="strut">&nbsp;</span></p>
+<p id="t170" class="pln">            <span class="op">}</span><span class="strut">&nbsp;</span></p>
+<p id="t171" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t172" class="stm run hide_run">    <span class="key">if</span> <span class="op">(</span><span class="nam">owner</span> <span class="op">==</span> <span class="str">"local"</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t173" class="pln">        <span class="com"># Disable deployment of this version as available locally</span><span class="strut">&nbsp;</span></p>
+<p id="t174" class="stm run hide_run">        <span class="nam">drop_label</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t175" class="pln">    <span class="key">else</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t176" class="stm run hide_run">        <span class="nam">data</span><span class="op">[</span><span class="nam">REMOTE_STATE</span><span class="op">]</span> <span class="op">=</span> <span class="str">"running"</span><span class="strut">&nbsp;</span></p>
+<p id="t177" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t178" class="stm run hide_run">    <span class="nam">debug_msg</span><span class="op">(</span><span class="str">"{} up data:{}"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">str</span><span class="op">(</span><span class="nam">data</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t179" class="stm run hide_run">    <span class="nam">update_data</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span>  <span class="nam">data</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t180" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t181" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t182" class="stm run hide_run"><span class="key">def</span> <span class="nam">do_freeze</span><span class="op">(</span><span class="nam">feat</span><span class="op">,</span> <span class="nam">m</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t183" class="pln">    <span class="com"># Exiting will kick off the container to run.</span><span class="strut">&nbsp;</span></p>
+<p id="t184" class="pln">    <span class="com"># So sleep forever with periodic logs.</span><span class="strut">&nbsp;</span></p>
+<p id="t185" class="pln">    <span class="com">#</span><span class="strut">&nbsp;</span></p>
+<p id="t186" class="stm run hide_run">    <span class="key">while</span> <span class="key">True</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t187" class="stm run hide_run">        <span class="nam">syslog</span><span class="op">.</span><span class="nam">syslog</span><span class="op">(</span><span class="nam">syslog</span><span class="op">.</span><span class="nam">LOG_ERR</span><span class="op">,</span> <span class="str">"Blocking .... feat:{} docker_id:{} msg:{}"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="strut">&nbsp;</span></p>
+<p id="t188" class="pln">            <span class="nam">feat</span><span class="op">,</span> <span class="nam">get_docker_id</span><span class="op">(</span><span class="op">)</span><span class="op">,</span> <span class="nam">m</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t189" class="stm run hide_run">        <span class="key">if</span> <span class="nam">UNIT_TESTING</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t190" class="stm run hide_run">            <span class="key">break</span><span class="strut">&nbsp;</span></p>
+<p id="t191" class="stm mis">        <span class="nam">time</span><span class="op">.</span><span class="nam">sleep</span><span class="op">(</span><span class="num">60</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t192" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t193" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t194" class="stm run hide_run"><span class="key">def</span> <span class="nam">container_up</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">owner</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t195" class="pln">    <span class="str">"""</span><span class="strut">&nbsp;</span></p>
+<p id="t196" class="pln"><span class="str">    This is called by container upon post start.</span><span class="strut">&nbsp;</span></p>
+<p id="t197" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t198" class="pln"><span class="str">    The container will run its application, only upon this call</span><span class="strut">&nbsp;</span></p>
+<p id="t199" class="pln"><span class="str">    complete.</span><span class="strut">&nbsp;</span></p>
+<p id="t200" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t201" class="pln"><span class="str">    This call does the basic check for if this starting-container can be allowed</span><span class="strut">&nbsp;</span></p>
+<p id="t202" class="pln"><span class="str">    to run based on current state, and owner &amp; version of this starting</span><span class="strut">&nbsp;</span></p>
+<p id="t203" class="pln"><span class="str">    container. </span><span class="strut">&nbsp;</span></p>
+<p id="t204" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t205" class="pln"><span class="str">    If allowed to proceed, this info is recorded in state-db and return</span><span class="strut">&nbsp;</span></p>
+<p id="t206" class="pln"><span class="str">    to enable container start the main application. Else it proceeds to</span><span class="strut">&nbsp;</span></p>
+<p id="t207" class="pln"><span class="str">    sleep forever, blocking the container from starting the main application.</span><span class="strut">&nbsp;</span></p>
+<p id="t208" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t209" class="pln"><span class="str">    """</span><span class="strut">&nbsp;</span></p>
+<p id="t210" class="stm run hide_run">    <span class="nam">debug_msg</span><span class="op">(</span><span class="str">"BEGIN"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t211" class="stm run hide_run">    <span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">set_owner</span><span class="op">,</span> <span class="nam">state_data</span><span class="op">)</span> <span class="op">=</span> <span class="nam">read_data</span><span class="op">(</span><span class="nam">feature</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t212" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t213" class="stm run hide_run">    <span class="nam">debug_msg</span><span class="op">(</span><span class="str">"args: feature={}, owner={}, version={} DB: set_owner={} state_data={}"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="strut">&nbsp;</span></p>
+<p id="t214" class="pln">        <span class="nam">feature</span><span class="op">,</span> <span class="nam">owner</span><span class="op">,</span> <span class="nam">version</span><span class="op">,</span> <span class="nam">set_owner</span><span class="op">,</span> <span class="nam">json</span><span class="op">.</span><span class="nam">dumps</span><span class="op">(</span><span class="nam">state_data</span><span class="op">,</span> <span class="nam">indent</span><span class="op">=</span><span class="num">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t215" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t216" class="stm run hide_run">    <span class="key">if</span> <span class="nam">owner</span> <span class="op">==</span> <span class="str">"local"</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t217" class="stm run hide_run">        <span class="nam">update_state</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">owner</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t218" class="pln">    <span class="key">else</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t219" class="stm run hide_run">        <span class="key">if</span> <span class="op">(</span><span class="nam">set_owner</span> <span class="op">==</span> <span class="str">"local"</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t220" class="stm run hide_run">            <span class="nam">do_freeze</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="str">"bail out as set_owner is local"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t221" class="stm run hide_run">            <span class="key">return</span><span class="strut">&nbsp;</span></p>
+<p id="t222" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t223" class="stm run hide_run">        <span class="key">if</span> <span class="key">not</span> <span class="nam">is_active</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">state_data</span><span class="op">[</span><span class="nam">SYSTEM_STATE</span><span class="op">]</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t224" class="stm run hide_run">            <span class="nam">do_freeze</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="str">"bail out as system state not active"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t225" class="stm run hide_run">            <span class="key">return</span><span class="strut">&nbsp;</span></p>
+<p id="t226" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t227" class="stm run hide_run">        <span class="key">if</span> <span class="nam">check_version_blocked</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t228" class="stm run hide_run">            <span class="nam">do_freeze</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="str">"This version is marked disabled. Exiting ..."</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t229" class="stm run hide_run">            <span class="key">return</span><span class="strut">&nbsp;</span></p>
+<p id="t230" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t231" class="stm run hide_run">        <span class="nam">update_data</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="op">{</span> <span class="nam">VERSION</span><span class="op">:</span> <span class="nam">version</span> <span class="op">}</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t232" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t233" class="stm run hide_run">        <span class="nam">mode</span> <span class="op">=</span> <span class="nam">state_data</span><span class="op">[</span><span class="nam">REMOTE_STATE</span><span class="op">]</span><span class="strut">&nbsp;</span></p>
+<p id="t234" class="stm run hide_run">        <span class="key">if</span> <span class="nam">mode</span> <span class="key">in</span> <span class="op">(</span><span class="str">"none"</span><span class="op">,</span> <span class="str">"running"</span><span class="op">,</span> <span class="str">"stopped"</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t235" class="stm run hide_run">            <span class="nam">update_data</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="op">{</span> <span class="nam">REMOTE_STATE</span><span class="op">:</span> <span class="str">"pending"</span> <span class="op">}</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t236" class="stm run hide_run">            <span class="nam">mode</span> <span class="op">=</span> <span class="str">"pending"</span><span class="strut">&nbsp;</span></p>
+<p id="t237" class="pln">        <span class="key">else</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t238" class="stm run hide_run">            <span class="nam">debug_msg</span><span class="op">(</span><span class="str">"{}: Skip remote_state({}) update"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">mode</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t239" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t240" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t241" class="stm run hide_run">        <span class="nam">i</span> <span class="op">=</span> <span class="num">0</span><span class="strut">&nbsp;</span></p>
+<p id="t242" class="stm run hide_run">        <span class="key">while</span> <span class="op">(</span><span class="nam">mode</span> <span class="op">!=</span> <span class="str">"ready"</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t243" class="stm run hide_run">            <span class="key">if</span> <span class="op">(</span><span class="nam">i</span> <span class="op">%</span> <span class="num">10</span><span class="op">)</span> <span class="op">==</span> <span class="num">0</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t244" class="stm run hide_run">                <span class="nam">debug_msg</span><span class="op">(</span><span class="str">"{}: remote_state={}. Waiting to go ready"</span><span class="op">.</span><span class="nam">format</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">mode</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t245" class="stm run hide_run">            <span class="nam">i</span> <span class="op">+=</span> <span class="num">1</span><span class="strut">&nbsp;</span></p>
+<p id="t246" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t247" class="stm run hide_run">            <span class="nam">time</span><span class="op">.</span><span class="nam">sleep</span><span class="op">(</span><span class="num">2</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t248" class="stm run hide_run">            <span class="nam">mode</span><span class="op">,</span> <span class="nam">db_version</span> <span class="op">=</span> <span class="nam">read_fields</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t249" class="pln">                    <span class="nam">feature</span><span class="op">,</span> <span class="op">[</span><span class="op">(</span><span class="nam">REMOTE_STATE</span><span class="op">,</span> <span class="str">"none"</span><span class="op">)</span><span class="op">,</span> <span class="op">(</span><span class="nam">VERSION</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t250" class="stm run hide_run">            <span class="key">if</span> <span class="nam">version</span> <span class="op">!=</span> <span class="nam">db_version</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t251" class="pln">                <span class="com"># looks like another instance has overwritten. Exit for now.</span><span class="strut">&nbsp;</span></p>
+<p id="t252" class="pln">                <span class="com"># If this happens to be higher version, next deploy by kube will fix</span><span class="strut">&nbsp;</span></p>
+<p id="t253" class="pln">                <span class="com"># This is a very rare window of opportunity, for this version to be higher.</span><span class="strut">&nbsp;</span></p>
+<p id="t254" class="pln">                <span class="com">#</span><span class="strut">&nbsp;</span></p>
+<p id="t255" class="stm mis">                <span class="nam">do_freeze</span><span class="op">(</span><span class="nam">feature</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t256" class="pln">                        <span class="str">"bail out as current deploy version={} is different than {}. re-deploy higher one"</span><span class="op">.</span><span class="strut">&nbsp;</span></p>
+<p id="t257" class="pln">                        <span class="nam">format</span><span class="op">(</span><span class="nam">version</span><span class="op">,</span> <span class="nam">db_version</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t258" class="stm mis">                <span class="key">return</span><span class="strut">&nbsp;</span></p>
+<p id="t259" class="stm run hide_run">            <span class="key">if</span> <span class="nam">UNIT_TESTING</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t260" class="stm run hide_run">                <span class="key">return</span><span class="strut">&nbsp;</span></p>
+<p id="t261" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t262" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t263" class="stm run hide_run">        <span class="nam">update_state</span><span class="op">(</span><span class="nam">state_db</span><span class="op">,</span> <span class="nam">feature</span><span class="op">,</span> <span class="nam">owner</span><span class="op">,</span> <span class="nam">version</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t264" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t265" class="stm run hide_run">    <span class="nam">debug_msg</span><span class="op">(</span><span class="str">"END"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t266" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t267" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t268" class="stm run hide_run"><span class="key">def</span> <span class="nam">main</span><span class="op">(</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t269" class="stm run hide_run">    <span class="nam">parser</span> <span class="op">=</span> <span class="nam">argparse</span><span class="op">.</span><span class="nam">ArgumentParser</span><span class="op">(</span><span class="nam">description</span><span class="op">=</span><span class="str">"container_startup &lt;feature> kube/local [&lt;version>]"</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t270" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t271" class="stm run hide_run">    <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">"-f"</span><span class="op">,</span> <span class="str">"--feature"</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t272" class="stm run hide_run">    <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">"-o"</span><span class="op">,</span> <span class="str">"--owner"</span><span class="op">,</span> <span class="nam">choices</span><span class="op">=</span><span class="op">[</span><span class="str">"local"</span><span class="op">,</span> <span class="str">"kube"</span><span class="op">]</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t273" class="stm run hide_run">    <span class="nam">parser</span><span class="op">.</span><span class="nam">add_argument</span><span class="op">(</span><span class="str">"-v"</span><span class="op">,</span> <span class="str">"--version"</span><span class="op">,</span> <span class="nam">required</span><span class="op">=</span><span class="key">True</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t274" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t275" class="stm run hide_run">    <span class="nam">args</span> <span class="op">=</span> <span class="nam">parser</span><span class="op">.</span><span class="nam">parse_args</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t276" class="stm run hide_run">    <span class="nam">container_up</span><span class="op">(</span><span class="nam">args</span><span class="op">.</span><span class="nam">feature</span><span class="op">,</span> <span class="nam">args</span><span class="op">.</span><span class="nam">owner</span><span class="op">,</span> <span class="nam">args</span><span class="op">.</span><span class="nam">version</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t277" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t278" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t279" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t280" class="stm run hide_run"><span class="key">if</span> <span class="nam">__name__</span> <span class="op">==</span> <span class="str">"__main__"</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
+<p id="t281" class="stm mis">    <span class="nam">main</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="footer">
+    <div class="content">
+        <p>
+            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.2</a>,
+            created at 2025-07-24 06:42
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+timevalops.c:37:test_Helpers1:PASS
+timevalops.c:38:test_Normalise:PASS
+timevalops.c:39:test_SignNoFrac:PASS
+timevalops.c:40:test_SignWithFrac:PASS
+timevalops.c:41:test_CmpFracEQ:PASS
+timevalops.c:42:test_CmpFracGT:PASS
+timevalops.c:43:test_CmpFracLT:PASS
+timevalops.c:44:test_AddFullNorm:PASS
+timevalops.c:45:test_AddFullOflow1:PASS
+timevalops.c:46:test_AddUsecNorm:PASS
+timevalops.c:47:test_AddUsecOflow1:PASS
+timevalops.c:48:test_SubFullNorm:PASS
+timevalops.c:49:test_SubFullOflow:PASS
+timevalops.c:50:test_SubUsecNorm:PASS
+timevalops.c:51:test_SubUsecOflow:PASS
+timevalops.c:52:test_Neg:PASS
+timevalops.c:53:test_AbsNoFrac:PASS
+timevalops.c:54:test_AbsWithFrac:PASS
+m_expr which is -2.000001 
+and
+n_expr which is -2.18446744073709551613
+are not close; diff=0.000004usec
+m_expr which is -2.000001 
+and
+n_expr which is -2.18446744073709551614
+are not close; diff=0.000003usec
+m_expr which is -2.000001 
+and
+n_expr which is -2.000004
+are not close; diff=0.000003usec
+m_expr which is -2.000001 
+and
+n_expr which is -2.000005
+are not close; diff=0.000004usec
+m_expr which is -2.500000 
+and
+n_expr which is -2.499996
+are not close; diff=0.000004usec
+m_expr which is -2.500000 
+and
+n_expr which is -2.499997
+are not close; diff=0.000003usec
+m_expr which is -2.500000 
+and
+n_expr which is -2.500003
+are not close; diff=0.000003usec
+m_expr which is -2.500000 
+and
+n_expr which is -2.500004
+are not close; diff=0.000004usec
+m_expr which is -2.999999 
+and
+n_expr which is -2.999995
+are not close; diff=0.000004usec
+m_expr which is -2.999999 
+and
+n_expr which is -2.999996
+are not close; diff=0.000003usec
+m_expr which is -2.999999 
+and
+n_expr which is -2.1000002
+are not close; diff=0.000003usec
+m_expr which is -2.999999 
+and
+n_expr which is -2.1000003
+are not close; diff=0.000004usec
+m_expr which is -1.000001 
+and
+n_expr which is -1.18446744073709551613
+are not close; diff=0.000004usec
+m_expr which is -1.000001 
+and
+n_expr which is -1.18446744073709551614
+are not close; diff=0.000003usec
+m_expr which is -1.000001 
+and
+n_expr which is -1.000004
+are not close; diff=0.000003usec
+m_expr which is -1.000001 
+and
+n_expr which is -1.000005
+are not close; diff=0.000004usec
+m_expr which is -1.500000 
+and
+n_expr which is -1.499996
+are not close; diff=0.000004usec
+m_expr which is -1.500000 
+and
+n_expr which is -1.499997
+are not close; diff=0.000003usec
+m_expr which is -1.500000 
+and
+n_expr which is -1.500003
+are not close; diff=0.000003usec
+m_expr which is -1.500000 
+and
+n_expr which is -1.500004
+are not close; diff=0.000004usec
+m_expr which is -1.999999 
+and
+n_expr which is -1.999995
+are not close; diff=0.000004usec
+m_expr which is -1.999999 
+and
+n_expr which is -1.999996
+are not close; diff=0.000003usec
+m_expr which is -1.999999 
+and
+n_expr which is -1.1000002
+are not close; diff=0.000003usec
+m_expr which is -1.999999 
+and
+n_expr which is -1.1000003
+are not close; diff=0.000004usec
+m_expr which is 0.000001 
+and
+n_expr which is 0.18446744073709551613
+are not close; diff=0.000004usec
+m_expr which is 0.000001 
+and
+n_expr which is 0.18446744073709551614
+are not close; diff=0.000003usec
+m_expr which is 0.000001 
+and
+n_expr which is 0.000004
+are not close; diff=0.000003usec
+m_expr which is 0.000001 
+and
+n_expr which is 0.000005
+are not close; diff=0.000004usec
+m_expr which is 0.500000 
+and
+n_expr which is 0.499996
+are not close; diff=0.000004usec
+m_expr which is 0.500000 
+and
+n_expr which is 0.499997
+are not close; diff=0.000003usec
+m_expr which is 0.500000 
+and
+n_expr which is 0.500003
+are not close; diff=0.000003usec
+m_expr which is 0.500000 
+and
+n_expr which is 0.500004
+are not close; diff=0.000004usec
+m_expr which is 0.999999 
+and
+n_expr which is 0.999995
+are not close; diff=0.000004usec
+m_expr which is 0.999999 
+and
+n_expr which is 0.999996
+are not close; diff=0.000003usec
+m_expr which is 0.999999 
+and
+n_expr which is 0.1000002
+are not close; diff=0.000003usec
+m_expr which is 0.999999 
+and
+n_expr which is 0.1000003
+are not close; diff=0.000004usec
+m_expr which is 1.000001 
+and
+n_expr which is 1.18446744073709551613
+are not close; diff=0.000004usec
+m_expr which is 1.000001 
+and
+n_expr which is 1.18446744073709551614
+are not close; diff=0.000003usec
+m_expr which is 1.000001 
+and
+n_expr which is 1.000004
+are not close; diff=0.000003usec
+m_expr which is 1.000001 
+and
+n_expr which is 1.000005
+are not close; diff=0.000004usec
+m_expr which is 1.500000 
+and
+n_expr which is 1.499996
+are not close; diff=0.000004usec
+m_expr which is 1.500000 
+and
+n_expr which is 1.499997
+are not close; diff=0.000003usec
+m_expr which is 1.500000 
+and
+n_expr which is 1.500003
+are not close; diff=0.000003usec
+m_expr which is 1.500000 
+and
+n_expr which is 1.500004
+are not close; diff=0.000004usec
+m_expr which is 1.999999 
+and
+n_expr which is 1.999995
+are not close; diff=0.000004usec
+m_expr which is 1.999999 
+and
+n_expr which is 1.999996
+are not close; diff=0.000003usec
+m_expr which is 1.999999 
+and
+n_expr which is 1.1000002
+are not close; diff=0.000003usec
+m_expr which is 1.999999 
+and
+n_expr which is 1.1000003
+are not close; diff=0.000004usec
+m_expr which is 2.000001 
+and
+n_expr which is 2.18446744073709551613
+are not close; diff=0.000004usec
+m_expr which is 2.000001 
+and
+n_expr which is 2.18446744073709551614
+are not close; diff=0.000003usec
+m_expr which is 2.000001 
+and
+n_expr which is 2.000004
+are not close; diff=0.000003usec
+m_expr which is 2.000001 
+and
+n_expr which is 2.000005
+are not close; diff=0.000004usec
+m_expr which is 2.500000 
+and
+n_expr which is 2.499996
+are not close; diff=0.000004usec
+m_expr which is 2.500000 
+and
+n_expr which is 2.499997
+are not close; diff=0.000003usec
+m_expr which is 2.500000 
+and
+n_expr which is 2.500003
+are not close; diff=0.000003usec
+m_expr which is 2.500000 
+and
+n_expr which is 2.500004
+are not close; diff=0.000004usec
+m_expr which is 2.999999 
+and
+n_expr which is 2.999995
+are not close; diff=0.000004usec
+m_expr which is 2.999999 
+and
+n_expr which is 2.999996
+are not close; diff=0.000003usec
+m_expr which is 2.999999 
+and
+n_expr which is 2.1000002
+are not close; diff=0.000003usec
+m_expr which is 2.999999 
+and
+n_expr which is 2.1000003
+are not close; diff=0.000004usec
+timevalops.c:55:test_Helpers2:PASS
+timevalops.c:56:test_ToLFPbittest:PASS
+timevalops.c:57:test_ToLFPrelPos:PASS
+timevalops.c:58:test_ToLFPrelNeg:PASS
+timevalops.c:59:test_ToLFPabs:PASS
+timevalops.c:60:test_FromLFPbittest:PASS
+timevalops.c:61:test_FromLFPrelPos:PASS
+timevalops.c:62:test_FromLFPrelNeg:PASS
+timevalops.c:63:test_LFProundtrip:PASS
+timevalops.c:64:test_ToString:PASS
+
+-----------------------
+28 Tests: 
+28 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-timevalops (exit status: 0)

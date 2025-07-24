@@ -1,0 +1,3 @@
+0xc31a0e23	psample_group_get	/sonic/platform/broadcom/saibcm-modules/sdklt/linux/psample/linux_psample	EXPORT_SYMBOL_GPL
+0x7dc5589d	psample_sample_packet	/sonic/platform/broadcom/saibcm-modules/sdklt/linux/psample/linux_psample	EXPORT_SYMBOL_GPL
+0xdd30dfff	psample_group_put	/sonic/platform/broadcom/saibcm-modules/sdklt/linux/psample/linux_psample	EXPORT_SYMBOL_GPL

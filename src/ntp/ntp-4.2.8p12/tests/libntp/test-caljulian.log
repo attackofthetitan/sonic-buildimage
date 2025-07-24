@@ -1,0 +1,15 @@
+caljulian.c:16:test_RegularTime:PASS
+caljulian.c:17:test_LeapYear:PASS
+caljulian.c:18:test_uLongBoundary:PASS
+caljulian.c:19:test_uLongWrapped:PASS
+
+-----------------------
+4 Tests: 
+4 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-caljulian (exit status: 0)

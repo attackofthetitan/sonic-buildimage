@@ -1,0 +1,12 @@
+uglydate.c:9:test_ConstantDateTime:PASS
+
+-----------------------
+1 Tests: 
+1 PASS 
+0 XFAIL 
+0 Failures 
+0 XPASS 
+0 Ignored 
+
+OK
+PASS test-uglydate (exit status: 0)
