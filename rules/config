@@ -10,7 +10,7 @@
 # SONIC_CONFIG_BUILD_JOBS - set number of jobs for parallel build.
 # Corresponding -j argument will be passed to make command inside docker
 # container.
-SONIC_CONFIG_BUILD_JOBS = 1
+SONIC_CONFIG_BUILD_JOBS = 4
 
 # SONIC_CONFIG_MAKE_JOBS - set number of parallel make jobs per package.
 # Corresponding -j argument will be passed to make/dpkg commands that build separate packages
@@ -41,7 +41,7 @@ SMARTSWITCH ?= 0
 DEFAULT_USERNAME = admin
 
 # DEFAULT_PASSWORD - default password for installer build
-DEFAULT_PASSWORD = YourPaSsWoRd
+DEFAULT_PASSWORD = 20191119
 
 # ENABLE_ZTP - installs Zero Touch Provisioning support.
 # ENABLE_ZTP = y
@@ -277,7 +277,7 @@ MIRROR_SNAPSHOT ?= n
 #	none    :  no caching
 #	cache   :  Use cache if exists else build the source and update the cache
 # SONIC_VERSION_CACHE_SOURCE - Defines the version cache location details
-SONIC_VERSION_CACHE_METHOD ?= none
+SONIC_VERSION_CACHE_METHOD ?= cache
 SONIC_VERSION_CACHE_SOURCE ?= $(SONIC_DPKG_CACHE_SOURCE)/vcache
 
 # SONiC docker registry
