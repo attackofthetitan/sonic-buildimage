@@ -298,7 +298,7 @@ TRUSTED_GPG_URLS = https://packages.microsoft.com/keys/microsoft.asc
 #   web   : web packages, downloaded by wget, curl
 #   git   : git repositories, donloaded by git clone
 #   docker: docker base images
-SONIC_VERSION_CONTROL_COMPONENTS ?= all
+SONIC_VERSION_CONTROL_COMPONENTS ?= py2,py3,web,git
 
 ifeq ($(SONIC_VERSION_CONTROL_COMPONENTS),all)
 override MIRROR_SNAPSHOT = y
