@@ -70,7 +70,7 @@ static int emc2305_probe(struct i2c_client *client,
                          const struct i2c_device_id *id);
 static int emc2305_detect(struct i2c_client *client,
                           struct i2c_board_info *info);
-static int emc2305_remove(struct i2c_client *client);
+static void emc2305_remove(struct i2c_client *client);
 
 static const struct i2c_device_id emc2305_id[] =
 {
@@ -365,13 +365,13 @@ exit_remove:
   return err;
 }
 
-static int emc2305_remove(struct i2c_client *client)
+static void emc2305_remove(struct i2c_client *client)
 {
   struct emc2305_data *data = i2c_get_clientdata(client);
 
   hwmon_device_unregister(data->hwmon_dev);
   sysfs_remove_group(&client->dev.kobj, &data->attrs);
-  return 0;
+  //return 0;
 }
 
 module_i2c_driver(emc2305_driver);

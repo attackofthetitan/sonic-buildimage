@@ -482,6 +482,7 @@ static int dps_800ab_16_d_probe(struct i2c_client *client,
 		goto exit_sysfs_create_group;
 
 	data->hwmon_dev = hwmon_device_register(&client->dev);
+
 	if (IS_ERR(data->hwmon_dev)) {
 		status = PTR_ERR(data->hwmon_dev);
 		goto exit_hwmon_device_register;
@@ -496,15 +497,15 @@ exit_sysfs_create_group:
 exit:
 	return status;
 }
-
-static int dps_800ab_16_d_remove(struct i2c_client *client)
+/*fix kernel warnings*/
+static void dps_800ab_16_d_remove(struct i2c_client *client)
 {
 	struct dps_800ab_16_d_data *data = i2c_get_clientdata(client);
 	hwmon_device_unregister(data->hwmon_dev);
 	sysfs_remove_group(&client->dev.kobj, &dps_800ab_16_d_group);
 	kfree(data);
 	
-	return 0;
+	//return 0;
 }
 
 enum id_name {
