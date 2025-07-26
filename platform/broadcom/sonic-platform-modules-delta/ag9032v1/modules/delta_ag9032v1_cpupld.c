@@ -296,7 +296,7 @@ static int __init cpld_probe(struct platform_device *pdev)
         return -ENODEV;
     }
 
-    pdata[cpld].client = i2c_new_dummy(parent, pdata[cpld].reg_addr);
+    pdata[cpld].client = i2c_new_dummy_device(parent, pdata[cpld].reg_addr);
     if (!pdata[cpld].client) {
         printk(KERN_WARNING "Fail to create dummy i2c client for addr %d\n", pdata[cpld].reg_addr);
         goto error;
