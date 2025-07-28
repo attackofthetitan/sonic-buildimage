@@ -82,6 +82,18 @@
                     .release       = device_release,                          \
         },                                                                    \
 }
+/*Define 954x platform mode*/
+struct pca954x_platform_mode {
+    int adap_id;
+    unsigned int deselect_on_exit:1;
+    unsigned int class;
+};
+
+/*Define 954x platform data*/
+struct pca954x_platform_data {
+    struct pca954x_platform_mode *modes;
+    int num_modes;
+};
 
 /*Define struct to get client of i2c_new_device */
 struct i2c_client * i2c_client_9547;
@@ -119,7 +131,7 @@ struct i2c_device_platform_data {
     struct i2c_board_info           info;
     struct i2c_client              *client;
 };
-/* pca9547 - add 8 bus 
+/* pca9547 - add 8 bus */
 static struct pca954x_platform_mode pca954x_mode[] = {
   { .adap_id = 2,
     .deselect_on_exit = 1,
@@ -150,13 +162,13 @@ static struct pca954x_platform_mode pca954x_mode[] = {
 static struct pca954x_platform_data pca954x_data = {
   .modes = pca954x_mode,
   .num_modes = ARRAY_SIZE(pca954x_mode),
-}; */
+}; 
 
 static struct i2c_board_info i2c_info_pca9547[] =
 {
         {
             I2C_BOARD_INFO("pca9547", 0x71),
-            //.platform_data = &pca954x_data, 
+            .platform_data = &pca954x_data, 
         },
 };
 
