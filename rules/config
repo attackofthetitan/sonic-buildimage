@@ -18,7 +18,7 @@ SONIC_CONFIG_MAKE_JOBS = $(shell nproc)
 
 # DEFAULT_BUILD_LOG_TIMESTAMP - add timestamp in build log
 # Supported format: simple, none
-DEFAULT_BUILD_LOG_TIMESTAMP = none
+DEFAULT_BUILD_LOG_TIMESTAMP = simple
 
 # SONIC_CONFIG_USE_NATIVE_DOCKERD_FOR_BUILD - use native dockerd for build.
 # If set to y SONiC build container will use native dockerd instead of dind for faster build.
@@ -62,7 +62,7 @@ DEFAULT_PASSWORD = 20191119
 
 # SONIC_USE_PDDF_FRAMEWORK - Use PDDF generic drivers and plugins
 # Uncomment next line to enable:
-SONIC_USE_PDDF_FRAMEWORK = y
+# SONIC_USE_PDDF_FRAMEWORK = y
 
 # SONIC_ROUTING_STACK - specify the routing-stack being elected to drive SONiC's control-plane.
 # Supported routing stacks on SONiC are:
