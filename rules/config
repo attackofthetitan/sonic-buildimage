@@ -54,7 +54,7 @@ DEFAULT_PASSWORD = 20191119
 
 # ENABLE_PFCWD_ON_START - if set to y PFC Watchdog (PFCWD) will be enabled all server-facing ports
 # by default for TOR switch
-# ENABLE_PFCWD_ON_START = y
+ENABLE_PFCWD_ON_START = y
 
 # INSTALL_DEBUG_TOOLS - installs debugging tools in baseline docker
 # Uncomment next line to enable:
@@ -62,7 +62,7 @@ DEFAULT_PASSWORD = 20191119
 
 # SONIC_USE_PDDF_FRAMEWORK - Use PDDF generic drivers and plugins
 # Uncomment next line to enable:
-# SONIC_USE_PDDF_FRAMEWORK = y
+SONIC_USE_PDDF_FRAMEWORK = y
 
 # SONIC_ROUTING_STACK - specify the routing-stack being elected to drive SONiC's control-plane.
 # Supported routing stacks on SONiC are:
@@ -87,7 +87,7 @@ ENABLE_ORGANIZATION_EXTENSIONS = y
 # DEFAULT_KERNEL_PROCURE_METHOD - default method for obtaining kernel
 #   build:    build kernel from source
 #   download: download pre-built kernel from Azure storage.
-DEFAULT_KERNEL_PROCURE_METHOD = build
+DEFAULT_KERNEL_PROCURE_METHOD = download
 
 # FRR user and group id values. These only take effect when SONIC_ROUTING_STACK is frr.
 # Note: these values match the admin uid/gid of the host's admin account. If these values
@@ -148,7 +148,7 @@ INCLUDE_NAT = y
 INCLUDE_DHCP_RELAY = y
 
 # INCLUDE_DHCP_SERVER - build and install dhcp-server package
-INCLUDE_DHCP_SERVER ?= n
+INCLUDE_DHCP_SERVER ?= y
 
 # Conditionally enable DHCP_SERVER when SMARTSWITCH is set to 1
 ifeq ($(SMARTSWITCH), 1)
@@ -327,7 +327,7 @@ BUILD_REDUCE_IMAGE_SIZE = n
 
 # SONIC_PTF_ENV_PY_VER - SONiC PTF test Python version. Set to 'mixed' to build the 
 # image with both Python 2 and 3. Set to 'py3' to build a Python 3 only image
-SONIC_PTF_ENV_PY_VER = py3
+SONIC_PTF_ENV_PY_VER = mixed
 
 # Add timeout on some process which may hangs
 BUILD_PROCESS_TIMEOUT ?= 0
