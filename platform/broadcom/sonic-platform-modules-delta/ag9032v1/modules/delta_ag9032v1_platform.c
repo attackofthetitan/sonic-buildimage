@@ -692,7 +692,7 @@ static struct platform_device ag9032v1_cpld = {
     },
 };
 
-static struct swpld_attribute_data {   
+struct swpld_attribute_data {   
     int reg_addr;
     int reg_mask;
     char reg_note[150];
