@@ -13,6 +13,13 @@ MODULE_DIRS:= ag9032v1 #ag9064 ag5648 et-6248brb ag9032v2a agc032
 override_dh_auto_build:
 	(for mod in $(MODULE_DIRS); do \
 		make -C $(KERNEL_SRC)/build M=$(MOD_SRC_DIR)/$${mod}/modules; \
+		python3 $${mod}/setup.py build; \
+		cd $(MOD_SRC_DIR)/$${mod}; \
+		if [ -f sonic_platform_setup.py ]; then \
+			python3 sonic_platform_setup.py bdist_wheel -d $(MOD_SRC_DIR)/$${mod}; \
+			echo "Finished making whl package for $$mod"; \
+		fi; \
+		cd $(MOD_SRC_DIR); \
 	done)
 
 override_dh_auto_install:
