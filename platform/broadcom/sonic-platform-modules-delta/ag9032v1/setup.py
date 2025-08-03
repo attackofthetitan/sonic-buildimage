@@ -6,10 +6,10 @@ from setuptools import setup
 os.listdir
 
 setup(
-   name='as7816_64x',
+   name='ag9032v1',
    version='1.0',
-   description='Module to initialize Accton AS7816-64X platforms',
+   description='Module to initialize ag9032v1 platforms',
    
-   packages=['as7816_64x'],
-   package_dir={'as7816_64x': 'as7816-64x/classes'},
+   packages=['ag9032v1'],
+   package_dir={'ag9032v1': 'ag9032v1'},
 )
