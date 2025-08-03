@@ -1,8 +1,4 @@
 {
-    "chassis": {
-        "name": "Delta-ag9032v1",
-        "components": []
-    },
     "interfaces": {
         "Ethernet0": {
             "index": "1,1,1,1",
