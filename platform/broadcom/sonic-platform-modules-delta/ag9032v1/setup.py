@@ -5,11 +5,9 @@ setup(
     version='1.0',
     description='SONiC platform API implementation on Delta Platforms',
     license='Apache 2.0',
-    author='attackofthetitan',
+    author='SONiC team',
     author_email='linuxnetdev@microsoft.com',
     url='https://github.com/Azure/sonic-buildimage',
-    maintainer='attackofthetitan',
-    maintainer_email='ethanlin.0902@gmail.com',
     packages=[
         'sonic_platform',
     ],
