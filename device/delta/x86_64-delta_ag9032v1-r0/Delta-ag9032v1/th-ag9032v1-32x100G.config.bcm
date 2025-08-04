@@ -518,6 +518,3 @@ serdes_preemphasis_lane0_6=0x3c320f
 serdes_preemphasis_lane1_6=0x3c320f
 serdes_preemphasis_lane2_6=0x2c320c
 serdes_preemphasis_lane3_6=0x2c320c
-
-
-
