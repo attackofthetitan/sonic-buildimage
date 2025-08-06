@@ -5,6 +5,7 @@ include $(PLATFORM_PATH)/sswsyncd.mk
 # * Nokia
 # * Juniper
 # * Ragile
+
 #include $(PLATFORM_PATH)/platform-modules-nokia.mk
 #include $(PLATFORM_PATH)/platform-modules-dell.mk
 #include $(PLATFORM_PATH)/platform-modules-arista.mk
@@ -32,7 +33,7 @@ include $(PLATFORM_PATH)/sonic-pde-tests.mk
 endif
 include $(PLATFORM_PATH)/one-image.mk
 include $(PLATFORM_PATH)/raw-image.mk
-include $(PLATFORM_PATH)/one-aboot.mk
+#include $(PLATFORM_PATH)/one-aboot.mk
 include $(PLATFORM_PATH)/libsaithrift-dev.mk
 include $(PLATFORM_PATH)/docker-syncd-brcm-dnx.mk
 include $(PLATFORM_PATH)/docker-syncd-brcm-dnx-rpc.mk
