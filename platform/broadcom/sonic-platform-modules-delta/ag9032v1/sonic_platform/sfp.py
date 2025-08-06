@@ -13,8 +13,7 @@ class Sfp(SfpOptoeBase):
     PDDF Platform-Specific Sfp class
     """
 
-   def __init__(self, index, sfp_type, eeprom_path,
-            sfp_control, sfp_ctrl_idx):
+    def __init__(self, index, sfp_type, eeprom_path, sfp_control, sfp_ctrl_idx):
         SfpOptoeBase.__init__(self)
         self.sfp_type = sfp_type
         self.index = index

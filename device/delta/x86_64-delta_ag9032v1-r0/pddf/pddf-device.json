@@ -1,0 +1,550 @@
+{
+    "PLATFORM": {
+        "num_psus": 2,
+        "num_fantrays": 5,
+        "num_fans_pertray": 1,
+        "num_ports": 32,
+        "num_temps": 5,
+        "pddf_dev_types": {
+            "description": "Delta AG9032v1 - 32x100G QSFP28 ports switch",
+            "CPLD": ["i2c", "cpldmux", "cpld"],
+            "PSU": ["i2c", "psu_eeprom", "psu_pmbus", "psu_fan", "psu"],
+            "FAN": ["i2c", "fan_ctrl", "fan_eeprom"],
+            "PORT": ["i2c", "sfp", "qsfp"],
+            "TEMP_SENSOR": ["i2c", "temp"]
+        }
+    },
+
+    "SYSTEM_LED": {
+        "dev_info": {"device_type": "CPLD", "device_name": "SYSCPLD"},
+        "dev_attr": {"index": "0"},
+        "bmc": {
+            "ipmitool": {
+                "attr_name": "sys_status"
+            }
+        }
+    },
+
+    "CPLD": [
+        {
+            "dev_info": {"device_type": "CPLD", "device_name": "SYSCPLD", "device_parent": "SYSTEM"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x0", "dev_addr": "0x31", "dev_type": "syscpld"},
+                "attr_list": [
+                    {"attr_name": "sys_led", "attr_devaddr": "0x31", "attr_devtype": "cpld", "attr_offset": "0x1C", "attr_mask": "0xFF", "attr_cmpval": "0x06", "attr_len": "1"},
+                    {"attr_name": "fan1_led", "attr_devaddr": "0x31", "attr_devtype": "cpld", "attr_offset": "0x1D", "attr_mask": "0xFF", "attr_cmpval": "0x06", "attr_len": "1"},
+                    {"attr_name": "fan2_led", "attr_devaddr": "0x31", "attr_devtype": "cpld", "attr_offset": "0x1E", "attr_mask": "0xFF", "attr_cmpval": "0x06", "attr_len": "1"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "CPLD", "device_name": "SWPLD", "device_parent": "SYSTEM"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"},
+                "attr_list": [
+                    {"attr_name": "sfp_mux_ctrl", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x20", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_presence_1", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x38", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_presence_2", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x39", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_presence_3", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x3A", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_presence_4", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x3B", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_lp_mode_1", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x34", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_lp_mode_2", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x35", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_lp_mode_3", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x36", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_lp_mode_4", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x37", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_reset_1", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x3C", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_reset_2", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x3D", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_reset_3", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x3E", "attr_mask": "0xFF", "attr_len": "1"},
+                    {"attr_name": "sfp_reset_4", "attr_devaddr": "0x32", "attr_devtype": "cpld", "attr_offset": "0x3F", "attr_mask": "0xFF", "attr_len": "1"}
+                ]
+            }
+        }
+    ],
+
+    "PSU": [
+        {
+            "dev_info": {"device_type": "PSU", "device_name": "PSU1"},
+            "dev_attr": {"dev_idx": "1", "num_psu_fans": "1"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x28", "dev_addr": "0x50", "dev_type": "psu_eeprom"}},
+                    {"itf": "pmbus", "topo_info": {"parent_bus": "0x28", "dev_addr": "0x58", "dev_type": "dni_ag9032v1_psu"}}
+                ]
+            },
+            "bmc": {
+                "ipmitool": {
+                    "attr_list": [
+                        {"attr_name": "psu_present", "bmc_cmd": "ipmitool sdr get 'PSU1 Status' | grep 'States Asserted' | cut -d: -f2 | grep -o 'Presence detected'"},
+                        {"attr_name": "psu_power_good", "bmc_cmd": "ipmitool sdr get 'PSU1 Status' | grep 'States Asserted' | cut -d: -f2 | grep -o 'Power Supply AC lost'"}
+                    ]
+                }
+            }
+        },
+        {
+            "dev_info": {"device_type": "PSU", "device_name": "PSU2"},
+            "dev_attr": {"dev_idx": "2", "num_psu_fans": "1"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x29", "dev_addr": "0x50", "dev_type": "psu_eeprom"}},
+                    {"itf": "pmbus", "topo_info": {"parent_bus": "0x29", "dev_addr": "0x58", "dev_type": "dni_ag9032v1_psu"}}
+                ]
+            },
+            "bmc": {
+                "ipmitool": {
+                    "attr_list": [
+                        {"attr_name": "psu_present", "bmc_cmd": "ipmitool sdr get 'PSU2 Status' | grep 'States Asserted' | cut -d: -f2 | grep -o 'Presence detected'"},
+                        {"attr_name": "psu_power_good", "bmc_cmd": "ipmitool sdr get 'PSU2 Status' | grep 'States Asserted' | cut -d: -f2 | grep -o 'Power Supply AC lost'"}
+                    ]
+                }
+            }
+        }
+    ],
+
+    "FAN": [
+        {
+            "dev_info": {"device_type": "FAN", "device_name": "FAN-1"},
+            "dev_attr": {"index": "1", "dev_idx": "1"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x25", "dev_addr": "0x2c", "dev_type": "emc2305"},
+                "attr_list": [
+                    {"attr_name": "fan1_input", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x3E", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "fan1_pwm", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x30", "attr_mask": "0x0", "attr_len": "1"},
+                    {"attr_name": "fan1_fault", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x27", "attr_mask": "0x01", "attr_len": "1"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "FAN", "device_name": "FAN-2"},
+            "dev_attr": {"index": "2", "dev_idx": "2"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x25", "dev_addr": "0x2c", "dev_type": "emc2305"},
+                "attr_list": [
+                    {"attr_name": "fan2_input", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x3F", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "fan2_pwm", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x31", "attr_mask": "0x0", "attr_len": "1"},
+                    {"attr_name": "fan2_fault", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x27", "attr_mask": "0x02", "attr_len": "1"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "FAN", "device_name": "FAN-3"},
+            "dev_attr": {"index": "3", "dev_idx": "3"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x25", "dev_addr": "0x2c", "dev_type": "emc2305"},
+                "attr_list": [
+                    {"attr_name": "fan3_input", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x40", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "fan3_pwm", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x32", "attr_mask": "0x0", "attr_len": "1"},
+                    {"attr_name": "fan3_fault", "attr_devaddr": "0x2c", "attr_devtype": "emc2305", "attr_offset": "0x27", "attr_mask": "0x04", "attr_len": "1"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "FAN", "device_name": "FAN-4"},
+            "dev_attr": {"index": "4", "dev_idx": "4"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x26", "dev_addr": "0x2d", "dev_type": "emc2305"},
+                "attr_list": [
+                    {"attr_name": "fan4_input", "attr_devaddr": "0x2d", "attr_devtype": "emc2305", "attr_offset": "0x3E", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "fan4_pwm", "attr_devaddr": "0x2d", "attr_devtype": "emc2305", "attr_offset": "0x30", "attr_mask": "0x0", "attr_len": "1"},
+                    {"attr_name": "fan4_fault", "attr_devaddr": "0x2d", "attr_devtype": "emc2305", "attr_offset": "0x27", "attr_mask": "0x01", "attr_len": "1"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "FAN", "device_name": "FAN-5"},
+            "dev_attr": {"index": "5", "dev_idx": "5"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x26", "dev_addr": "0x2d", "dev_type": "emc2305"},
+                "attr_list": [
+                    {"attr_name": "fan5_input", "attr_devaddr": "0x2d", "attr_devtype": "emc2305", "attr_offset": "0x3F", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "fan5_pwm", "attr_devaddr": "0x2d", "attr_devtype": "emc2305", "attr_offset": "0x31", "attr_mask": "0x0", "attr_len": "1"},
+                    {"attr_name": "fan5_fault", "attr_devaddr": "0x2d", "attr_devtype": "emc2305", "attr_offset": "0x27", "attr_mask": "0x02", "attr_len": "1"}
+                ]
+            }
+        }
+    ],
+
+    "TEMP_SENSOR": [
+        {
+            "dev_info": {"device_type": "TEMP_SENSOR", "device_name": "TEMP1"},
+            "dev_attr": {"index": "1"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x2", "dev_addr": "0x4d", "dev_type": "tmp75"},
+                "attr_list": [
+                    {"attr_name": "temp1_high_threshold", "attr_devaddr": "0x4d", "attr_devtype": "tmp75", "attr_offset": "0x3", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp1_max_hyst", "attr_devaddr": "0x4d", "attr_devtype": "tmp75", "attr_offset": "0x2", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp1_input", "attr_devaddr": "0x4d", "attr_devtype": "tmp75", "attr_offset": "0x0", "attr_mask": "0x0", "attr_len": "2"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "TEMP_SENSOR", "device_name": "TEMP2"},
+            "dev_attr": {"index": "2"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x7", "dev_addr": "0x4c", "dev_type": "tmp75"},
+                "attr_list": [
+                    {"attr_name": "temp2_high_threshold", "attr_devaddr": "0x4c", "attr_devtype": "tmp75", "attr_offset": "0x3", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp2_max_hyst", "attr_devaddr": "0x4c", "attr_devtype": "tmp75", "attr_offset": "0x2", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp2_input", "attr_devaddr": "0x4c", "attr_devtype": "tmp75", "attr_offset": "0x0", "attr_mask": "0x0", "attr_len": "2"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "TEMP_SENSOR", "device_name": "TEMP3"},
+            "dev_attr": {"index": "3"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x7", "dev_addr": "0x4d", "dev_type": "tmp75"},
+                "attr_list": [
+                    {"attr_name": "temp3_high_threshold", "attr_devaddr": "0x4d", "attr_devtype": "tmp75", "attr_offset": "0x3", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp3_max_hyst", "attr_devaddr": "0x4d", "attr_devtype": "tmp75", "attr_offset": "0x2", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp3_input", "attr_devaddr": "0x4d", "attr_devtype": "tmp75", "attr_offset": "0x0", "attr_mask": "0x0", "attr_len": "2"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "TEMP_SENSOR", "device_name": "TEMP4"},
+            "dev_attr": {"index": "4"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x7", "dev_addr": "0x4e", "dev_type": "tmp75"},
+                "attr_list": [
+                    {"attr_name": "temp4_high_threshold", "attr_devaddr": "0x4e", "attr_devtype": "tmp75", "attr_offset": "0x3", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp4_max_hyst", "attr_devaddr": "0x4e", "attr_devtype": "tmp75", "attr_offset": "0x2", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp4_input", "attr_devaddr": "0x4e", "attr_devtype": "tmp75", "attr_offset": "0x0", "attr_mask": "0x0", "attr_len": "2"}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "TEMP_SENSOR", "device_name": "TEMP5"},
+            "dev_attr": {"index": "5"},
+            "i2c": {
+                "topo_info": {"parent_bus": "0x1e", "dev_addr": "0x4f", "dev_type": "tmp75"},
+                "attr_list": [
+                    {"attr_name": "temp5_high_threshold", "attr_devaddr": "0x4f", "attr_devtype": "tmp75", "attr_offset": "0x3", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp5_max_hyst", "attr_devaddr": "0x4f", "attr_devtype": "tmp75", "attr_offset": "0x2", "attr_mask": "0x0", "attr_len": "2"},
+                    {"attr_name": "temp5_input", "attr_devaddr": "0x4f", "attr_devtype": "tmp75", "attr_offset": "0x0", "attr_mask": "0x0", "attr_len": "2"}
+                ]
+            }
+        }
+    ],
+
+    "PORT": [
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT1"},
+            "dev_attr": {"index": "1"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x32", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT2"},
+            "dev_attr": {"index": "2"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x33", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT3"},
+            "dev_attr": {"index": "3"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x34", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT4"},
+            "dev_attr": {"index": "4"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x35", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT5"},
+            "dev_attr": {"index": "5"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x36", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT6"},
+            "dev_attr": {"index": "6"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x37", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT7"},
+            "dev_attr": {"index": "7"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x38", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT8"},
+            "dev_attr": {"index": "8"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x39", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT9"},
+            "dev_attr": {"index": "9"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x3a", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT10"},
+            "dev_attr": {"index": "10"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x3b", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT11"},
+            "dev_attr": {"index": "11"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x3c", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT12"},
+            "dev_attr": {"index": "12"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x3d", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT13"},
+            "dev_attr": {"index": "13"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x3e", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT14"},
+            "dev_attr": {"index": "14"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x3f", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT15"},
+            "dev_attr": {"index": "15"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x40", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT16"},
+            "dev_attr": {"index": "16"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x41", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT17"},
+            "dev_attr": {"index": "17"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x42", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT18"},
+            "dev_attr": {"index": "18"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x43", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT19"},
+            "dev_attr": {"index": "19"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x44", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT20"},
+            "dev_attr": {"index": "20"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x45", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT21"},
+            "dev_attr": {"index": "21"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x46", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT22"},
+            "dev_attr": {"index": "22"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x47", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT23"},
+            "dev_attr": {"index": "23"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x48", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT24"},
+            "dev_attr": {"index": "24"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x49", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT25"},
+            "dev_attr": {"index": "25"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x4a", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT26"},
+            "dev_attr": {"index": "26"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x4b", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT27"},
+            "dev_attr": {"index": "27"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x4c", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT28"},
+            "dev_attr": {"index": "28"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x4d", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT29"},
+            "dev_attr": {"index": "29"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x4e", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT30"},
+            "dev_attr": {"index": "30"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x4f", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT31"},
+            "dev_attr": {"index": "31"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x50", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        },
+        {
+            "dev_info": {"device_type": "SFP", "device_name": "PORT32"},
+            "dev_attr": {"index": "32"},
+            "i2c": {
+                "interface": [
+                    {"itf": "eeprom", "topo_info": {"parent_bus": "0x51", "dev_addr": "0x50", "dev_type": "optoe1"}},
+                    {"itf": "control", "topo_info": {"parent_bus": "0x0", "dev_addr": "0x32", "dev_type": "swpld"}}
+                ]
+            }
+        }
+    ]
+}
