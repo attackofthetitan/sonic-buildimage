@@ -2,4 +2,4 @@ ag9032v1/scripts/ag9032v1_platform_init.sh usr/local/bin
 ag9032v1/scripts/led_status.sh usr/local/bin
 ag9032v1/cfg/ag9032v1-modules.conf etc/modules-load.d
 systemd/platform-modules-ag9032v1.service lib/systemd/system
-ag9032v1/sonic_platform-1.0-py3-none-any.whl usr/share/sonic/device/x86_64-delta_ag9032v1-r0/
+ag9032v1/sonic_platform-1.0-py3-none-any.whl usr/share/sonic/device/x86_64-delta_ag9032v1-r0/pddf
