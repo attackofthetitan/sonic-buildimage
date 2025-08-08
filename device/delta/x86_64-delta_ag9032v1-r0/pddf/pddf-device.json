@@ -11,14 +11,7 @@
             "i2c-mux",
             "i2c-mux-pca954x",
             "i2c-dev",
-            "optoe",
-            "at24",
-            "pmbus_core",
-            "pmbus",
-            "dni_ag9032v1_psu",
-            "dni_emc2305",
-            "delta_ag9032v1_cpupld",
-            "delta_ag9032v1_platform"
+            "optoe"
         ],
         "pddf_kos":
         [
@@ -55,6 +48,10 @@
                 {
                     "dev_name": "i2c-0",
                     "dev": "SMBUS0"
+                },
+                {
+                    "dev_name": "i2c-1",
+                    "dev": "SMBUS1"
                 }
             ]
         }
@@ -68,6 +65,18 @@
         "i2c": {
             "topo_info": {
                 "dev_addr": "0x0"
+            }
+        }
+    },
+    "SMBUS1": {
+        "dev_info": {
+            "device_type": "SMBUS",
+            "device_name": "SMBUS1", 
+            "device_parent": "SYSTEM"
+        },
+        "i2c": {
+            "topo_info": {
+                "dev_addr": "0x1"
             }
         }
     },
@@ -92,15 +101,138 @@
             ]
         }
     },
-    "SYSTEM_LED": {
-        "dev_info": {"device_type": "CPLD", "device_name": "SYSCPLD"},
-        "dev_attr": {"index": "0"},
-        "bmc": {
-            "ipmitool": {
-                "attr_name": "sys_status"
-            }
-        }
+    "MUX": [
+    {
+        "dev_info": {
+            "device_type": "MUX",
+            "device_name": "PCA9547-MUX0",
+            "device_parent": "SMBUS0"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x0",
+                "dev_addr": "0x71",
+                "dev_type": "pca9547"
+            },
+            "channels": [
+                { "channel": 0, "bus_id": "0x2" },
+                { "channel": 1, "bus_id": "0x3" },
+                { "channel": 2, "bus_id": "0x4" },
+                { "channel": 3, "bus_id": "0x5" },
+                { "channel": 4, "bus_id": "0x6" },
+                { "channel": 5, "bus_id": "0x7" },
+                { "channel": 6, "bus_id": "0x8" },
+                { "channel": 7, "bus_id": "0x9" }
+            ]
+        },
+        "notes": "Top-level PCA9547 at 0x71 that opens buses 0x2..0x9 (adap_id 2..9 in kernel platform data)."
     },
+
+    {
+        "dev_info": {
+            "device_type": "MUX",
+            "device_name": "PCA954X-GROUP-A",
+            "device_parent": "PCA9547-MUX0"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x2",
+                "dev_addr": "0x70",
+                "dev_type": "pca954x"
+            },
+            "channels": [
+                { "channel": 0, "bus_id": "0x32" },
+                { "channel": 1, "bus_id": "0x33" },
+                { "channel": 2, "bus_id": "0x34" },
+                { "channel": 3, "bus_id": "0x35" },
+                { "channel": 4, "bus_id": "0x36" },
+                { "channel": 5, "bus_id": "0x37" },
+                { "channel": 6, "bus_id": "0x38" },
+                { "channel": 7, "bus_id": "0x39" }
+            ]
+        },
+        "notes": "Secondary mux that provides QSFP eeprom buses 0x32..0x39 for ports 1..8."
+    },
+
+    {
+        "dev_info": {
+            "device_type": "MUX",
+            "device_name": "PCA954X-GROUP-B",
+            "device_parent": "PCA9547-MUX0"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x3",
+                "dev_addr": "0x70",
+                "dev_type": "pca954x"
+            },
+            "channels": [
+                { "channel": 0, "bus_id": "0x3a" },
+                { "channel": 1, "bus_id": "0x3b" },
+                { "channel": 2, "bus_id": "0x3c" },
+                { "channel": 3, "bus_id": "0x3d" },
+                { "channel": 4, "bus_id": "0x3e" },
+                { "channel": 5, "bus_id": "0x3f" },
+                { "channel": 6, "bus_id": "0x40" },
+                { "channel": 7, "bus_id": "0x41" }
+            ]
+        },
+        "notes": "Secondary mux that provides QSFP eeprom buses 0x3a..0x41 for ports 9..16."
+    },
+
+    {
+        "dev_info": {
+            "device_type": "MUX",
+            "device_name": "PCA954X-GROUP-C",
+            "device_parent": "PCA9547-MUX0"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x4",
+                "dev_addr": "0x70",
+                "dev_type": "pca954x"
+            },
+            "channels": [
+                { "channel": 0, "bus_id": "0x42" },
+                { "channel": 1, "bus_id": "0x43" },
+                { "channel": 2, "bus_id": "0x44" },
+                { "channel": 3, "bus_id": "0x45" },
+                { "channel": 4, "bus_id": "0x46" },
+                { "channel": 5, "bus_id": "0x47" },
+                { "channel": 6, "bus_id": "0x48" },
+                { "channel": 7, "bus_id": "0x49" }
+            ]
+        },
+        "notes": "Secondary mux that provides QSFP eeprom buses 0x42..0x49 for ports 17..24."
+    },
+
+    {
+        "dev_info": {
+            "device_type": "MUX",
+            "device_name": "PCA954X-GROUP-D",
+            "device_parent": "PCA9547-MUX0"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x5",
+                "dev_addr": "0x70",
+                "dev_type": "pca954x"
+            },
+            "channels": [
+                { "channel": 0, "bus_id": "0x4a" },
+                { "channel": 1, "bus_id": "0x4b" },
+                { "channel": 2, "bus_id": "0x4c" },
+                { "channel": 3, "bus_id": "0x4d" },
+                { "channel": 4, "bus_id": "0x4e" },
+                { "channel": 5, "bus_id": "0x4f" },
+                { "channel": 6, "bus_id": "0x50" },
+                { "channel": 7, "bus_id": "0x51" }
+            ]
+        },
+        "notes": "Secondary mux that provides QSFP eeprom buses 0x4a..0x51 for ports 25..32."
+        }
+   ],
+    
 
     "CPLD": [
         {
