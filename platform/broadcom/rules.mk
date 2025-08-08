@@ -5,10 +5,17 @@ include $(PLATFORM_PATH)/sswsyncd.mk
 # * Nokia
 # * Juniper
 # * Ragile
+<<<<<<< HEAD
 
 #include $(PLATFORM_PATH)/platform-modules-nokia.mk
 #include $(PLATFORM_PATH)/platform-modules-dell.mk
 #include $(PLATFORM_PATH)/platform-modules-arista.mk
+=======
+include $(PLATFORM_PATH)/platform-modules-nokia.mk
+include $(PLATFORM_PATH)/platform-modules-dell.mk
+include $(PLATFORM_PATH)/platform-modules-arista.mk
+include $(PLATFORM_PATH)/platform-modules-nexthop.mk
+>>>>>>> 30f9bc6f96b6fa6b4eb0282aa60d80fb02ec0f5b
 #include $(PLATFORM_PATH)/platform-modules-ingrasys.mk
 #include $(PLATFORM_PATH)/platform-modules-accton.mk
 #include $(PLATFORM_PATH)/platform-modules-alphanetworks.mk
