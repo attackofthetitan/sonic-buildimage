@@ -21,11 +21,11 @@ start)
     modprobe i2c-i801
     modprobe i2c-ismt
     modprobe i2c-mux-pca954x
-    #modprobe dni_ag9032v1_psu
-    #modprobe dni_emc2305
+    modprobe dni_ag9032v1_psu
+    modprobe dni_emc2305
     modprobe at24
-    #modprobe delta_ag9032v1_platform
-    #modprobe delta_ag9032v1_cpupld
+    modprobe delta_ag9032v1_platform
+    modprobe delta_ag9032v1_cpupld
 
     /usr/local/bin/ag9032v1_platform_init.sh
     echo "done."
