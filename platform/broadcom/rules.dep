@@ -5,7 +5,6 @@ include $(PLATFORM_PATH)/sai.dep
 # * Nokia
 # * Juniper
 # * Ragile
-<<<<<<< HEAD
 #include $(PLATFORM_PATH)/platform-modules-s6000.dep
 #include $(PLATFORM_PATH)/platform-modules-dell.dep
 #include $(PLATFORM_PATH)/platform-modules-arista.dep
@@ -14,17 +13,6 @@ include $(PLATFORM_PATH)/sai.dep
 #include $(PLATFORM_PATH)/platform-modules-alphanetworks.dep
 #include $(PLATFORM_PATH)/platform-modules-inventec.dep
 #include $(PLATFORM_PATH)/platform-modules-cel.dep
-=======
-include $(PLATFORM_PATH)/platform-modules-s6000.dep
-include $(PLATFORM_PATH)/platform-modules-dell.dep
-include $(PLATFORM_PATH)/platform-modules-arista.dep
-include $(PLATFORM_PATH)/platform-modules-nexthop.dep
-include $(PLATFORM_PATH)/platform-modules-ingrasys.dep
-include $(PLATFORM_PATH)/platform-modules-accton.dep
-include $(PLATFORM_PATH)/platform-modules-alphanetworks.dep
-include $(PLATFORM_PATH)/platform-modules-inventec.dep
-include $(PLATFORM_PATH)/platform-modules-cel.dep
->>>>>>> 30f9bc6f96b6fa6b4eb0282aa60d80fb02ec0f5b
 include $(PLATFORM_PATH)/platform-modules-delta.dep
 #include $(PLATFORM_PATH)/platform-modules-quanta.dep
 #include $(PLATFORM_PATH)/platform-modules-mitac.dep
