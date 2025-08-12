@@ -68,155 +68,6 @@
         }
     },
 
-    "SMBUS0": {
-        "dev_info": {
-            "device_type": "SMBUS",
-            "device_name": "SMBUS0",
-            "device_parent": "SYSTEM"
-        },
-        "i2c": {
-            "topo_info": {
-                "dev_addr": "0x0"
-            },
-            "DEVICES": [
-                {
-                    "dev": "SYSEEPROM"
-                },
-                {
-                    "dev": "PCA9547"
-                },
-                {
-                    "dev": "MUX_QSFP0"
-                },
-                {
-                    "dev": "MUX_QSFP1"
-                },
-                {
-                    "dev": "MUX_QSFP2"
-                },
-                {
-                    "dev": "MUX_QSFP3"
-                }
-            ]
-        }
-    },
-
-    "SMBUS1": {
-        "dev_info": {
-            "device_type": "SMBUS",
-            "device_name": "SMBUS1",
-            "device_parent": "SYSTEM"
-        },
-        "i2c": {
-            "topo_info": {
-                "dev_addr": "0x0"
-            },
-            "DEVICES": [
-                {
-                    "dev": "FAN_CTRL_1"
-                },
-                {
-                    "dev": "FAN_CTRL_2"
-                },
-                {
-                    "dev": "CPLD1"
-                },
-                {
-                    "dev": "SYSSTATUS"
-                }
-            ]
-        }
-    },
-
-    "PCA9547": {
-        "dev_info": {
-            "device_type": "MUX",
-            "device_name": "PCA9547",
-            "device_parent": "SMBUS0"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x0",
-                "dev_addr": "0x71",
-                "dev_type": "pca9547"
-            },
-            "dev_attr": {
-                "virt_bus": "0x2",
-                "idle_state": "-2"
-            },
-            "channel": [
-                {
-                    "chn": "0",
-                    "dev": "VIRT_BUS_0"
-                },
-                {
-                    "chn": "1",
-                    "dev": "VIRT_BUS_1"
-                },
-                {
-                    "chn": "2",
-                    "dev": "VIRT_BUS_2"
-                },
-                {
-                    "chn": "3",
-                    "dev": "VIRT_BUS_3"
-                },
-                {
-                    "chn": "4",
-                    "dev": "VIRT_BUS_4"
-                },
-                {
-                    "chn": "5",
-                    "dev": "VIRT_BUS_5"
-                },
-                {
-                    "chn": "6",
-                    "dev": "VIRT_BUS_6"
-                },
-                {
-                    "chn": "7",
-                    "dev": "VIRT_BUS_7"
-                }
-            ]
-        }
-    },
-
-    "SYSEEPROM": {
-        "dev_info": {
-            "device_type": "EEPROM",
-            "device_name": "SYSEEPROM",
-            "device_parent": "MUX1"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x2",
-                "dev_addr": "0x53",
-                "dev_type": "eeprom"
-            },
-            "attr_list": [
-                {
-                    "attr_name": "eeprom"
-                }
-            ]
-        }
-    },
-
-    "CPLD1": {
-        "dev_info": {
-            "device_type": "CPLD",
-            "device_name": "CPLD1",
-            "device_parent": "SMBUS1"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x4",
-                "dev_addr": "0x60",
-                "dev_type": "i2c_cpld"
-            },
-            "dev_attr": {}
-        }
-    },
-
     "SYSSTATUS": {
         "dev_info": {
             "device_type": "SYSSTAT",
@@ -226,63 +77,33 @@
         "attr_list": [
             {
                 "attr_name": "board_info",
-                "attr_devaddr": "0x60",
+                "attr_devaddr": "0x31",
                 "attr_offset": "0x0",
                 "attr_mask": "0xf",
                 "attr_len": "0x1"
             },
             {
                 "attr_name": "cpld1_version",
-                "attr_devaddr": "0x60",
+                "attr_devaddr": "0x31",
                 "attr_offset": "0x1",
                 "attr_mask": "0xff",
                 "attr_len": "0x1"
             },
             {
                 "attr_name": "power_module_status",
-                "attr_devaddr": "0x60",
+                "attr_devaddr": "0x31",
                 "attr_offset": "0x2",
                 "attr_mask": "0x2f",
                 "attr_len": "0x1"
             },
             {
                 "attr_name": "system_reset5",
-                "attr_devaddr": "0x60",
+                "attr_devaddr": "0x31",
                 "attr_offset": "0x8",
                 "attr_mask": "0xff",
                 "attr_len": "0x1"
             }
         ]
-    },
-
-    "LOC_LED": {
-        "dev_info": {
-            "device_type": "LED",
-            "device_name": "LOC_LED"
-        },
-        "dev_attr": {
-            "index": "0"
-        },
-        "i2c": {
-            "attr_list": [
-                {
-                    "attr_name": "STATUS_LED_COLOR_BLUE",
-                    "bits": "7",
-                    "descr": "",
-                    "value": "0x0",
-                    "swpld_addr": "0x60",
-                    "swpld_addr_offset": "0x1C"
-                },
-                {
-                    "attr_name": "STATUS_LED_COLOR_OFF",
-                    "bits": "7",
-                    "descr": "",
-                    "value": "0x1",
-                    "swpld_addr": "0x60",
-                    "swpld_addr_offset": "0x1C"
-                }
-            ]
-        }
     },
 
     "DIAG_LED": {
@@ -300,7 +121,7 @@
                     "bits": "1:0",
                     "descr": "",
                     "value": "0x2",
-                    "swpld_addr": "0x60",
+                    "swpld_addr": "0x31",
                     "swpld_addr_offset": "0x1C"
                 },
                 {
@@ -308,7 +129,7 @@
                     "bits": "1:0",
                     "descr": "",
                     "value": "0x1",
-                    "swpld_addr": "0x60",
+                    "swpld_addr": "0x31",
                     "swpld_addr_offset": "0x1C"
                 },
                 {
@@ -316,10 +137,271 @@
                     "bits": "1:0",
                     "descr": "",
                     "value": "0x3",
-                    "swpld_addr": "0x60",
+                    "swpld_addr": "0x31",
                     "swpld_addr_offset": "0x1C"
                 }
             ]
+        }
+    },
+
+    "SMBUS0": {
+        "dev_info": {
+            "device_type": "SMBUS",
+            "device_name": "SMBUS0",
+            "device_parent": "SYSTEM"
+        },
+        "i2c": {
+            "topo_info": {
+                "dev_addr": "0x0"
+            },
+            "DEVICES": [
+                {"dev": "EEPROM1"}
+            ]
+        }
+    },
+
+    "EEPROM1": {
+        "dev_info": {
+            "device_type": "EEPROM",
+            "device_name": "EEPROM1",
+            "device_parent": "SMBUS0"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x0",
+                "dev_addr": "0x52",
+                "dev_type": "atc02"
+            },
+            "dev_attr": {
+                "access_mode": "BLOCK"
+            },
+            "attr_list": [
+                {"attr_name": "eeprom"}
+            ]
+        }
+    },
+
+    "SMBUS1": {
+        "dev_info": {
+            "device_type": "SMBUS",
+            "device_name": "SMBUS1",
+            "device_parent": "SYSTEM"
+        },
+        "i2c": {
+            "topo_info": {
+                "dev_addr": "0x0"
+            },
+            "DEVICES": [
+                {"dev": "MUX1"}
+            ]
+        }
+    },
+
+    "MUX1": {
+        "dev_info": {
+            "device_type": "MUX",
+            "device_name": "MUX1",
+            "device_parent": "SMBUS0"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x0",
+                "dev_addr": "0x71",
+                "dev_type": "pca9547"
+            },
+            "dev_attr": {
+                "virt_bus": "0x2",
+                "idle_state": "-2"
+            },
+            "channel": [
+                {"chn": "0", "dev": "CPLD1"},
+                {"chn": "0", "dev": "EEPROM2"},
+                {"chn": "0", "dev": "TEMP1"},
+                {"chn": "1", "dev": "MUX3"},
+                {"chn": "2", "dev": "MUX4"},
+                {"chn": "3", "dev": "MUX5"},
+                {"chn": "5", "dev": "TEMP2"},
+                {"chn": "5", "dev": "TEMP3"},
+                {"chn": "5", "dev": "TEMP4"}
+            ]
+        }
+    },
+
+    "CPLD1": {
+        "dev_info": {
+            "device_type": "CPLD",
+            "device_name": "CPLD1",
+            "device_parent": "MUX1"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x2",
+                "dev_addr": "0x31",
+                "dev_type": "i2c_cpld"
+            },
+            "dev_attr": {}
+        }
+    },
+    
+    "EEPROM2": {
+        "dev_info": {
+            "device_type": "EEPROM",
+            "device_name": "EEPROM2",
+            "device_parent": "MUX1"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x2",
+                "dev_addr": "0x53",
+                "dev_type": "atc02"
+            },
+            "dev_attr": {
+                "access_mode": "BLOCK"
+            },
+            "attr_list": [
+                {"attr_name": "eeprom"}
+            ]
+        }
+    },
+
+    "TEMP1": {
+        "dev_info": {
+            "device_type": "TEMP",
+            "device_name": "TEMP1",
+            "device_parent": "MUX1"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x2",
+                "dev_addr": "0x4d",
+                "dev_type": "tmp75"
+            },
+            "attr_list": [
+                {"attr_name": "temp1_high_threshold","drv_attr_name": "temp1_max"},
+                {"attr_name": "temp1_max_hyst"},
+                {"attr_name": "temp1_input"}
+            ]
+        }
+    },
+    
+    "TEMP2": {
+        "dev_info": {
+            "device_type": "TEMP",
+            "device_name": "TEMP2",
+            "device_parent": "MUX1"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x7",
+                "dev_addr": "0x4c",
+                "dev_type": "tmp75"
+            },
+            "attr_list": [
+                {
+                    "attr_name": "temp1_high_threshold",
+                    "drv_attr_name": "temp1_max"
+                },
+                {
+                    "attr_name": "temp1_max_hyst"
+                },
+                {
+                    "attr_name": "temp1_input"
+                }
+            ]
+        }
+    },
+
+    "TEMP3": {
+        "dev_info": {
+            "device_type": "TEMP",
+            "device_name": "TEMP3",
+            "device_parent": "MUX1"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x7",
+                "dev_addr": "0x4d",
+                "dev_type": "tmp75"
+            },
+            "attr_list": [
+                {
+                    "attr_name": "temp1_high_threshold",
+                    "drv_attr_name": "temp1_max"
+                },
+                {
+                    "attr_name": "temp1_max_hyst"
+                },
+                {
+                    "attr_name": "temp1_input"
+                }
+            ]
+        }
+    },
+
+    "TEMP4": {
+        "dev_info": {
+            "device_type": "TEMP",
+            "device_name": "TEMP4",
+            "device_parent": "MUX1"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x7",
+                "dev_addr": "0x4e",
+                "dev_type": "tmp75"
+            },
+            "attr_list": [
+                {
+                    "attr_name": "temp1_high_threshold",
+                    "drv_attr_name": "temp1_max"
+                },
+                {
+                    "attr_name": "temp1_max_hyst"
+                },
+                {
+                    "attr_name": "temp1_input"
+                }
+            ]
+        }
+    },
+    
+    "MUX3": {
+        "dev_info": {
+            "device_type": "MUX",
+            "device_name": "MUX3",
+            "device_parent": "MUX1"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x3",
+                "dev_addr": "0x71",
+                "dev_type": "pca9547"
+            },
+            "dev_attr": {
+                "virt_bus": "0xb",
+                "idle_state": "-2"
+            },
+            "channel": [
+                {"chn": "0","dev": "TEMP5"},
+                {"chn": "7","dev": "FAN_CTRL_1"},
+                {"chn": "8","dev": "FAN_CTRL_2"}
+            ]
+        }
+    },
+    
+    "TEMP5": {
+        "dev_info": {
+            "device_type": "TEMP",
+            "device_name": "TEMP5",
+            "device_parent": "MUX3"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0xb",
+                "dev_addr": "0x4f",
+                "dev_type": "tmp75"
+            },
+            "attr_list": [{"attr_name": "temp1_high_threshold","drv_attr_name": "temp1_max"},{"attr_name": "temp1_max_hyst"},{"attr_name": "temp1_input"}]
         }
     },
 
@@ -327,11 +409,11 @@
         "dev_info": {
             "device_type": "FAN",
             "device_name": "FAN_CTRL_1",
-            "device_parent": "SMBUS1"
+            "device_parent": "MUX3"
         },
         "i2c": {
             "topo_info": {
-                "parent_bus": "0x25",
+                "parent_bus": "0x12",
                 "dev_addr": "0x2c",
                 "dev_type": "emc2305"
             },
@@ -387,11 +469,11 @@
         "dev_info": {
             "device_type": "FAN",
             "device_name": "FAN_CTRL_2",
-            "device_parent": "SMBUS1"
+            "device_parent": "MUX3"
         },
         "i2c": {
             "topo_info": {
-                "parent_bus": "0x26",
+                "parent_bus": "0x13",
                 "dev_addr": "0x2d",
                 "dev_type": "emc2305"
             },
@@ -443,15 +525,53 @@
         }
     },
 
+    "MUX4": {
+        "dev_info": {
+            "device_type": "MUX",
+            "device_name": "MUX4",
+            "device_parent": "MUX1"
+        },
+        "i2c": {
+            "topo_info": {
+                "parent_bus": "0x4",
+                "dev_addr": "0x71",
+                "dev_type": "pca9547"
+            },
+            "dev_attr": {
+                "virt_bus": "0x14",
+                "idle_state": "-2"
+            },
+            "channel": [
+                {
+                    "chn": "0",
+                    "dev": "PSU1"
+                },
+                {
+                    "chn": "1",
+                    "dev": "PSU2"
+                },
+                {
+                    "chn": "2",
+                    "dev": "HOTSWAP1"
+                },
+                {
+                    "chn": "3",
+                    "dev": "HOTSWAP2"
+                }
+                
+            ]
+        }
+    },
+
     "PSU1": {
         "dev_info": {
             "device_type": "PSU",
             "device_name": "PSU1",
-            "device_parent": "SMBUS0"
+            "device_parent": "MUX4"
         },
         "i2c": {
             "topo_info": {
-                "parent_bus": "0x28",
+                "parent_bus": "0x14",
                 "dev_addr": "0x58",
                 "dev_type": "dni_ag9032v1_psu"
             },
@@ -471,11 +591,11 @@
         "dev_info": {
             "device_type": "PSU",
             "device_name": "PSU2",
-            "device_parent": "SMBUS0"
+            "device_parent": "MUX4"
         },
         "i2c": {
             "topo_info": {
-                "parent_bus": "0x29",
+                "parent_bus": "0x15",
                 "dev_addr": "0x58",
                 "dev_type": "dni_ag9032v1_psu"
             },
@@ -495,11 +615,11 @@
         "dev_info": {
             "device_type": "HOTSWAP",
             "device_name": "HOTSWAP1",
-            "device_parent": "SMBUS0"
+            "device_parent": "MUX4"
         },
         "i2c": {
             "topo_info": {
-                "parent_bus": "0x2a",
+                "parent_bus": "0x16",
                 "dev_addr": "0x40",
                 "dev_type": "ltc4215"
             },
@@ -513,11 +633,11 @@
         "dev_info": {
             "device_type": "HOTSWAP",
             "device_name": "HOTSWAP2",
-            "device_parent": "SMBUS0"
+            "device_parent": "MUX4"
         },
         "i2c": {
             "topo_info": {
-                "parent_bus": "0x2b",
+                "parent_bus": "0x17",
                 "dev_addr": "0x40",
                 "dev_type": "ltc4215"
             },
@@ -527,358 +647,64 @@
         }
     },
 
-    "TEMP1": {
+    "MUX5": {
         "dev_info": {
-            "device_type": "TEMP",
-            "device_name": "TEMP1",
+            "device_type": "MUX",
+            "device_name": "MUX5",
             "device_parent": "MUX1"
         },
         "i2c": {
             "topo_info": {
-                "parent_bus": "0x2",
-                "dev_addr": "0x4d",
-                "dev_type": "tmp75"
-            },
-            "attr_list": [
-                {
-                    "attr_name": "temp1_high_threshold",
-                    "drv_attr_name": "temp1_max"
-                },
-                {
-                    "attr_name": "temp1_max_hyst"
-                },
-                {
-                    "attr_name": "temp1_input"
-                }
-            ]
-        }
-    },
-
-    "TEMP2": {
-        "dev_info": {
-            "device_type": "TEMP",
-            "device_name": "TEMP2",
-            "device_parent": "MUX2"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x7",
-                "dev_addr": "0x4c",
-                "dev_type": "tmp75"
-            },
-            "attr_list": [
-                {
-                    "attr_name": "temp1_high_threshold",
-                    "drv_attr_name": "temp1_max"
-                },
-                {
-                    "attr_name": "temp1_max_hyst"
-                },
-                {
-                    "attr_name": "temp1_input"
-                }
-            ]
-        }
-    },
-
-    "TEMP3": {
-        "dev_info": {
-            "device_type": "TEMP",
-            "device_name": "TEMP3",
-            "device_parent": "MUX2"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x7",
-                "dev_addr": "0x4d",
-                "dev_type": "tmp75"
-            },
-            "attr_list": [
-                {
-                    "attr_name": "temp1_high_threshold",
-                    "drv_attr_name": "temp1_max"
-                },
-                {
-                    "attr_name": "temp1_max_hyst"
-                },
-                {
-                    "attr_name": "temp1_input"
-                }
-            ]
-        }
-    },
-
-    "TEMP4": {
-        "dev_info": {
-            "device_type": "TEMP",
-            "device_name": "TEMP4",
-            "device_parent": "MUX2"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x7",
-                "dev_addr": "0x4e",
-                "dev_type": "tmp75"
-            },
-            "attr_list": [
-                {
-                    "attr_name": "temp1_high_threshold",
-                    "drv_attr_name": "temp1_max"
-                },
-                {
-                    "attr_name": "temp1_max_hyst"
-                },
-                {
-                    "attr_name": "temp1_input"
-                }
-            ]
-        }
-    },
-
-    "TEMP5": {
-        "dev_info": {
-            "device_type": "TEMP",
-            "device_name": "TEMP5",
-            "device_parent": "MUX3"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x1e",
-                "dev_addr": "0x4f",
-                "dev_type": "tmp75"
-            },
-            "attr_list": [
-                {
-                    "attr_name": "temp1_high_threshold",
-                    "drv_attr_name": "temp1_max"
-                },
-                {
-                    "attr_name": "temp1_max_hyst"
-                },
-                {
-                    "attr_name": "temp1_input"
-                }
-            ]
-        }
-    },
-
-    "MUX_QSFP0": {
-        "dev_info": {
-            "device_type": "MUX",
-            "device_name": "MUX_QSFP0",
-            "device_parent": "SMBUS0"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x0",
-                "dev_addr": "0x70",
-                "dev_type": "pca9548"
+                "parent_bus": "0x5",
+                "dev_addr": "0x71",
+                "dev_type": "pca9547"
             },
             "dev_attr": {
                 "virt_bus": "0x32",
                 "idle_state": "-2"
             },
             "channel": [
-                {
-                    "chn": "0",
-                    "dev": "PORT1"
-                },
-                {
-                    "chn": "1",
-                    "dev": "PORT2"
-                },
-                {
-                    "chn": "2",
-                    "dev": "PORT3"
-                },
-                {
-                    "chn": "3",
-                    "dev": "PORT4"
-                },
-                {
-                    "chn": "4",
-                    "dev": "PORT5"
-                },
-                {
-                    "chn": "5",
-                    "dev": "PORT6"
-                },
-                {
-                    "chn": "6",
-                    "dev": "PORT7"
-                },
-                {
-                    "chn": "7",
-                    "dev": "PORT8"
-                }
+                {"chn": "0", "dev": "PORT1"},
+                {"chn": "1", "dev": "PORT2"},
+                {"chn": "2", "dev": "PORT3"},
+                {"chn": "3", "dev": "PORT4"},
+                {"chn": "4", "dev": "PORT5"},
+                {"chn": "5", "dev": "PORT6"},
+                {"chn": "6", "dev": "PORT7"},
+                {"chn": "7", "dev": "PORT8"},
+                {"chn": "8", "dev": "PORT9"},
+                {"chn": "9", "dev": "PORT10"},
+                {"chn": "10", "dev": "PORT11"},
+                {"chn": "11", "dev": "PORT12"},
+                {"chn": "12", "dev": "PORT13"},
+                {"chn": "13", "dev": "PORT14"},
+                {"chn": "14", "dev": "PORT15"},
+                {"chn": "15", "dev": "PORT16"},
+                {"chn": "16", "dev": "PORT17"},
+                {"chn": "17", "dev": "PORT18"},
+                {"chn": "18", "dev": "PORT19"},
+                {"chn": "19", "dev": "PORT20"},
+                {"chn": "20", "dev": "PORT21"},
+                {"chn": "21", "dev": "PORT22"},
+                {"chn": "22", "dev": "PORT23"},
+                {"chn": "23", "dev": "PORT24"},
+                {"chn": "24", "dev": "PORT25"},
+                {"chn": "25", "dev": "PORT26"},
+                {"chn": "26", "dev": "PORT27"},
+                {"chn": "27", "dev": "PORT28"},
+                {"chn": "28", "dev": "PORT29"},
+                {"chn": "29", "dev": "PORT30"},
+                {"chn": "30", "dev": "PORT31"},
+                {"chn": "31", "dev": "PORT32"}
             ]
         }
-    },
-
-    "MUX_QSFP1": {
-        "dev_info": {
-            "device_type": "MUX",
-            "device_name": "MUX_QSFP1",
-            "device_parent": "SMBUS0"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x0",
-                "dev_addr": "0x71",
-                "dev_type": "pca9548"
-            },
-            "dev_attr": {
-                "virt_bus": "0x3a",
-                "idle_state": "-2"
-            },
-            "channel": [
-                {
-                    "chn": "0",
-                    "dev": "PORT9"
-                },
-                {
-                    "chn": "1",
-                    "dev": "PORT10"
-                },
-                {
-                    "chn": "2",
-                    "dev": "PORT11"
-                },
-                {
-                    "chn": "3",
-                    "dev": "PORT12"
-                },
-                {
-                    "chn": "4",
-                    "dev": "PORT13"
-                },
-                {
-                    "chn": "5",
-                    "dev": "PORT14"
-                },
-                {
-                    "chn": "6",
-                    "dev": "PORT15"
-                },
-                {
-                    "chn": "7",
-                    "dev": "PORT16"
-                }
-            ]
-        }
-    },
-
-    "MUX_QSFP2": {
-        "dev_info": {
-            "device_type": "MUX",
-            "device_name": "MUX_QSFP2",
-            "device_parent": "SMBUS0"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x0",
-                "dev_addr": "0x72",
-                "dev_type": "pca9548"
-            },
-            "dev_attr": {
-                "virt_bus": "0x42",
-                "idle_state": "-2"
-            },
-            "channel": [
-                {
-                    "chn": "0",
-                    "dev": "PORT17"
-                },
-                {
-                    "chn": "1",
-                    "dev": "PORT18"
-                },
-                {
-                    "chn": "2",
-                    "dev": "PORT19"
-                },
-                {
-                    "chn": "3",
-                    "dev": "PORT20"
-                },
-                {
-                    "chn": "4",
-                    "dev": "PORT21"
-                },
-                {
-                    "chn": "5",
-                    "dev": "PORT22"
-                },
-                {
-                    "chn": "6",
-                    "dev": "PORT23"
-                },
-                {
-                    "chn": "7",
-                    "dev": "PORT24"
-                }
-            ]
-        }
-    },
-
-    "MUX_QSFP3": {
-        "dev_info": {
-            "device_type": "MUX",
-            "device_name": "MUX_QSFP3",
-            "device_parent": "SMBUS0"
-        },
-        "i2c": {
-            "topo_info": {
-                "parent_bus": "0x0",
-                "dev_addr": "0x73",
-                "dev_type": "pca9548"
-            },
-            "dev_attr": {
-                "virt_bus": "0x4a",
-                "idle_state": "-2"
-            },
-            "channel": [
-                {
-                    "chn": "0",
-                    "dev": "PORT25"
-                },
-                {
-                    "chn": "1",
-                    "dev": "PORT26"
-                },
-                {
-                    "chn": "2",
-                    "dev": "PORT27"
-                },
-                {
-                    "chn": "3",
-                    "dev": "PORT28"
-                },
-                {
-                    "chn": "4",
-                    "dev": "PORT29"
-                },
-                {
-                    "chn": "5",
-                    "dev": "PORT30"
-                },
-                {
-                    "chn": "6",
-                    "dev": "PORT31"
-                },
-                {
-                    "chn": "7",
-                    "dev": "PORT32"
-                }
-            ]
-        }
-    },
+    },    
 
     "PORT1": {
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT1",
-            "device_parent": "MUX_QSFP0"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "1"
@@ -901,7 +727,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT1-EEPROM",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT1"
         },
         "i2c": {
@@ -922,7 +748,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT1-CTRL",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT1"
         },
         "i2c": {
@@ -934,7 +760,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -944,7 +770,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -954,7 +780,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -970,7 +796,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT2",
-            "device_parent": "MUX_QSFP0"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "2"
@@ -993,7 +819,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT2-EEPROM",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT2"
         },
         "i2c": {
@@ -1014,7 +840,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT2-CTRL",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT2"
         },
         "i2c": {
@@ -1026,7 +852,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1036,7 +862,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1046,7 +872,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1062,7 +888,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT3",
-            "device_parent": "MUX_QSFP0"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "3"
@@ -1085,7 +911,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT3-EEPROM",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT3"
         },
         "i2c": {
@@ -1106,7 +932,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT3-CTRL",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT3"
         },
         "i2c": {
@@ -1118,7 +944,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1128,7 +954,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1138,7 +964,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1154,7 +980,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT4",
-            "device_parent": "MUX_QSFP0"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "4"
@@ -1176,7 +1002,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT4-EEPROM",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT4"
         },
         "i2c": {
@@ -1196,7 +1022,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT4-CTRL",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT4"
         },
         "i2c": {
@@ -1208,7 +1034,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1218,7 +1044,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1228,7 +1054,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1243,7 +1069,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT5",
-            "device_parent": "MUX_QSFP0"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "5"
@@ -1265,7 +1091,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT5-EEPROM",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT5"
         },
         "i2c": {
@@ -1285,7 +1111,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT5-CTRL",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT5"
         },
         "i2c": {
@@ -1297,7 +1123,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1307,7 +1133,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1317,7 +1143,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1332,7 +1158,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT6",
-            "device_parent": "MUX_QSFP0"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "6"
@@ -1354,7 +1180,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT6-EEPROM",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT6"
         },
         "i2c": {
@@ -1374,7 +1200,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT6-CTRL",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT6"
         },
         "i2c": {
@@ -1386,7 +1212,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1396,7 +1222,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1406,7 +1232,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1421,7 +1247,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT7",
-            "device_parent": "MUX_QSFP0"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "7"
@@ -1443,7 +1269,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT7-EEPROM",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT7"
         },
         "i2c": {
@@ -1463,7 +1289,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT7-CTRL",
-            "device_parent": "MUX_QSFP0",
+            "device_parent": "MUX5",
             "virt_parent": "PORT7"
         },
         "i2c": {
@@ -1475,7 +1301,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1485,7 +1311,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1495,7 +1321,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1510,7 +1336,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT8",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "8"
@@ -1532,7 +1358,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT8-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT8"
         },
         "i2c": {
@@ -1552,7 +1378,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT8-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT8"
         },
         "i2c": {
@@ -1564,7 +1390,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1574,7 +1400,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1584,7 +1410,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1599,7 +1425,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT9",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "9"
@@ -1621,7 +1447,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT9-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT9"
         },
         "i2c": {
@@ -1641,7 +1467,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT9-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT9"
         },
         "i2c": {
@@ -1653,7 +1479,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1663,7 +1489,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1673,7 +1499,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1688,7 +1514,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT10",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "10"
@@ -1710,7 +1536,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT10-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT10"
         },
         "i2c": {
@@ -1730,7 +1556,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT10-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT10"
         },
         "i2c": {
@@ -1742,7 +1568,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1752,7 +1578,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1762,7 +1588,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1777,7 +1603,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT11",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "11"
@@ -1799,7 +1625,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT11-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT11"
         },
         "i2c": {
@@ -1819,7 +1645,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT11-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT11"
         },
         "i2c": {
@@ -1831,7 +1657,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1841,7 +1667,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1851,7 +1677,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1866,7 +1692,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT12",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "12"
@@ -1888,7 +1714,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT12-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT12"
         },
         "i2c": {
@@ -1908,7 +1734,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT12-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT12"
         },
         "i2c": {
@@ -1920,7 +1746,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -1930,7 +1756,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -1940,7 +1766,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -1955,7 +1781,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT13",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "13"
@@ -1977,7 +1803,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT13-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT13"
         },
         "i2c": {
@@ -1997,7 +1823,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT13-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT13"
         },
         "i2c": {
@@ -2009,7 +1835,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2019,7 +1845,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2029,7 +1855,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2044,7 +1870,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT14",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "14"
@@ -2066,7 +1892,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT14-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT14"
         },
         "i2c": {
@@ -2086,7 +1912,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT14-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT14"
         },
         "i2c": {
@@ -2098,7 +1924,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2108,7 +1934,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2118,7 +1944,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2133,7 +1959,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT15",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "15"
@@ -2155,7 +1981,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT15-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT15"
         },
         "i2c": {
@@ -2175,7 +2001,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT15-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT15"
         },
         "i2c": {
@@ -2187,7 +2013,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2197,7 +2023,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2207,7 +2033,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2222,7 +2048,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT16",
-            "device_parent": "MUX_QSFP1"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "16"
@@ -2244,7 +2070,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT16-EEPROM",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT16"
         },
         "i2c": {
@@ -2264,7 +2090,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT16-CTRL",
-            "device_parent": "MUX_QSFP1",
+            "device_parent": "MUX5",
             "virt_parent": "PORT16"
         },
         "i2c": {
@@ -2276,7 +2102,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2286,7 +2112,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2296,7 +2122,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2311,7 +2137,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT17",
-            "device_parent": "MUX_QSFP2"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "17"
@@ -2333,7 +2159,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT17-EEPROM",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT17"
         },
         "i2c": {
@@ -2353,7 +2179,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT17-CTRL",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT17"
         },
         "i2c": {
@@ -2365,7 +2191,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2375,7 +2201,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2385,7 +2211,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2400,7 +2226,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT18",
-            "device_parent": "MUX_QSFP2"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "18"
@@ -2422,7 +2248,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT18-EEPROM",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT18"
         },
         "i2c": {
@@ -2442,7 +2268,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT18-CTRL",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT18"
         },
         "i2c": {
@@ -2454,7 +2280,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2464,7 +2290,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2474,7 +2300,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2489,7 +2315,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT19",
-            "device_parent": "MUX_QSFP2"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "19"
@@ -2511,7 +2337,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT19-EEPROM",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT19"
         },
         "i2c": {
@@ -2531,7 +2357,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT19-CTRL",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT19"
         },
         "i2c": {
@@ -2543,7 +2369,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2553,7 +2379,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2563,7 +2389,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2578,7 +2404,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT20",
-            "device_parent": "MUX_QSFP2"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "20"
@@ -2600,7 +2426,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT20-EEPROM",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT20"
         },
         "i2c": {
@@ -2620,7 +2446,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT20-CTRL",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT20"
         },
         "i2c": {
@@ -2632,7 +2458,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2642,7 +2468,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2652,7 +2478,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2667,7 +2493,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT21",
-            "device_parent": "MUX_QSFP2"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "21"
@@ -2689,7 +2515,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT21-EEPROM",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT21"
         },
         "i2c": {
@@ -2709,7 +2535,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT21-CTRL",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT21"
         },
         "i2c": {
@@ -2721,7 +2547,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2731,7 +2557,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2741,7 +2567,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2756,7 +2582,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT22",
-            "device_parent": "MUX_QSFP2"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "22"
@@ -2778,7 +2604,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT22-EEPROM",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT22"
         },
         "i2c": {
@@ -2798,7 +2624,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT22-CTRL",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT22"
         },
         "i2c": {
@@ -2810,7 +2636,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2820,7 +2646,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2830,7 +2656,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2845,7 +2671,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT23",
-            "device_parent": "MUX_QSFP2"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "23"
@@ -2867,7 +2693,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT23-EEPROM",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT23"
         },
         "i2c": {
@@ -2887,7 +2713,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT23-CTRL",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT23"
         },
         "i2c": {
@@ -2899,7 +2725,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2909,7 +2735,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -2919,7 +2745,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -2934,7 +2760,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT24",
-            "device_parent": "MUX_QSFP2"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "24"
@@ -2956,7 +2782,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT24-EEPROM",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT24"
         },
         "i2c": {
@@ -2976,7 +2802,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT24-CTRL",
-            "device_parent": "MUX_QSFP2",
+            "device_parent": "MUX5",
             "virt_parent": "PORT24"
         },
         "i2c": {
@@ -2988,7 +2814,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -2998,7 +2824,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3008,7 +2834,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3023,7 +2849,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT25",
-            "device_parent": "MUX_QSFP3"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "25"
@@ -3045,7 +2871,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT25-EEPROM",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT25"
         },
         "i2c": {
@@ -3065,7 +2891,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT25-CTRL",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT25"
         },
         "i2c": {
@@ -3077,7 +2903,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -3087,7 +2913,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3097,7 +2923,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3112,7 +2938,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT26",
-            "device_parent": "MUX_QSFP3"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "26"
@@ -3134,7 +2960,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT26-EEPROM",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT26"
         },
         "i2c": {
@@ -3154,7 +2980,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT26-CTRL",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT26"
         },
         "i2c": {
@@ -3166,7 +2992,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -3176,7 +3002,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3186,7 +3012,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3201,7 +3027,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT27",
-            "device_parent": "MUX_QSFP3"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "27"
@@ -3223,7 +3049,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT27-EEPROM",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT27"
         },
         "i2c": {
@@ -3243,7 +3069,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT27-CTRL",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT27"
         },
         "i2c": {
@@ -3255,7 +3081,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -3265,7 +3091,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3275,7 +3101,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3290,7 +3116,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT28",
-            "device_parent": "MUX_QSFP3"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "28"
@@ -3312,7 +3138,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT28-EEPROM",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT28"
         },
         "i2c": {
@@ -3332,7 +3158,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT28-CTRL",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT28"
         },
         "i2c": {
@@ -3344,7 +3170,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -3354,7 +3180,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3364,7 +3190,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3379,7 +3205,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT29",
-            "device_parent": "MUX_QSFP3"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "29"
@@ -3401,7 +3227,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT29-EEPROM",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT29"
         },
         "i2c": {
@@ -3421,7 +3247,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT29-CTRL",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT29"
         },
         "i2c": {
@@ -3433,7 +3259,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -3443,7 +3269,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3453,7 +3279,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3468,7 +3294,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT30",
-            "device_parent": "MUX_QSFP3"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "30"
@@ -3490,7 +3316,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT30-EEPROM",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT30"
         },
         "i2c": {
@@ -3510,7 +3336,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT30-CTRL",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT30"
         },
         "i2c": {
@@ -3522,7 +3348,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -3532,7 +3358,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3542,7 +3368,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3557,7 +3383,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT31",
-            "device_parent": "MUX_QSFP3"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "31"
@@ -3579,7 +3405,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT31-EEPROM",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT31"
         },
         "i2c": {
@@ -3599,7 +3425,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT31-CTRL",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT31"
         },
         "i2c": {
@@ -3611,7 +3437,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -3621,7 +3447,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3631,7 +3457,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3646,7 +3472,7 @@
         "dev_info": {
             "device_type": "QSFP",
             "device_name": "PORT32",
-            "device_parent": "MUX_QSFP3"
+            "device_parent": "MUX5"
         },
         "dev_attr": {
             "dev_idx": "32"
@@ -3668,7 +3494,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT32-EEPROM",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT32"
         },
         "i2c": {
@@ -3688,7 +3514,7 @@
         "dev_info": {
             "device_type": "",
             "device_name": "PORT32-CTRL",
-            "device_parent": "MUX_QSFP3",
+            "device_parent": "MUX5",
             "virt_parent": "PORT32"
         },
         "i2c": {
@@ -3700,7 +3526,7 @@
             "attr_list": [
                 {
                     "attr_name": "xcvr_present",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x30",
@@ -3710,7 +3536,7 @@
                 },
                 {
                     "attr_name": "xcvr_reset",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x04",
@@ -3720,7 +3546,7 @@
                 },
                 {
                     "attr_name": "xcvr_intr_status",
-                    "attr_devaddr": "0x60",
+                    "attr_devaddr": "0x31",
                     "attr_devtype": "cpld",
                     "attr_devname": "CPLD1",
                     "attr_offset": "0x10",
@@ -3731,6 +3557,4 @@
             ]
         }
     }
-
-    
 }
