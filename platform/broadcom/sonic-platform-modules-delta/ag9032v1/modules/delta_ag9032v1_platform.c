@@ -2335,6 +2335,7 @@ static int __init swpld_mux_probe(struct platform_device *pdev)
 
     mux = kzalloc(sizeof(*mux), GFP_KERNEL);
     if (!mux) {
+        dev_err(&pdev->dev, "Failed to allocate memory for mux\n");
         //printk(KERN_ERR "Failed to allocate memory for mux\n");
         return -ENOMEM;
     }
