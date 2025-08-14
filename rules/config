@@ -107,7 +107,7 @@ FRR_USER_GID = 300
 #	rcache  :  Use cache if exists, but dont update the cache
 #	cache   :  Same as rwcache
 # SONIC_DPKG_CACHE_SOURCE - Stores the cache location details
-SONIC_DPKG_CACHE_METHOD ?= cache
+SONIC_DPKG_CACHE_METHOD ?= none
 SONIC_DPKG_CACHE_SOURCE ?= /var/cache/sonic/artifacts
 
 # Default VS build memory preparation
