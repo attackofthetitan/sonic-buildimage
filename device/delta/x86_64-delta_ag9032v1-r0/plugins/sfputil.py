@@ -9,18 +9,22 @@ try:
 except ImportError as e:
     raise ImportError("%s - required module not found" % str(e))
 
+SFP_STATUS_REMOVED = '0'
+SFP_STATUS_INSERTED = '1'
+
 
 class SfpUtil(SfpUtilBase):
     """Platform-specific SfpUtil class"""
 
-    PORT_START = 0
-    PORT_END = 31
+    PORT_START = 1
+    PORT_END = 32
     PORTS_IN_BLOCK = 32
 
     EEPROM_OFFSET = 50
 
     _port_to_eeprom_mapping = {}
-
+    _global_port_pres_dict = {}
+    
     @property
     def port_start(self):
         return self.PORT_START
@@ -31,18 +35,26 @@ class SfpUtil(SfpUtilBase):
 
     @property
     def qsfp_ports(self):
-        return list(range(0, self.PORTS_IN_BLOCK + 1))
+        return list(range(self.PORT_START, self.PORTS_IN_BLOCK + 1))
 
     @property
     def port_to_eeprom_mapping(self):
         return self._port_to_eeprom_mapping
+    
+    def init_global_port_presence(self):
+    for port_num in range(self.port_start, (self.port_end + 1)):
+        presence = self.get_presence(port_num)
+        if(presence):
+            self._global_port_pres_dict[port_num] = '1'
+        else:
+            self._global_port_pres_dict[port_num] = '0'
 
     def __init__(self):
         eeprom_path = "/sys/class/i2c-adapter/i2c-{0}/{0}-0050/eeprom"
 
-        for x in range(0, self.port_end + 1):
-            self._port_to_eeprom_mapping[x] = eeprom_path.format(x + self.EEPROM_OFFSET)
-
+        for x in range(self.port_start, self.port_end + 1):
+            self._port_to_eeprom_mapping[x] = eeprom_path.format(x + self.EEPROM_OFFSET - 1)
+        self.init_global_port_presence()
         SfpUtilBase.__init__(self)
 
     def get_presence(self, port_num):
@@ -51,7 +63,7 @@ class SfpUtil(SfpUtilBase):
             return False
 
         try:
-            reg_file = open("/sys/devices/platform/delta-ag9032v1-swpld.0/sfp_present")
+            reg_file = open("/sys/bus/i2c/devices/{0}-0053/xcvr_present".format(port_num + self.EEPROM_OFFSET - 1))
         except IOError as e:
             print("Error: unable to open file: %s" % str(e))
             return False
@@ -62,7 +74,7 @@ class SfpUtil(SfpUtilBase):
         reg_value = int(content, 16)
 
         # Mask off the bit corresponding to our port
-        mask = (1 << port_num)
+        mask = (1 << port_num - 1)
 
         # ModPrsL is active low
         if reg_value & mask == 0:
@@ -173,11 +185,20 @@ class SfpUtil(SfpUtilBase):
         reg_file.close()
 
         return True
-
+    
     def get_transceiver_change_event(self):
-        """
-        TODO: This function need to be implemented
-        when decide to support monitoring SFP(Xcvrd)
-        on this platform.
-        """
-        raise NotImplementedError
+        while True:
+            for port_num in range(self.port_start, (self.port_end + 1)):
+                presence = self.get_presence(port_num)
+                if(presence and self._global_port_pres_dict[port_num] == '0'):
+                    self._global_port_pres_dict[port_num] = '1'
+                    port_dict[port_num] = '1'
+                elif(not presence and
+                     self._global_port_pres_dict[port_num] == '1'):
+                    self._global_port_pres_dict[port_num] = '0'
+                    port_dict[port_num] = '0'
+
+                if(len(port_dict) > 0):
+                    return True, port_dict
+
+            time.sleep(0.5)
