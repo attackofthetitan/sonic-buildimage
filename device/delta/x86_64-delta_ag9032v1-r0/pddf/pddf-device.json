@@ -16,8 +16,7 @@
             ],
             "FAN": [
                 "fan_ctrl",
-                "fan_eeprom",
-                "dni_emc2305"
+                "fan_eeprom"
             ],
             "PORT_MODULE": [
                 "pddf_xcvr"
@@ -35,8 +34,7 @@
             "i2c_smbus",
             "i2c_mux_pca954x",
             "at24",
-            "optoe",
-            "dni_emc2305"
+            "optoe"
         ],
         "pddf_kos": [
             "pddf_client_module",
@@ -425,29 +423,34 @@
         },
         "i2c": {
             "topo_info": {
+                "dev_type": "fan_ctrl",
                 "parent_bus": "0x25",
-                "dev_addr": "0x2c",
-                "dev_type": "fan_ctrl"
+                "dev_addr": "0x2c"
             },
             "dev_attr": {
                 "num_fantrays": "5"
             },
             "attr_list": [
-                {"attr_name": "fan1_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x1", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan2_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x2", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan3_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x3", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan4_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x4", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan5_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x5", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan1_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x3e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-                {"attr_name": "fan2_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x4e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-                {"attr_name": "fan3_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x5e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-                {"attr_name": "fan4_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x6e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-                {"attr_name": "fan5_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x7e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-				{"attr_name": "fan1_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x30", "attr_mask": "0xFF", "attr_len": "1"},
-                {"attr_name": "fan2_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x40", "attr_mask": "0xFF", "attr_len": "1"},
-                {"attr_name": "fan3_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x50", "attr_mask": "0xFF", "attr_len": "1"},
-                {"attr_name": "fan4_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x60", "attr_mask": "0xFF", "attr_len": "1"},
-                {"attr_name": "fan5_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x70", "attr_mask": "0xFF", "attr_len": "1"}
+                { "attr_name": "fan1_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan1_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x3E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan1_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x30", "attr_mask": "0xFF", "attr_len": "1" },
+
+                { "attr_name": "fan2_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan2_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x4E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan2_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x40", "attr_mask": "0xFF", "attr_len": "1" },
+
+                { "attr_name": "fan3_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan3_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x5E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan3_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x50", "attr_mask": "0xFF", "attr_len": "1" },
+                
+                { "attr_name": "fan4_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan4_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x6E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan4_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x60", "attr_mask": "0xFF", "attr_len": "1" },
+
+                { "attr_name": "fan5_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan5_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x7E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan5_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x70", "attr_mask": "0xFF", "attr_len": "1" }
+
             ]
         }
     },
@@ -460,32 +463,37 @@
         },
         "i2c": {
             "topo_info": {
+                "dev_type": "fan_ctrl",
                 "parent_bus": "0x26",
-                "dev_addr": "0x2d",
-                "dev_type": "fan_ctrl"
+                "dev_addr": "0x2d"
             },
             "dev_attr": {
                 "num_fantrays": "5"
             },
             "attr_list": [
-                {"attr_name": "fan1_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x6", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan2_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x7", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan3_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x8", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan4_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x9", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan5_present", "attr_devtype": "FAN-CTRL", "attr_offset": "0x0f", "attr_mask": "0x10", "attr_cmpval": "0x0", "attr_len": "1"},
-                {"attr_name": "fan1_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x3e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-                {"attr_name": "fan2_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x4e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-                {"attr_name": "fan3_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x5e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-                {"attr_name": "fan4_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x6e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-                {"attr_name": "fan5_input", "attr_devtype": "FAN-CTRL", "attr_offset": "0x7e", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "1", "attr_is_divisor": 0},
-				{"attr_name": "fan1_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x30", "attr_mask": "0xFF", "attr_len": "1"},
-                {"attr_name": "fan2_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x40", "attr_mask": "0xFF", "attr_len": "1"},
-                {"attr_name": "fan3_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x50", "attr_mask": "0xFF", "attr_len": "1"},
-                {"attr_name": "fan4_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x60", "attr_mask": "0xFF", "attr_len": "1"},
-                {"attr_name": "fan5_pwm", "attr_devtype": "FAN-CTRL", "attr_offset": "0x70", "attr_mask": "0xFF", "attr_len": "1"}
+                { "attr_name": "fan6_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan6_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x3E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan6_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x30", "attr_mask": "0xFF", "attr_len": "1" },
+                
+                { "attr_name": "fan7_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan7_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x4E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan7_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x40", "attr_mask": "0xFF", "attr_len": "1" },
+                
+                { "attr_name": "fan8_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan8_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x5E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan8_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x50", "attr_mask": "0xFF", "attr_len": "1" },
+                
+                { "attr_name": "fan9_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan9_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x6E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan9_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x60", "attr_mask": "0xFF", "attr_len": "1" },
+                
+                { "attr_name": "fan10_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan10_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x7E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
+                { "attr_name": "fan10_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x70", "attr_mask": "0xFF", "attr_len": "1" }
             ]
         }
     },
+
 
     "CPLDMUX2": {
         "dev_info": {
@@ -502,7 +510,7 @@
             "dev_attr": {
                 "base_chan": "0x28",
                 "num_chan": "6",
-                "cpld_name": "CPLD1",
+                "cpld_name": "CPLD2",
                 "chan_cache": "1"
             },
             "channel": [
@@ -522,7 +530,8 @@
         },
         "dev_attr":{
             "dev_idx": "1",
-            "num_psu_fans": "1"
+            "num_psu_fans": "1",
+            "num_psu_thermals": "2"
         },
         "i2c": {
             "interface":
@@ -547,17 +556,18 @@
             },
             "attr_list": [
                 { "attr_name": "psu_present",         "attr_devaddr": "0x31", "attr_devname": "CPLD1", "attr_devtype": "cpld",  "attr_offset": "0x21", "attr_mask": "0x20", "attr_cmpval": "0x00", "attr_len": "1" },
-                { "attr_name": "psu_power_good",      "attr_devaddr": "0x31", "attr_devname": "CPLD1", "attr_devtype": "cpld",  "attr_offset": "0x0a", "attr_mask": "0x07", "attr_cmpval": "0x00", "attr_len": "1" },
-                { "attr_name": "psu_v_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x88", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_v_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8b", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_i_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x89", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_i_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8c", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_p_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x97", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_p_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x96", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_temp1_input",     "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8d", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_fan1_speed_rpm",  "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x90", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_model_name",      "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x9a", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "16" },
-                { "attr_name": "psu_serial_num",      "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x9e", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "16" }
+                { "attr_name": "psu_power_good",      "attr_devaddr": "0x31", "attr_devname": "CPLD2", "attr_devtype": "cpld",  "attr_offset": "0x0a", "attr_mask": "0x80", "attr_cmpval": "0x80", "attr_len": "1" },
+                { "attr_name": "psu_v_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x88", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_v_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8b", "attr_mask": "0x00", "attr_len": "2", "attr_data_format": "linear16" },
+                { "attr_name": "psu_i_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x89", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_i_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8c", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_p_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x97", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_p_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x96", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_temp1_input",     "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8d", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_temp2_input",     "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8e", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_fan1_speed_rpm",  "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x90", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_model_name",      "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x9a", "attr_mask": "0x00", "attr_len": "16" },
+                { "attr_name": "psu_serial_num",      "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x9e", "attr_mask": "0x00", "attr_len": "16" }
             ]
         }
     },
@@ -570,7 +580,8 @@
         },
         "dev_attr": {
             "dev_idx": "2",
-            "num_psu_fans": "1"
+            "num_psu_fans": "1",
+            "num_psu_thermals": "2"
         },
         "i2c": {
             "interface": [
@@ -594,17 +605,18 @@
             },
             "attr_list": [
                 { "attr_name": "psu_present",         "attr_devaddr": "0x31", "attr_devname": "CPLD1", "attr_devtype": "cpld",  "attr_offset": "0x21", "attr_mask": "0x20", "attr_cmpval": "0x20", "attr_len": "1" },
-                { "attr_name": "psu_power_good",      "attr_devaddr": "0x31", "attr_devname": "CPLD1", "attr_devtype": "cpld",  "attr_offset": "0x0a", "attr_mask": "0x06", "attr_cmpval": "0x00", "attr_len": "1" },
-                { "attr_name": "psu_v_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x88", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_v_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8B", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_i_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x89", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_i_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8c", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_p_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x97", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_p_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x96", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_temp1_input",     "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8d", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_fan1_speed_rpm",  "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x90", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "2" },
-                { "attr_name": "psu_model_name",      "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x9a", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "16" },
-                { "attr_name": "psu_serial_num",      "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x9e", "attr_mask": "0x00", "attr_cmpval": "0xFF", "attr_len": "16" }
+                { "attr_name": "psu_power_good",      "attr_devaddr": "0x31", "attr_devname": "CPLD2", "attr_devtype": "cpld",  "attr_offset": "0x0a", "attr_mask": "0x40", "attr_cmpval": "0x40", "attr_len": "1" },
+                { "attr_name": "psu_v_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x88", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_v_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8B", "attr_mask": "0x00", "attr_len": "2", "attr_data_format": "linear16" },
+                { "attr_name": "psu_i_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x89", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_i_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8c", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_p_in",            "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x97", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_p_out",           "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x96", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_temp1_input",     "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8d", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_temp2_input",     "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x8e", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_fan1_speed_rpm",  "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x90", "attr_mask": "0x00", "attr_len": "2" },
+                { "attr_name": "psu_model_name",      "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x9a", "attr_mask": "0x00", "attr_len": "16" },
+                { "attr_name": "psu_serial_num",      "attr_devaddr": "0x58", "attr_devtype": "pmbus", "attr_offset": "0x9e", "attr_mask": "0x00", "attr_len": "16" }
             ]
         }
     },
@@ -660,7 +672,7 @@
             "dev_attr": {
                 "base_chan": "0x32",
                 "num_chan": "32",
-                "cpld_name": "CPLD1",
+                "cpld_name": "CPLD2",
                 "chan_cache": "1"
             },
             "channel": [
