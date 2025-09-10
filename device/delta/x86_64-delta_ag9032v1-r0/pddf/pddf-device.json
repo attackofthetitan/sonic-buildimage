@@ -34,7 +34,8 @@
             "i2c_smbus",
             "i2c_mux_pca954x",
             "at24",
-            "optoe"
+            "optoe",
+            "ltc4215"
         ],
         "pddf_kos": [
             "pddf_client_module",
@@ -431,23 +432,23 @@
                 "num_fantrays": "5"
             },
             "attr_list": [
-                { "attr_name": "fan1_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan1_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan1_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x3E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan1_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x30", "attr_mask": "0xFF", "attr_len": "1" },
 
-                { "attr_name": "fan2_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan2_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan2_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x4E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan2_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x40", "attr_mask": "0xFF", "attr_len": "1" },
 
-                { "attr_name": "fan3_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan3_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan3_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x5E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan3_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x50", "attr_mask": "0xFF", "attr_len": "1" },
                 
-                { "attr_name": "fan4_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan4_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan4_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x6E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan4_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x60", "attr_mask": "0xFF", "attr_len": "1" },
 
-                { "attr_name": "fan5_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan5_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan5_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x7E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan5_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2c", "attr_offset": "0x70", "attr_mask": "0xFF", "attr_len": "1" }
 
@@ -471,23 +472,23 @@
                 "num_fantrays": "5"
             },
             "attr_list": [
-                { "attr_name": "fan6_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan6_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan6_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x3E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan6_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x30", "attr_mask": "0xFF", "attr_len": "1" },
                 
-                { "attr_name": "fan7_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan7_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan7_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x4E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan7_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x40", "attr_mask": "0xFF", "attr_len": "1" },
                 
-                { "attr_name": "fan8_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan8_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan8_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x5E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan8_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x50", "attr_mask": "0xFF", "attr_len": "1" },
                 
-                { "attr_name": "fan9_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan9_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan9_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x6E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan9_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x60", "attr_mask": "0xFF", "attr_len": "1" },
                 
-                { "attr_name": "fan10_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x1", "attr_len":"1"},
+                { "attr_name": "fan10_present", "attr_devtype":"FAN-CTRL", "attr_cmpval":"0x0", "attr_len":"1"},
                 { "attr_name": "fan10_input", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x7E", "attr_mask": "0xFFFF", "attr_len": "2", "attr_mult": "7864320", "attr_is_divisor": 1 },
                 { "attr_name": "fan10_pwm", "attr_devtype": "FAN-CTRL", "attr_devaddr": "0x2d", "attr_offset": "0x70", "attr_mask": "0xFF", "attr_len": "1" }
             ]
