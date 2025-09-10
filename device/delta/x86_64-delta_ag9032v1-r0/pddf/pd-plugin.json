@@ -23,7 +23,7 @@
         {
             "i2c": 
             {
-                "valmap": { "0": true, "1": false }
+                "valmap": { "1": true, "0": false }
             }
         },
         
