@@ -144,18 +144,8 @@ INCLUDE_NAT = y
 # INCLUDE_DHCP_RELAY - build and install dhcp-relay package
 INCLUDE_DHCP_RELAY = y
 
-<<<<<<< HEAD
-# INCLUDE_DHCP_SERVER - build and install dhcp-server package
-INCLUDE_DHCP_SERVER ?= y
-
-# Conditionally enable DHCP_SERVER when SMARTSWITCH is set to 1
-ifeq ($(SMARTSWITCH), 1)
-    INCLUDE_DHCP_SERVER = y
-endif
-=======
 # INCLUDE_DHCP_SERVER - build dhcp-server package and enable based on config_db.json
 INCLUDE_DHCP_SERVER ?= y
->>>>>>> upstream/master
 
 # INCLUDE_P4RT - build docker-p4rt for P4RT support
 INCLUDE_P4RT = n
