@@ -525,7 +525,7 @@ static struct platform_device ag9032v1_i2c_device[] = {
 /*----------------   I2C device   - end   ------------- */
 
 /*----------------   I2C driver   - start   ------------- */
-static int __init i2c_device_probe(struct platform_device *pdev)
+static int i2c_device_probe(struct platform_device *pdev)
 {
     //update for bookworm
     struct i2c_device_platform_data *pdata = dev_get_platdata(&pdev->dev);
@@ -545,7 +545,7 @@ static int __init i2c_device_probe(struct platform_device *pdev)
     }
 
     pdata->client = i2c_new_client_device(parent, &pdata->info);
-    if (!pdata->client) {
+    if (IS_ERR(pdata->client)) {
         dev_err(&pdev->dev, "Failed to create i2c client %s at %d\n",
             pdata->info.type, pdata->parent);
         i2c_put_adapter(parent);
@@ -558,15 +558,21 @@ static int __init i2c_device_probe(struct platform_device *pdev)
     return 0;
 }
 
-static int __exit i2c_device_remove(struct platform_device *pdev)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 0)
+static void i2c_device_remove(struct platform_device *pdev)
+#else
+static int i2c_device_remove(struct platform_device *pdev)
+#endif
 {
     struct i2c_adapter *parent;
     struct i2c_device_platform_data *pdata = dev_get_platdata(&pdev->dev);
-    //update for bookworm
-    //pdata = pdev->dev.platform_data;
     if (!pdata) {
         dev_err(&pdev->dev, "Missing platform data\n");
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 1, 0)
         return -ENODEV;
+#else
+        return;
+#endif
     }
 
     if (pdata->client) {
@@ -575,14 +581,14 @@ static int __exit i2c_device_remove(struct platform_device *pdev)
         i2c_put_adapter(parent);
         pdata->client = NULL;
     }
-
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 1, 0)
     return 0;
+#endif
 }
 static struct platform_driver i2c_device_driver = {
     .probe = i2c_device_probe,
-    .remove = __exit_p(i2c_device_remove),
+    .remove = i2c_device_remove,
     .driver = {
-        .owner = THIS_MODULE,
         .name = "delta-ag9032v1-i2c-device",
     }
 };
@@ -1846,7 +1852,7 @@ static struct attribute_group ag9032v1_swpld_attr_grp_controller_interrupt = {
 };
 
 /*    CPLD  -- driver   */
-static int __init cpld_probe(struct platform_device *pdev)
+static int cpld_probe(struct platform_device *pdev)
 {
     struct cpld_platform_data *pdata;
     struct i2c_adapter *parent;
@@ -1971,7 +1977,11 @@ error:
     return ret; 
 }
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 0)
+static void cpld_remove(struct platform_device *pdev)
+#else
 static int cpld_remove(struct platform_device *pdev)
+#endif
 {
     struct i2c_adapter *parent = NULL;
     struct cpld_platform_data *pdata = dev_get_platdata(&pdev->dev);
@@ -1980,7 +1990,7 @@ static int cpld_remove(struct platform_device *pdev)
 
     if (!pdata) {
         dev_err(&pdev->dev, "Missing platform data\n");
-    } 
+    }
     else {
         kobject_put(kobj_swpld);
         kobject_put(kobj_board);
@@ -1995,16 +2005,15 @@ static int cpld_remove(struct platform_device *pdev)
             i2c_unregister_device(pdata[system_cpld].client);
         }
     }
-    
-
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 1, 0)
     return 0;
+#endif
 }
 
 static struct platform_driver cpld_driver = {
     .probe  = cpld_probe,
     .remove = cpld_remove,
     .driver = {
-        .owner  = THIS_MODULE,
         .name   = "delta-ag9032v1-swpld",
     },
 };
@@ -2319,7 +2328,7 @@ alloc_failed:
     return ret;
 } 
 #else // #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,7,0) */
-static int __init swpld_mux_probe(struct platform_device *pdev)
+static int swpld_mux_probe(struct platform_device *pdev)
 {
 	struct i2c_mux_core *muxc;
     struct swpld_mux *mux;
@@ -2378,9 +2387,12 @@ static int __init swpld_mux_probe(struct platform_device *pdev)
 
     for (i = 0; i < dev_num; i++) {
         int nr = pdata->base_nr + i;
-        unsigned int class = 0;
 
-        ret = i2c_mux_add_adapter(muxc, nr, i, class);
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 12, 0)
+        ret = i2c_mux_add_adapter(muxc, nr, i);
+#else
+        ret = i2c_mux_add_adapter(muxc, nr, i, 0);
+#endif
         if (ret) {
             dev_err(&pdev->dev, "Failed to add adapter %d\n", i);
             i2c_mux_del_adapters(muxc);
@@ -2449,23 +2461,27 @@ static int __exit swpld_mux_remove(struct platform_device *pdev)
     return 0;
 }
 #else // #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,7,0) */
-static int __exit swpld_mux_remove(struct platform_device *pdev)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 0)
+static void swpld_mux_remove(struct platform_device *pdev)
+#else
+static int swpld_mux_remove(struct platform_device *pdev)
+#endif
 {
     struct i2c_mux_core *muxc = dev_get_drvdata(&pdev->dev);
     struct i2c_adapter *parent=muxc->parent;
 
     i2c_mux_del_adapters(muxc);
     i2c_put_adapter(parent);
-
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 1, 0)
     return 0;
+#endif
 }
 //#endif
 
 static struct platform_driver swpld_mux_driver = {
     .probe  = swpld_mux_probe,
-    .remove = __exit_p(swpld_mux_remove), /* TODO */
+    .remove = swpld_mux_remove,
     .driver = {
-        .owner  = THIS_MODULE,
         .name   = "delta-ag9032v1-swpld-mux",
     },
 };
@@ -2564,7 +2580,7 @@ error_ag9032v1_swpld_mux:
     for (; i >= 0; i--) {
         platform_device_unregister(&ag9032v1_swpld_mux[i]);
     }
-    platform_driver_unregister((struct platform_driver *) &ag9032v1_cpld);
+    platform_device_unregister(&ag9032v1_cpld);
 error_ag9032v1_cpld:
     platform_driver_unregister(&i2c_device_driver);
 error_i2c_device_driver:

@@ -65,7 +65,7 @@ class Chassis(PddfChassis):
         change_dict['sfp'] = port_dict
         while True:
             time.sleep(0.5)
-            for port_num in range(PORT_START, (PORT_END + 1)):
+            for port_num in range(self.PORT_START, (self.PORT_END + 1)):
                 presence = self.get_sfp(port_num).get_presence()
                 if presence and self._global_port_pres_dict[port_num] == '0':
                     self._global_port_pres_dict[port_num] = '1'
