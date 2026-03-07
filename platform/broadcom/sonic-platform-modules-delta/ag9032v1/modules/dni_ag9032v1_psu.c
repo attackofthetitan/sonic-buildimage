@@ -28,6 +28,7 @@
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/i2c.h>
+#include <linux/version.h>
 #include <linux/slab.h>
 #include <linux/mutex.h>
 #include <linux/sysfs.h>
@@ -452,9 +453,14 @@ static const struct attribute_group dps_800ab_16_d_group = {
 	.attrs = dps_800ab_16_d_attributes,
 };
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 3, 0)
 static int dps_800ab_16_d_probe(struct i2c_client *client,
 				const struct i2c_device_id *id)
 {
+#else
+static int dps_800ab_16_d_probe(struct i2c_client *client)
+{
+#endif
 	struct dps_800ab_16_d_data *data;
 	int status;
 
