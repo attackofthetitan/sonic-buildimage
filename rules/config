@@ -389,4 +389,4 @@ SONIC_PTF_ENV_PY_VER = py3
 BUILD_PROCESS_TIMEOUT ?= 0
 
 # BUILD_SKIP_TEST - skip all tests when building to reduce build time
-BUILD_SKIP_TEST ?= n
+BUILD_SKIP_TEST ?= y

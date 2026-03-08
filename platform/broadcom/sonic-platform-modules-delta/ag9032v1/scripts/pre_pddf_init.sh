@@ -9,13 +9,22 @@
 #
 # This script:
 # 1. Ensures i2c-i801 and i2c-ismt are loaded (creating buses 0 and 1)
-# 2. Removes any i2c-isch bus that could shift mux channel numbering
-# 3. Verifies the PCA9547 mux is accessible on bus 1
+# 2. Removes any conflicting modules that could shift mux channel numbering
+# 3. Waits for bus 1 to appear and verifies bus state
 
 # Ensure base I2C adapters are loaded
 modprobe i2c-i801 2>/dev/null
 modprobe i2c-ismt 2>/dev/null
 modprobe i2c-dev 2>/dev/null
+
+# Remove conflicting old platform drivers if loaded - these create I2C
+# devices (PCA9547 mux, CPLD muxes) that conflict with PDDF device creation
+for mod in delta_ag9032v1_platform delta_ag9032v1_cpupld dni_ag9032v1_psu dni_emc2305; do
+    if lsmod | grep -q "${mod//-/_}"; then
+        echo "pre_pddf_init: Removing conflicting module $mod"
+        rmmod "$mod" 2>/dev/null
+    fi
+done
 
 # Unload i2c-isch if loaded - it can create spurious buses that shift
 # the PCA9547 mux channel numbering
@@ -30,9 +39,16 @@ if lsmod | grep -q i2c_mux_gpio; then
     rmmod i2c-mux-gpio 2>/dev/null
 fi
 
+# Wait for bus 1 to appear (i2c-ismt may need time to probe)
+for i in $(seq 1 10); do
+    [ -d /sys/bus/i2c/devices/i2c-1 ] && break
+    echo "pre_pddf_init: Waiting for i2c bus 1... ($i/10)"
+    sleep 0.5
+done
+
 # Verify bus 1 exists (i2c-ismt adapter, where PCA9547 lives)
 if [ ! -d /sys/bus/i2c/devices/i2c-1 ]; then
-    echo "pre_pddf_init: WARNING - i2c bus 1 does not exist"
+    echo "pre_pddf_init: ERROR - i2c bus 1 does not exist after waiting"
     exit 1
 fi
 
