@@ -15,18 +15,14 @@ case "$1" in
 start)
     echo -n "Setting up board... "
     depmod -a
-    rmmod i2c-i801 2>/dev/null
-    rmmod i2c-ismt 2>/dev/null
+    # Load base modules only. Do NOT rmmod/modprobe i2c-i801/i2c-ismt here —
+    # bus ordering is handled by pre_pddf_init.sh (ExecStartPre in
+    # pddf-platform-init.service) which forces i801=bus0, ismt=bus1.
     modprobe i2c-dev
-    modprobe i2c-i801
-    modprobe i2c-ismt
-    modprobe i2c-mux-pca954x
     modprobe at24
     # NOTE: Do NOT load delta_ag9032v1_platform, delta_ag9032v1_cpupld,
     # dni_ag9032v1_psu, or dni_emc2305 here. Under PDDF, all I2C device
     # creation is handled by pddf-device.json via pddf-platform-init.service.
-    # Loading the old platform drivers would create duplicate I2C devices
-    # (PCA9547 mux, CPLD muxes) that conflict with PDDF and cause kernel panics.
     echo "done."
     ;;
 
