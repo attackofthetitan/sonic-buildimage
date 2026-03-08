@@ -30,6 +30,10 @@ class Chassis(PddfChassis):
             self._global_port_pres_dict[index] = '1' if present else '0'
 
     # Provide the functions/variables below for which implementation is to be overwritten
+    def get_thermal_manager(self):
+        from .thermal_manager import ThermalManager
+        return ThermalManager
+
     def get_sfp(self, index):
         """
         Retrieves sfp represented by (1-based) index <index>
