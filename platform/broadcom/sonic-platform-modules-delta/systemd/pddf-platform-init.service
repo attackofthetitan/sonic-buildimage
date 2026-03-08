@@ -1,5 +1,6 @@
 [Unit]
 Description=PDDF module and device initialization service
+After=platform-modules-ag9032v1.service
 Before=pmon.service
 DefaultDependencies=no
 
