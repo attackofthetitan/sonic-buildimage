@@ -32,7 +32,6 @@
         {
             "name": "level 1-2: very hot",
             "conditions": [
-                {"type": "fantray.all.presence"},
                 {"type": "thermal.level.at_or_below.2"}
             ],
             "actions": [
@@ -42,7 +41,6 @@
         {
             "name": "level 3: hot",
             "conditions": [
-                {"type": "fantray.all.presence"},
                 {"type": "thermal.level.at.3"}
             ],
             "actions": [
@@ -52,7 +50,6 @@
         {
             "name": "level 4: warm",
             "conditions": [
-                {"type": "fantray.all.presence"},
                 {"type": "thermal.level.at.4"}
             ],
             "actions": [
@@ -62,7 +59,6 @@
         {
             "name": "level 5: mild",
             "conditions": [
-                {"type": "fantray.all.presence"},
                 {"type": "thermal.level.at.5"}
             ],
             "actions": [
@@ -72,7 +68,6 @@
         {
             "name": "level 6: cool",
             "conditions": [
-                {"type": "fantray.all.presence"},
                 {"type": "thermal.level.at_or_above.6"}
             ],
             "actions": [

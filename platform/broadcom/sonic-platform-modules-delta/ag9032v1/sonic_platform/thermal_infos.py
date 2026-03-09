@@ -8,28 +8,23 @@ sonic_logger = logger.Logger('thermal_infos')
 # Each sensor has LOWER[] and UPPER[] arrays indexed 0-5.
 # Index 0 = level 6 (coolest, 30%), index 5 = level 1 (hottest, 100%).
 SENSOR_THRESHOLDS = {
-    # TEMP1: CPU below side thermal sensor (bus 2, addr 0x4d)
-    'TEMP1': {
+    'CPU below side thermal sensor': {
         'lower': [0, 36, 41, 46, 55, 55],
         'upper': [39, 44, 49, 54, 150, 150],
     },
-    # TEMP2: Wind thermal sensor (bus 30, addr 0x4f)
-    'TEMP2': {
+    'Wind thermal sensor': {
         'lower': [0, 65, 69, 73, 82, 82],
         'upper': [63, 71, 75, 79, 150, 150],
     },
-    # TEMP3: MAC up side thermal sensor (bus 7, addr 0x4c)
-    'TEMP3': {
+    'MAC up side thermal sensor': {
         'lower': [0, 55, 59, 63, 71, 71],
         'upper': [53, 61, 65, 69, 150, 150],
     },
-    # TEMP4: MAC down side thermal sensor (bus 7, addr 0x4d)
-    'TEMP4': {
+    'MAC down side thermal sensor': {
         'lower': [0, 55, 59, 63, 71, 71],
         'upper': [53, 61, 65, 69, 150, 150],
     },
-    # TEMP5: Surroundings thermal sensor (bus 7, addr 0x4e)
-    'TEMP5': {
+    'Surroundings thermal sensor': {
         'lower': [0, 50, 54, 58, 65, 65],
         'upper': [45, 56, 60, 64, 150, 150],
     },
@@ -159,12 +154,14 @@ class ThermalInfo(ThermalPolicyInfoBase):
 
                 temp_c = float(temp)
 
-                level = self._get_sensor_level(name, temp_c)
-                old_level = self._sensor_levels.get(name, 4)
-                if level != old_level:
-                    sonic_logger.log_info("Thermal {} temp {:.1f}C level {} -> {}".format(
-                        name, temp_c, old_level, level))
-                self._sensor_levels[name] = level
+                # Only sensors with defined thresholds participate
+                if name in SENSOR_THRESHOLDS:
+                    level = self._get_sensor_level(name, temp_c)
+                    old_level = self._sensor_levels.get(name, 4)
+                    if level != old_level:
+                        sonic_logger.log_info("Thermal {} temp {:.1f}C level {} -> {}".format(
+                            name, temp_c, old_level, level))
+                    self._sensor_levels[name] = level
 
                 # Check critical threshold for emergency shutdown
                 high_crit = thermal.get_high_critical_threshold()
