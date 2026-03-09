@@ -24,7 +24,7 @@ class AllFantrayPresenceCondition(FanCondition):
         return len(fan_info.get_absence_fantrays()) == 0 if fan_info else True
 
 
-class ThermalCondition(ThermalPolicyConditionBase):
+class ThermalLevelCondition(ThermalPolicyConditionBase):
     def get_thermal_info(self, thermal_info_dict):
         from .thermal_infos import ThermalInfo
         if ThermalInfo.INFO_NAME in thermal_info_dict and isinstance(thermal_info_dict[ThermalInfo.INFO_NAME], ThermalInfo):
@@ -33,21 +33,47 @@ class ThermalCondition(ThermalPolicyConditionBase):
 
 
 @thermal_json_object('thermal.over.high_critical_threshold')
-class ThermalOverHighCriticalCondition(ThermalCondition):
+class ThermalOverHighCriticalCondition(ThermalLevelCondition):
     def is_match(self, thermal_info_dict):
         thermal_info = self.get_thermal_info(thermal_info_dict)
         return thermal_info.is_any_over_high_critical_threshold() if thermal_info else False
 
 
-@thermal_json_object('thermal.any.over.high_threshold')
-class AnyThermalOverHighThresholdCondition(ThermalCondition):
+@thermal_json_object('thermal.level.at_or_below.2')
+class ThermalLevelAtOrBelow2(ThermalLevelCondition):
+    # any sensor at level 1 or 2 -> 100% fans
     def is_match(self, thermal_info_dict):
         thermal_info = self.get_thermal_info(thermal_info_dict)
-        return thermal_info.is_any_over_high_threshold() if thermal_info else False
+        return thermal_info.get_min_thermal_level() <= 2 if thermal_info else False
 
 
-@thermal_json_object('thermal.all.below.high_threshold')
-class AllThermalBelowHighThresholdCondition(ThermalCondition):
+@thermal_json_object('thermal.level.at.3')
+class ThermalLevelAt3(ThermalLevelCondition):
+    # minimum sensor level is exactly 3 -> 80% fans
     def is_match(self, thermal_info_dict):
         thermal_info = self.get_thermal_info(thermal_info_dict)
-        return not thermal_info.is_any_over_high_threshold() if thermal_info else True
+        return thermal_info.get_min_thermal_level() == 3 if thermal_info else False
+
+
+@thermal_json_object('thermal.level.at.4')
+class ThermalLevelAt4(ThermalLevelCondition):
+    # minimum sensor level is exactly 4 -> 60% fans
+    def is_match(self, thermal_info_dict):
+        thermal_info = self.get_thermal_info(thermal_info_dict)
+        return thermal_info.get_min_thermal_level() == 4 if thermal_info else False
+
+
+@thermal_json_object('thermal.level.at.5')
+class ThermalLevelAt5(ThermalLevelCondition):
+    # minimum sensor level is exactly 5 -> 40% fans
+    def is_match(self, thermal_info_dict):
+        thermal_info = self.get_thermal_info(thermal_info_dict)
+        return thermal_info.get_min_thermal_level() == 5 if thermal_info else False
+
+
+@thermal_json_object('thermal.level.at_or_above.6')
+class ThermalLevelAtOrAbove6(ThermalLevelCondition):
+    # all sensors at level 6 -> 30% fans
+    def is_match(self, thermal_info_dict):
+        thermal_info = self.get_thermal_info(thermal_info_dict)
+        return thermal_info.get_min_thermal_level() >= 6 if thermal_info else True

@@ -4,6 +4,43 @@ from sonic_py_common import logger
 
 sonic_logger = logger.Logger('thermal_infos')
 
+# Per-sensor thermal level thresholds from original Delta fancontrol.
+# Each sensor has LOWER[] and UPPER[] arrays indexed 0-5.
+# Index 0 = level 6 (coolest, 30%), index 5 = level 1 (hottest, 100%).
+SENSOR_THRESHOLDS = {
+    # TEMP1: CPU below side thermal sensor (bus 2, addr 0x4d)
+    'TEMP1': {
+        'lower': [0, 36, 41, 46, 55, 55],
+        'upper': [39, 44, 49, 54, 150, 150],
+    },
+    # TEMP2: Wind thermal sensor (bus 30, addr 0x4f)
+    'TEMP2': {
+        'lower': [0, 65, 69, 73, 82, 82],
+        'upper': [63, 71, 75, 79, 150, 150],
+    },
+    # TEMP3: MAC up side thermal sensor (bus 7, addr 0x4c)
+    'TEMP3': {
+        'lower': [0, 55, 59, 63, 71, 71],
+        'upper': [53, 61, 65, 69, 150, 150],
+    },
+    # TEMP4: MAC down side thermal sensor (bus 7, addr 0x4d)
+    'TEMP4': {
+        'lower': [0, 55, 59, 63, 71, 71],
+        'upper': [53, 61, 65, 69, 150, 150],
+    },
+    # TEMP5: Surroundings thermal sensor (bus 7, addr 0x4e)
+    'TEMP5': {
+        'lower': [0, 50, 54, 58, 65, 65],
+        'upper': [45, 56, 60, 64, 150, 150],
+    },
+}
+
+# just in case
+DEFAULT_THRESHOLDS = {
+    'lower': [0, 36, 41, 46, 55, 55],
+    'upper': [39, 44, 49, 54, 150, 150],
+}
+
 
 @thermal_json_object('fan_info')
 class FanInfo(ThermalPolicyInfoBase):
@@ -79,8 +116,38 @@ class ThermalInfo(ThermalPolicyInfoBase):
     INFO_NAME = 'thermal_info'
 
     def __init__(self):
-        self._high_warning_thermals = set()
+        self._sensor_levels = {}  # sensor_name -> current level (1-6)
+        self._min_level = 6
         self._high_shutdown_thermals = set()
+
+    def _get_sensor_level(self, name, temp):
+        # find range of temperature and return corresponding level
+        thresholds = SENSOR_THRESHOLDS.get(name, DEFAULT_THRESHOLDS)
+        lower = thresholds['lower']
+        upper = thresholds['upper']
+
+        # Start with previous level if available to avoid unnecessary fan speed changes.
+        prev_level = self._sensor_levels.get(name, 4)
+        # Convert level to index
+        idx = 6 - prev_level
+
+        while True:
+            if lower[idx] <= temp <= upper[idx]:
+                break
+            elif temp > upper[idx]:
+                if idx < 5:
+                    idx += 1
+                else:
+                    break
+            elif temp < lower[idx]:
+                if idx > 0:
+                    idx -= 1
+                else:
+                    break
+            else:
+                break
+
+        return 6 - idx
 
     def collect(self, chassis):
         try:
@@ -90,33 +157,36 @@ class ThermalInfo(ThermalPolicyInfoBase):
                 if temp is None or temp == 'N/A':
                     continue
 
-                high_threshold = thermal.get_high_threshold()
+                temp_c = float(temp)
+
+                level = self._get_sensor_level(name, temp_c)
+                old_level = self._sensor_levels.get(name, 4)
+                if level != old_level:
+                    sonic_logger.log_info("Thermal {} temp {:.1f}C level {} -> {}".format(
+                        name, temp_c, old_level, level))
+                self._sensor_levels[name] = level
+
+                # Check critical threshold for emergency shutdown
                 high_crit = thermal.get_high_critical_threshold()
-
-                if high_threshold is not None and high_threshold != 'N/A':
-                    if temp > high_threshold:
-                        if thermal not in self._high_warning_thermals:
-                            self._high_warning_thermals.add(thermal)
-                            sonic_logger.log_warning("Thermal {} temp {}, over high threshold {}".format(
-                                name, temp, high_threshold))
-                    elif temp < (high_threshold - 3):
-                        if thermal in self._high_warning_thermals:
-                            self._high_warning_thermals.discard(thermal)
-                            sonic_logger.log_notice("Thermal {} restored from high threshold warning".format(name))
-
                 if high_crit is not None and high_crit != 'N/A':
-                    if temp > high_crit:
+                    if temp_c > float(high_crit):
                         if thermal not in self._high_shutdown_thermals:
                             self._high_shutdown_thermals.add(thermal)
-                            sonic_logger.log_warning("Thermal {} temp {}, CRITICAL over {}".format(
-                                name, temp, high_crit))
-                    elif temp < (high_crit - 3):
+                            sonic_logger.log_warning("Thermal {} temp {:.1f}C CRITICAL over {}".format(
+                                name, temp_c, high_crit))
+                    elif temp_c < (float(high_crit) - 3):
                         self._high_shutdown_thermals.discard(thermal)
         except Exception as e:
             sonic_logger.log_warning("ThermalInfo collect error: {}".format(e))
 
-    def is_any_over_high_threshold(self):
-        return len(self._high_warning_thermals) > 0
+        # Minimum level across all sensors 
+        if self._sensor_levels:
+            self._min_level = min(self._sensor_levels.values())
+        else:
+            self._min_level = 4
+
+    def get_min_thermal_level(self):
+        return self._min_level
 
     def is_any_over_high_critical_threshold(self):
         return len(self._high_shutdown_thermals) > 0
