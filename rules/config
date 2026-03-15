@@ -169,7 +169,7 @@ INCLUDE_SYSTEM_TELEMETRY = n
 INCLUDE_SYSTEM_OTEL = y
 
 # INCLUDE_ICCPD - build docker-iccpd for mclag support
-INCLUDE_ICCPD = n
+INCLUDE_ICCPD ?= n
 
 # INCLUDE_SFLOW - build docker-sflow for sFlow support
 INCLUDE_SFLOW = y
@@ -389,4 +389,17 @@ SONIC_PTF_ENV_PY_VER = py3
 BUILD_PROCESS_TIMEOUT ?= 0
 
 # BUILD_SKIP_TEST - skip all tests when building to reduce build time
-BUILD_SKIP_TEST ?= y
+BUILD_SKIP_TEST ?= n
+# SONIC_CONFIG_USE_DOCKER_CACHE - use Docker layer cache for image builds.
+# Removes --no-cache from docker build commands, allowing unchanged layers
+# to be reused. Significantly speeds up incremental builds (~20+ min savings)
+# but may use stale layers if base images changed without version bumps.
+# Recommended for local development; CI should leave this disabled.
+# SONIC_CONFIG_USE_DOCKER_CACHE = y
+
+# SONIC_CONFIG_USE_CCACHE - use ccache to speed up C/C++ compilation
+# When enabled, ccache caches compilation results so that rebuilds of
+# unchanged source files are near-instant. The cache is stored in
+# target/ccache/ and persists across builds.
+# Default: disabled (no impact on clean builds without a warm cache)
+SONIC_CONFIG_USE_CCACHE ?= n
