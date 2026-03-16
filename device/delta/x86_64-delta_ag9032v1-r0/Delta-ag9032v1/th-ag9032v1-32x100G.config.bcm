@@ -122,6 +122,8 @@ portmap_108=121:100
 portmap_109=125:100
 
 dport_map_enable=1
+oversubscribe_mode=1
+oversubscribe_mixed_sister_25_50_enable=1
 dport_map_indexed=1
 dport_map_direct=0
 
