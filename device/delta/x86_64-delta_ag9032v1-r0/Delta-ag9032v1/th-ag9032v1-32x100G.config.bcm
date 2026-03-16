@@ -5,6 +5,7 @@ l2_mem_entries=40960
 l2xmsg_mode=1
 l3_mem_entries=40960
 mem_cache_enable=0
+mmu_lossless=1
 parity_correction=0
 parity_enable=0
 pbmp_oversubscribe=0x00003fc000000ff0000003fc000001fe
