@@ -5,6 +5,7 @@
         "num_fans_pertray": 2,
         "num_ports": 32,
         "num_temps": 5,
+        "num_components": 3,
         "pddf_dev_types": {
             "description": "AG9032V1 - PDDF device types",
             "CPLD": [
@@ -54,6 +55,46 @@
             "pddf_fpgai2c_driver",
             "pddf_fpgai2c_module",
             "pddf_multifpgapci_driver"
+        ]
+    },
+
+    "COMPONENT1": {
+        "comp_attr": {
+            "name": "CPLD1",
+            "type": "cpld",
+            "description": "System CPLD 1"
+        },
+        "attr_list": [
+            {
+                "attr_name": "version",
+                "get_cmd": "i2cget -f -y 2 0x31 0x01 2>/dev/null | xargs printf '%d'"
+            }
+        ]
+    },
+    "COMPONENT2": {
+        "comp_attr": {
+            "name": "CPLD2",
+            "type": "cpld",
+            "description": "System CPLD 2"
+        },
+        "attr_list": [
+            {
+                "attr_name": "version",
+                "get_cmd": "i2cget -f -y 6 0x31 0x01 2>/dev/null | xargs printf '%d'"
+            }
+        ]
+    },
+    "COMPONENT3": {
+        "comp_attr": {
+            "name": "BIOS",
+            "type": "bios",
+            "description": "Basic Input/Output System"
+        },
+        "attr_list": [
+            {
+                "attr_name": "version",
+                "get_cmd": "cat /sys/class/dmi/id/bios_version"
+            }
         ]
     },
 

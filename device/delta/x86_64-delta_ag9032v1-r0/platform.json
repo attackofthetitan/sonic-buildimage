@@ -1,4 +1,105 @@
 {
+    "chassis": {
+        "name": "AG9032v1",
+        "components": [
+            { "name": "CPLD1" },
+            { "name": "CPLD2" },
+            { "name": "BIOS" }
+        ],
+        "fans": [],
+        "fan_drawers": [
+            {
+                "name": "FanTray1",
+                "fans": [
+                    { "name": "FanTray1-Fan1" },
+                    { "name": "FanTray1-Fan2" }
+                ]
+            },
+            {
+                "name": "FanTray2",
+                "fans": [
+                    { "name": "FanTray2-Fan1" },
+                    { "name": "FanTray2-Fan2" }
+                ]
+            },
+            {
+                "name": "FanTray3",
+                "fans": [
+                    { "name": "FanTray3-Fan1" },
+                    { "name": "FanTray3-Fan2" }
+                ]
+            },
+            {
+                "name": "FanTray4",
+                "fans": [
+                    { "name": "FanTray4-Fan1" },
+                    { "name": "FanTray4-Fan2" }
+                ]
+            },
+            {
+                "name": "FanTray5",
+                "fans": [
+                    { "name": "FanTray5-Fan1" },
+                    { "name": "FanTray5-Fan2" }
+                ]
+            }
+        ],
+        "psus": [
+            {
+                "name": "PSU1",
+                "fans": [
+                    { "name": "PSU1-Fan" }
+                ]
+            },
+            {
+                "name": "PSU2",
+                "fans": [
+                    { "name": "PSU2-Fan" }
+                ]
+            }
+        ],
+        "thermals": [
+            { "name": "CPU below side thermal sensor" },
+            { "name": "Wind thermal sensor" },
+            { "name": "MAC up side thermal sensor" },
+            { "name": "MAC down side thermal sensor" },
+            { "name": "Surroundings thermal sensor" }
+        ],
+        "sfps": [
+            { "name": "qsfp1" },
+            { "name": "qsfp2" },
+            { "name": "qsfp3" },
+            { "name": "qsfp4" },
+            { "name": "qsfp5" },
+            { "name": "qsfp6" },
+            { "name": "qsfp7" },
+            { "name": "qsfp8" },
+            { "name": "qsfp9" },
+            { "name": "qsfp10" },
+            { "name": "qsfp11" },
+            { "name": "qsfp12" },
+            { "name": "qsfp13" },
+            { "name": "qsfp14" },
+            { "name": "qsfp15" },
+            { "name": "qsfp16" },
+            { "name": "qsfp17" },
+            { "name": "qsfp18" },
+            { "name": "qsfp19" },
+            { "name": "qsfp20" },
+            { "name": "qsfp21" },
+            { "name": "qsfp22" },
+            { "name": "qsfp23" },
+            { "name": "qsfp24" },
+            { "name": "qsfp25" },
+            { "name": "qsfp26" },
+            { "name": "qsfp27" },
+            { "name": "qsfp28" },
+            { "name": "qsfp29" },
+            { "name": "qsfp30" },
+            { "name": "qsfp31" },
+            { "name": "qsfp32" }
+        ]
+    },
     "interfaces": {
         "Ethernet0": {
             "index": "1,1,1,1",

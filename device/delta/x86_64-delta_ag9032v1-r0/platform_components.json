@@ -1,0 +1,11 @@
+{
+    "chassis": {
+        "AG9032v1": {
+            "component": {
+                "CPLD1": {},
+                "CPLD2": {},
+                "BIOS": {}
+            }
+        }
+    }
+}
