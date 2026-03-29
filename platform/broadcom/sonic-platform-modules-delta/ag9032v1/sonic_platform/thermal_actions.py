@@ -22,11 +22,21 @@ class SetFanSpeedAction(ThermalPolicyActionBase):
 
     @classmethod
     def set_all_fan_speed(cls, thermal_info_dict, speed):
-        from .thermal_infos import FanInfo
+        from .thermal_infos import FanInfo, PsuInfo
+        speed_int = int(speed)
         if FanInfo.INFO_NAME in thermal_info_dict and isinstance(thermal_info_dict[FanInfo.INFO_NAME], FanInfo):
             fan_info = thermal_info_dict[FanInfo.INFO_NAME]
             for fan in fan_info.get_all_fans():
-                fan.set_speed(int(speed))
+                fan.set_speed(speed_int)
+        # Also set PSU fan speed to match, as in the original fancontrol script
+        if PsuInfo.INFO_NAME in thermal_info_dict and isinstance(thermal_info_dict[PsuInfo.INFO_NAME], PsuInfo):
+            psu_info = thermal_info_dict[PsuInfo.INFO_NAME]
+            for psu in psu_info.get_presence_psus():
+                for fan in psu.get_all_fans():
+                    try:
+                        fan.set_speed(speed_int)
+                    except Exception as e:
+                        sonic_logger.log_warning("Failed to set PSU fan speed: {}".format(e))
 
 
 @thermal_json_object('fan.all.set_speed')
