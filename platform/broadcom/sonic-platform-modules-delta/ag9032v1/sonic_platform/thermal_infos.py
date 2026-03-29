@@ -8,32 +8,32 @@ sonic_logger = logger.Logger('thermal_infos')
 # Each sensor has LOWER[] and UPPER[] arrays indexed 0-5.
 # Index 0 = level 6 (coolest, 30%), index 5 = level 1 (hottest, 100%).
 SENSOR_THRESHOLDS = {
-    'CPU below side thermal sensor': {
-        'lower': [0, 36, 41, 46, 55, 55],
-        'upper': [39, 44, 49, 54, 150, 150],
+    'CPU below side thermal sensor': {  # AFCTEMP_1: 2-004d
+        'lower': [0, 39, 36, 41, 46, 55],
+        'upper': [39, 39, 44, 49, 54, 150],
     },
-    'Wind thermal sensor': {
-        'lower': [0, 65, 69, 73, 82, 82],
-        'upper': [63, 71, 75, 79, 150, 150],
+    'MAC up side thermal sensor': {  # AFCTEMP_2: 7-004c
+        'lower': [0, 61, 65, 69, 73, 82],
+        'upper': [63, 67, 71, 75, 79, 150],
     },
-    'MAC up side thermal sensor': {
-        'lower': [0, 55, 59, 63, 71, 71],
-        'upper': [53, 61, 65, 69, 150, 150],
+    'MAC down side thermal sensor': {  # AFCTEMP_3: 7-004d
+        'lower': [0, 51, 55, 59, 63, 71],
+        'upper': [53, 57, 61, 65, 69, 150],
     },
-    'MAC down side thermal sensor': {
-        'lower': [0, 55, 59, 63, 71, 71],
-        'upper': [53, 61, 65, 69, 150, 150],
+    'Surroundings thermal sensor': {  # AFCTEMP_4: 7-004e
+        'lower': [0, 46, 50, 54, 58, 65],
+        'upper': [45, 52, 56, 60, 64, 150],
     },
-    'Surroundings thermal sensor': {
-        'lower': [0, 50, 54, 58, 65, 65],
-        'upper': [45, 56, 60, 64, 150, 150],
+    'Wind thermal sensor': {  # AFCTEMP_5: 30-004f
+        'lower': [0, 46, 50, 54, 58, 65],
+        'upper': [45, 52, 56, 60, 64, 150],
     },
 }
 
 # just in case
 DEFAULT_THRESHOLDS = {
-    'lower': [0, 36, 41, 46, 55, 55],
-    'upper': [39, 44, 49, 54, 150, 150],
+    'lower': [0, 39, 36, 41, 46, 55],
+    'upper': [39, 39, 44, 49, 54, 150],
 }
 
 
