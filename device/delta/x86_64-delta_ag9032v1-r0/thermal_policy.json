@@ -1,0 +1,78 @@
+{
+    "interval": "10",
+    "thermal_control_algorithm": {
+        "run_at_boot_up": "true",
+        "fan_speed_when_suspend": "60"
+    },
+    "info_types": [
+        {"type": "fan_info"},
+        {"type": "psu_info"},
+        {"type": "thermal_info"},
+        {"type": "chassis_info"}
+    ],
+    "policies": [
+        {
+            "name": "critical temperature shutdown",
+            "conditions": [
+                {"type": "thermal.over.high_critical_threshold"}
+            ],
+            "actions": [
+                {"type": "switch.shutdown"}
+            ]
+        },
+        {
+            "name": "any fan tray missing",
+            "conditions": [
+                {"type": "fantray.any.absence"}
+            ],
+            "actions": [
+                {"type": "fan.all.set_speed", "speed": "100"}
+            ]
+        },
+        {
+            "name": "level 1-2: very hot",
+            "conditions": [
+                {"type": "thermal.level.at_or_below.2"}
+            ],
+            "actions": [
+                {"type": "fan.all.set_speed", "speed": "100"}
+            ]
+        },
+        {
+            "name": "level 3: hot",
+            "conditions": [
+                {"type": "thermal.level.at.3"}
+            ],
+            "actions": [
+                {"type": "fan.all.set_speed", "speed": "80"}
+            ]
+        },
+        {
+            "name": "level 4: warm",
+            "conditions": [
+                {"type": "thermal.level.at.4"}
+            ],
+            "actions": [
+                {"type": "fan.all.set_speed", "speed": "60"}
+            ]
+        },
+        {
+            "name": "level 5: mild",
+            "conditions": [
+                {"type": "thermal.level.at.5"}
+            ],
+            "actions": [
+                {"type": "fan.all.set_speed", "speed": "40"}
+            ]
+        },
+        {
+            "name": "level 6: cool",
+            "conditions": [
+                {"type": "thermal.level.at_or_above.6"}
+            ],
+            "actions": [
+                {"type": "fan.all.set_speed", "speed": "30"}
+            ]
+        }
+    ]
+}
