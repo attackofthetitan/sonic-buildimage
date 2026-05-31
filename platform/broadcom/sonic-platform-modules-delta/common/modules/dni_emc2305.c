@@ -19,6 +19,7 @@
 
 #include <linux/module.h>
 #include <linux/i2c.h>
+#include <linux/version.h>
 #include <linux/hwmon.h>
 #include <linux/hwmon-sysfs.h>
 #include <linux/err.h>
@@ -66,11 +67,15 @@ struct emc2305_data
   struct mutex    lock;
 };
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 3, 0)
 static int emc2305_probe(struct i2c_client *client,
                          const struct i2c_device_id *id);
+#else
+static int emc2305_probe(struct i2c_client *client);
+#endif
 static int emc2305_detect(struct i2c_client *client,
                           struct i2c_board_info *info);
-static int emc2305_remove(struct i2c_client *client);
+static void emc2305_remove(struct i2c_client *client);
 
 static const struct i2c_device_id emc2305_id[] =
 {
@@ -313,14 +318,19 @@ static int emc2305_detect(struct i2c_client *client,
     return -ENODEV;
   }
 
-  strlcpy(info->type, "emc2305", I2C_NAME_SIZE);
+  strscpy(info->type, "emc2305", I2C_NAME_SIZE);
 
   return 0;
 }
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 3, 0)
 static int emc2305_probe(struct i2c_client *client,
                          const struct i2c_device_id *id)
 {
+#else
+static int emc2305_probe(struct i2c_client *client)
+{
+#endif
   struct emc2305_data *data;
   int err;
   int i;
@@ -365,13 +375,13 @@ exit_remove:
   return err;
 }
 
-static int emc2305_remove(struct i2c_client *client)
+static void emc2305_remove(struct i2c_client *client)
 {
   struct emc2305_data *data = i2c_get_clientdata(client);
 
   hwmon_device_unregister(data->hwmon_dev);
   sysfs_remove_group(&client->dev.kobj, &data->attrs);
-  return 0;
+  //return 0;
 }
 
 module_i2c_driver(emc2305_driver);
