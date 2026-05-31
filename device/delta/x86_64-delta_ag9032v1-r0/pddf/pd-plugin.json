@@ -1,0 +1,34 @@
+{
+    "PSU": {
+        "psu_present":
+        {
+            "i2c":
+            {
+                "valmap": { "1": true, "0": false }
+            }
+        },
+        "psu_power_good":
+        {
+            "i2c":
+            {
+                "valmap": { "1": true, "0": false }
+            }
+        },
+
+        "PSU_FAN_MAX_SPEED": "20000"
+    },
+
+    "FAN": {
+        "present":
+        {
+            "i2c":
+            {
+                "valmap": { "1": true, "0": false }
+            }
+        },
+
+
+        "duty_cycle_to_pwm": "lambda dc: ((dc*255.0)/100)",
+        "pwm_to_duty_cycle": "lambda pwm: ((pwm*100.0)/255)"
+    }
+}
