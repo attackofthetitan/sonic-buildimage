@@ -1,0 +1,73 @@
+name: Check upstream drift
+
+on:
+  schedule:
+    - cron: "17 1 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check whether fork is behind sonic-net/sonic-buildimage
+        id: drift
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueTitle = "Maintenance: sonic-buildimage fork is behind upstream";
+            const upstream = "sonic-net:master";
+            const local = `${owner}:${context.payload.repository.default_branch}`;
+
+            const comparison = await github.rest.repos.compareCommitsWithBasehead({
+              owner,
+              repo,
+              basehead: `${local}...${upstream}`,
+            });
+
+            const behindBy = comparison.data.ahead_by;
+            const openIssues = await github.paginate(github.rest.issues.listForRepo, {
+              owner,
+              repo,
+              state: "open",
+              labels: "maintenance,upstream-drift",
+              per_page: 100,
+            });
+            const issue = openIssues.find(candidate => candidate.title === issueTitle);
+
+            if (behindBy > 0) {
+              const body = [
+                "The fork is behind `sonic-net/sonic-buildimage:master`.",
+                "",
+                `Upstream commits not present locally: **${behindBy}**`,
+                "",
+                `Comparison: https://github.com/${owner}/${repo}/compare/${context.payload.repository.default_branch}...sonic-net:sonic-buildimage:master`,
+                "",
+                "Review upstream changes before merging. This workflow intentionally does not auto-merge them.",
+              ].join("\n");
+
+              if (issue) {
+                await github.rest.issues.update({ owner, repo, issue_number: issue.number, body });
+              } else {
+                await github.rest.issues.create({
+                  owner,
+                  repo,
+                  title: issueTitle,
+                  body,
+                  labels: ["maintenance", "upstream-drift"],
+                });
+              }
+            } else if (issue) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: "The fork is caught up with upstream. Closing this maintenance alert.",
+              });
+              await github.rest.issues.update({ owner, repo, issue_number: issue.number, state: "closed" });
+            }
