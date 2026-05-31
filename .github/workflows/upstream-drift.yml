@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check whether fork is behind sonic-net/sonic-buildimage
-        id: drift
         uses: actions/github-script@v8
         with:
           script: |
@@ -22,7 +21,8 @@ jobs:
             const repo = context.repo.repo;
             const issueTitle = "Maintenance: sonic-buildimage fork is behind upstream";
             const upstream = "sonic-net:master";
-            const local = `${owner}:${context.payload.repository.default_branch}`;
+            const localBranch = context.payload.repository.default_branch;
+            const local = `${owner}:${localBranch}`;
 
             const comparison = await github.rest.repos.compareCommitsWithBasehead({
               owner,
@@ -35,7 +35,6 @@ jobs:
               owner,
               repo,
               state: "open",
-              labels: "maintenance,upstream-drift",
               per_page: 100,
             });
             const issue = openIssues.find(candidate => candidate.title === issueTitle);
@@ -46,7 +45,7 @@ jobs:
                 "",
                 `Upstream commits not present locally: **${behindBy}**`,
                 "",
-                `Comparison: https://github.com/${owner}/${repo}/compare/${context.payload.repository.default_branch}...sonic-net:sonic-buildimage:master`,
+                `Comparison: https://github.com/${owner}/${repo}/compare/${localBranch}...sonic-net:sonic-buildimage:master`,
                 "",
                 "Review upstream changes before merging. This workflow intentionally does not auto-merge them.",
               ].join("\n");
@@ -54,13 +53,7 @@ jobs:
               if (issue) {
                 await github.rest.issues.update({ owner, repo, issue_number: issue.number, body });
               } else {
-                await github.rest.issues.create({
-                  owner,
-                  repo,
-                  title: issueTitle,
-                  body,
-                  labels: ["maintenance", "upstream-drift"],
-                });
+                await github.rest.issues.create({ owner, repo, title: issueTitle, body });
               }
             } else if (issue) {
               await github.rest.issues.createComment({
