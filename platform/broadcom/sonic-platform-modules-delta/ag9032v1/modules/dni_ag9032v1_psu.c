@@ -28,6 +28,7 @@
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/i2c.h>
+#include <linux/version.h>
 #include <linux/slab.h>
 #include <linux/mutex.h>
 #include <linux/sysfs.h>
@@ -51,7 +52,7 @@ static const unsigned short normal_i2c[] = { 0x58, I2C_CLIENT_END };
 struct dps_800ab_16_d_data {
 	struct device	*hwmon_dev;
 	struct mutex	update_lock;
-	char		valid;		
+	char		valid;
 	unsigned long	last_updated;	/* In jiffies */
 
 	/* Registers value */
@@ -154,7 +155,7 @@ static ssize_t set_fan_duty_cycle_input(struct device *dev, struct device_attrib
 	int nr = (attr->index == PSU_FAN1_DUTY_CYCLE) ? 0 : 1;
 	long speed;
 	int error;
-	
+
 	error = kstrtol(buf, 10, &speed);
 	if (error)
 		return error;
@@ -181,7 +182,7 @@ static ssize_t for_linear_data(struct device *dev, struct device_attribute \
 	u16 value = 0;
 	int exponent, mantissa;
 	int multiplier = 1000;
-	
+
 	switch (attr->index) {
 	case PSU_V_IN:
 		value = data->in1_input;
@@ -194,11 +195,11 @@ static ssize_t for_linear_data(struct device *dev, struct device_attribute \
                 break;
 	case PSU_P_IN:
 		value = data->power1_input;
-                multiplier = 1000*1000;		
+                multiplier = 1000*1000;
                 break;
 	case PSU_P_OUT:
 		value = data->power2_input;
-                multiplier = 1000*1000;		
+                multiplier = 1000*1000;
                 break;
 	case PSU_TEMP1_INPUT:
 		value = data->temp_input[0];
@@ -220,7 +221,7 @@ static ssize_t for_linear_data(struct device *dev, struct device_attribute \
 
 	return (exponent >= 0) ? sprintf(buf, "%d\n",	\
 		(mantissa << exponent) * multiplier) :	\
-	    sprintf(buf, "%d\n", (mantissa * multiplier) / (1 << -exponent));	
+	    sprintf(buf, "%d\n", (mantissa * multiplier) / (1 << -exponent));
 }
 
 static ssize_t for_fan_target(struct device *dev, struct device_attribute \
@@ -240,10 +241,10 @@ static ssize_t for_vout_data(struct device *dev, struct device_attribute \
 	struct dps_800ab_16_d_data *data = dps_800ab_16_d_update_device(dev);
 	int exponent, mantissa;
 	int multiplier = 1000;
-		
+
 	exponent = two_complement_to_int(data->vout_mode, 5, 0x1f);
 	mantissa = data->in2_input;
-	
+
 	return (exponent > 0) ? sprintf(buf, "%d\n", \
                 (mantissa * multiplier) / (1 << exponent)): \
         sprintf(buf, "%d\n", (mantissa * multiplier) / (1 << -exponent));
@@ -286,7 +287,7 @@ static int dps_800ab_16_d_write_word(struct i2c_client *client, u8 reg, \
 {
 	union i2c_smbus_data data;
         data.word = value;
-        return i2c_smbus_xfer(client->adapter, client->addr, 
+        return i2c_smbus_xfer(client->adapter, client->addr,
 				client->flags |= I2C_CLIENT_PEC,
                               	I2C_SMBUS_WRITE, reg,
                               	I2C_SMBUS_WORD_DATA, &data);
@@ -326,7 +327,7 @@ static struct dps_800ab_16_d_data *dps_800ab_16_d_update_device( \
 {
 	struct i2c_client *client = to_i2c_client(dev);
 	struct dps_800ab_16_d_data *data = i2c_get_clientdata(client);
-	
+
 	mutex_lock(&data->update_lock);
 
 	/* Select SWPLD PSU offset */
@@ -355,9 +356,9 @@ static struct dps_800ab_16_d_data *dps_800ab_16_d_update_device( \
 
 		/* one milliseconds from now */
 		data->last_updated = jiffies + HZ / 1000;
-		
+
 		for (i = 0; i < ARRAY_SIZE(regs_byte); i++) {
-			status = dps_800ab_16_d_read_byte(client, 
+			status = dps_800ab_16_d_read_byte(client,
 							regs_byte[i].reg);
 			if (status < 0) {
 				dev_dbg(&client->dev, "reg %d, err %d\n",
@@ -382,29 +383,29 @@ static struct dps_800ab_16_d_data *dps_800ab_16_d_update_device( \
 
 		command = 0x9a;		/* PSU mfr_model */
 		//data->mfr_model[1] = '\0';
-		status = dps_800ab_16_d_read_block(client, command, 
+		status = dps_800ab_16_d_read_block(client, command,
 		data->mfr_model, ARRAY_SIZE(data->mfr_model) - 1);
-    	data->mfr_model[ARRAY_SIZE(data->mfr_model) - 1] = '\0';
-    	if (status < 0) {
-        	dev_dbg(&client->dev, "reg %d, err %d\n", command,status);
-        	data->mfr_model[1] = '\0';
-    	}
+		data->mfr_model[ARRAY_SIZE(data->mfr_model) - 1] = '\0';
+		if (status < 0) {
+			dev_dbg(&client->dev, "reg %d, err %d\n", command,status);
+			data->mfr_model[1] = '\0';
+		}
 
-    	command = 0x9e;		/* PSU mfr_serial */
-    	//data->mfr_serial[1] = '\0';
-    	status = dps_800ab_16_d_read_block(client, command, 
+		command = 0x9e;		/* PSU mfr_serial */
+		//data->mfr_serial[1] = '\0';
+		status = dps_800ab_16_d_read_block(client, command,
 		data->mfr_serial, ARRAY_SIZE(data->mfr_serial) - 1);
-    	data->mfr_serial[ARRAY_SIZE(data->mfr_serial) - 1] = '\0';
-    	if (status < 0) {
-            dev_dbg(&client->dev, "reg %d, err %d\n", command,status);
-            data->mfr_serial[1] = '\0';
-   		}	
-		
+		data->mfr_serial[ARRAY_SIZE(data->mfr_serial) - 1] = '\0';
+		if (status < 0) {
+			dev_dbg(&client->dev, "reg %d, err %d\n", command,status);
+			data->mfr_serial[1] = '\0';
+		}
+
 		data->valid = 1;
 	}
-	
+
 	mutex_unlock(&data->update_lock);
-	
+
 	return data;
 
 }
@@ -452,18 +453,23 @@ static const struct attribute_group dps_800ab_16_d_group = {
 	.attrs = dps_800ab_16_d_attributes,
 };
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 3, 0)
 static int dps_800ab_16_d_probe(struct i2c_client *client,
 				const struct i2c_device_id *id)
 {
+#else
+static int dps_800ab_16_d_probe(struct i2c_client *client)
+{
+#endif
 	struct dps_800ab_16_d_data *data;
 	int status;
 
-	if (!i2c_check_functionality(client->adapter, 
+	if (!i2c_check_functionality(client->adapter,
 		I2C_FUNC_SMBUS_BYTE_DATA | I2C_FUNC_SMBUS_WORD_DATA)) {
 		status = -EIO;
 		goto exit;
 	}
-	
+
 	data = kzalloc(sizeof(*data), GFP_KERNEL);
 	if (!data) {
 		status = -ENOMEM;
@@ -473,22 +479,23 @@ static int dps_800ab_16_d_probe(struct i2c_client *client,
 	i2c_set_clientdata(client, data);
 	data->valid = 0;
 	mutex_init(&data->update_lock);
-	
+
 	dev_info(&client->dev, "new chip found\n");
 
 	/* Register sysfs hooks */
 	status = sysfs_create_group(&client->dev.kobj, &dps_800ab_16_d_group);
-	if (status) 
+	if (status)
 		goto exit_sysfs_create_group;
 
 	data->hwmon_dev = hwmon_device_register(&client->dev);
+
 	if (IS_ERR(data->hwmon_dev)) {
 		status = PTR_ERR(data->hwmon_dev);
 		goto exit_hwmon_device_register;
 	}
 
 	return 0;
-	
+
 exit_hwmon_device_register:
 	sysfs_remove_group(&client->dev.kobj, &dps_800ab_16_d_group);
 exit_sysfs_create_group:
@@ -496,15 +503,15 @@ exit_sysfs_create_group:
 exit:
 	return status;
 }
-
-static int dps_800ab_16_d_remove(struct i2c_client *client)
+/*fix kernel warnings*/
+static void dps_800ab_16_d_remove(struct i2c_client *client)
 {
 	struct dps_800ab_16_d_data *data = i2c_get_clientdata(client);
 	hwmon_device_unregister(data->hwmon_dev);
 	sysfs_remove_group(&client->dev.kobj, &dps_800ab_16_d_group);
 	kfree(data);
-	
-	return 0;
+
+	//return 0;
 }
 
 enum id_name {
