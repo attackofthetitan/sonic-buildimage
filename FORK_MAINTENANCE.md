@@ -64,6 +64,12 @@ platform build, and produce the image using the normal SONiC build process.
 Confirm that `target/sonic-broadcom.bin` exists and test the image on the target
 hardware before promotion.
 
+Before building, remove stale AG9032v1 package wiring from the ignored local
+`rules/config.user` file. The reusable stack and the optional build-profile
+branch already register `DELTA_AG9032V1_PLATFORM_MODULE`; registering it again
+in `rules/config.user` causes GNU Make to report that the generated package
+targets were given more than once in the same rule.
+
 ## Promote A Refresh
 
 After build and hardware verification:
