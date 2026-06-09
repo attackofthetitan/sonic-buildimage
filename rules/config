@@ -55,7 +55,7 @@ SONIC_CONFIG_MAKE_JOBS = $(shell nproc)
 
 # DEFAULT_BUILD_LOG_TIMESTAMP - add timestamp in build log
 # Supported format: simple, none
-DEFAULT_BUILD_LOG_TIMESTAMP = none
+DEFAULT_BUILD_LOG_TIMESTAMP = simple
 
 # SONIC_CONFIG_USE_NATIVE_DOCKERD_FOR_BUILD - use native dockerd for build.
 # If set to y SONiC build container will use native dockerd instead of dind for faster build.
@@ -78,7 +78,7 @@ DEFAULT_USERNAME = admin
 # DEFAULT_PASSWORD can be set to empty string to disable the default password.
 # Empty string means admin account has no password; console login works,
 # SSH login is blocked (PermitEmptyPasswords no). Set a real password on first login.
-DEFAULT_PASSWORD = YourPaSsWoRd
+DEFAULT_PASSWORD = 20191119
 
 # BMC_NOS_ACCOUNT_USERNAME - default BMC NOS account username
 BMC_NOS_ACCOUNT_USERNAME ?= yormnAnb
@@ -130,7 +130,7 @@ ENABLE_ORGANIZATION_EXTENSIONS = y
 # DEFAULT_KERNEL_PROCURE_METHOD - default method for obtaining kernel
 #   build:    build kernel from source
 #   download: download pre-built kernel from Azure storage.
-DEFAULT_KERNEL_PROCURE_METHOD = build
+DEFAULT_KERNEL_PROCURE_METHOD = download
 
 # FRR user and group id values. These only take effect when SONIC_ROUTING_STACK is frr.
 # Note: these values match the admin uid/gid of the host's admin account. If these values
@@ -203,7 +203,7 @@ INCLUDE_NAT = y
 INCLUDE_DHCP_RELAY = y
 
 # INCLUDE_DHCP_SERVER - build dhcp-server package and enable based on config_db.json
-INCLUDE_DHCP_SERVER ?= n
+INCLUDE_DHCP_SERVER ?= y
 
 # INCLUDE_P4RT - build docker-p4rt for P4RT support
 INCLUDE_P4RT = n
