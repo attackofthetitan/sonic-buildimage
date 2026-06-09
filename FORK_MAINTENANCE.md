@@ -15,10 +15,10 @@ fork-maintenance automation, and local build policy separate.
 | `ag9032v1/device-pddf-data` | Device metadata, PDDF data, and daemon controls. |
 | `ag9032v1/platform-api` | SONiC platform API implementation. |
 | `ag9032v1/thermal-control` | Thermal policy and fan handling. |
-| `ag9032v1/port-qos-components` | Breakout, QoS, final port configuration, and components. |
+| `ag9032v1/port-qos-components` | Breakout, QoS, final port configuration, components, and legacy Tomahawk SAI runtime wiring. |
 | `integration/ag9032v1` | Reusable AG9032v1 stack. This should point at `ag9032v1/port-qos-components`. |
 | `maintenance/upstream-drift` | Weekly alert when the default branch falls behind upstream. |
-| `local/ag9032v1-build-profile` | Optional local build optimization. Do not merge into the reusable stack. |
+| `local/ag9032v1-build-profile` | Optional local `rules/config` policy. Keep package wiring upstream-style and do not merge into the reusable stack. |
 | `local/debian-archive-compat` | Optional Bullseye archive compatibility. Apply only when required. |
 
 ## Refresh From Upstream
@@ -48,10 +48,29 @@ git cherry-pick origin/ag9032v1/port-qos-components
 Resolve conflicts one commit at a time. Keep the commit boundaries intact so a
 kernel, packaging, PDDF, API, thermal, or QoS regression can be isolated later.
 
+## AG9032v1 Broadcom Runtime Notes
+
+AG9032v1 is a Tomahawk platform that must use the legacy TH Broadcom SAI path
+with current upstream. The minimal runtime fix is:
+
+- `device/delta/x86_64-delta_ag9032v1-r0/platform_asic` is
+  `broadcom-legacy-th`.
+- `platform/broadcom/one-image.mk` installs
+  `$(BRCM_LEGACY_TH_OPENNSL_KERNEL)` for the one-image target so
+  `opennsl-modules.service` exists.
+- `device/delta/x86_64-delta_ag9032v1-r0/Delta-ag9032v1/sai.profile` sets
+  `SAI_STATS_ST_CAPABILITY_SUPPORTED=0` and
+  `SAI_STATS_EXT_SWITCH_SUPPORTED=0`.
+
+Do not restore broad upstream `.bcm` churn as a runtime workaround. Keep
+AG9032v1 `.bcm` changes limited to AG9032v1 port or SDK configuration changes.
+
 ## Build Locally
 
 Create a disposable build branch from the refreshed integration tip and apply
-local policy only there:
+local policy only there. The local build profile should only preserve local
+`rules/config` choices; it should not comment out other vendors or Delta
+platform packages.
 
 ```bash
 git switch --create build/ag9032v1 refresh/ag9032v1
@@ -65,10 +84,10 @@ Confirm that `target/sonic-broadcom.bin` exists and test the image on the target
 hardware before promotion.
 
 Before building, remove stale AG9032v1 package wiring from the ignored local
-`rules/config.user` file. The reusable stack and the optional build-profile
-branch already register `DELTA_AG9032V1_PLATFORM_MODULE`; registering it again
-in `rules/config.user` causes GNU Make to report that the generated package
-targets were given more than once in the same rule.
+`rules/config.user` file. The reusable stack already registers
+`DELTA_AG9032V1_PLATFORM_MODULE`; registering it again in `rules/config.user`
+causes GNU Make to report that the generated package targets were given more
+than once in the same rule.
 
 ## Promote A Refresh
 
