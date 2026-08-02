@@ -79,9 +79,11 @@ else
                 SONIC_PLATFORM_API_PYTHON_VERSION=3
             else
                 echo "Error: ${SONIC_PLATFORM_WHEEL} does not provide a usable Platform class"
+                exit 1
             fi
         else
             echo "Error: Failed to install ${SONIC_PLATFORM_WHEEL}"
+            exit 1
         fi
     else
         echo "Error: Unable to locate ${SONIC_PLATFORM_WHEEL}"
