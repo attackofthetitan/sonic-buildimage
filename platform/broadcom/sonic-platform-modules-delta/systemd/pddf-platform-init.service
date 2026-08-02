@@ -1,6 +1,7 @@
 [Unit]
 Description=PDDF module and device initialization service
-After=platform-modules-ag9032v1.service
+Requires=platform-modules-ag9032v1.service
+After=systemd-modules-load.service platform-modules-ag9032v1.service
 Before=pmon.service
 DefaultDependencies=no
 

@@ -65,24 +65,27 @@ if [ $? -ne 0 ]; then
     fi
 fi
 
-# If the Python 3 sonic-platform package is not installed, try to install it
-python3 -c "import sonic_platform" > /dev/null 2>&1 || pip3 show sonic-platform > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    SONIC_PLATFORM_WHEEL="/usr/share/sonic/platform/sonic_platform-1.0-py3-none-any.whl"
-    echo "sonic-platform package not installed, attempting to install..."
-    if [ -e ${SONIC_PLATFORM_WHEEL} ]; then
-       pip3 install ${SONIC_PLATFORM_WHEEL}
-       if [ $? -eq 0 ]; then
-          echo "Successfully installed ${SONIC_PLATFORM_WHEEL}"
-          SONIC_PLATFORM_API_PYTHON_VERSION=3
-       else
-          echo "Error: Failed to install ${SONIC_PLATFORM_WHEEL}"
-       fi
-    else
-       echo "Error: Unable to locate ${SONIC_PLATFORM_WHEEL}"
-    fi
-else
+# Validate the platform entry point, not only the top-level package. A partial
+# installation can leave sonic_platform importable while platform.py is empty.
+if python3 -c "from sonic_platform.platform import Platform" > /dev/null 2>&1; then
     SONIC_PLATFORM_API_PYTHON_VERSION=3
+else
+    SONIC_PLATFORM_WHEEL="/usr/share/sonic/platform/sonic_platform-1.0-py3-none-any.whl"
+    echo "sonic-platform package not installed or invalid, attempting to repair..."
+    if [ -e "${SONIC_PLATFORM_WHEEL}" ]; then
+        if pip3 install --ignore-installed --no-deps "${SONIC_PLATFORM_WHEEL}"; then
+            if python3 -c "from sonic_platform.platform import Platform" > /dev/null 2>&1; then
+                echo "Successfully installed ${SONIC_PLATFORM_WHEEL}"
+                SONIC_PLATFORM_API_PYTHON_VERSION=3
+            else
+                echo "Error: ${SONIC_PLATFORM_WHEEL} does not provide a usable Platform class"
+            fi
+        else
+            echo "Error: Failed to install ${SONIC_PLATFORM_WHEEL}"
+        fi
+    else
+        echo "Error: Unable to locate ${SONIC_PLATFORM_WHEEL}"
+    fi
 fi
 
 # Copy platform-specific supervisor configs if they exist (Aspeed BMC platforms)
