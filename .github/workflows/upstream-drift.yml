@@ -17,10 +17,35 @@ jobs:
   check-upstream:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out fork history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          persist-credentials: false
+
+      - name: Replay AG9032v1 stack onto upstream
+        id: replay
+        run: |
+          git remote add upstream https://github.com/sonic-net/sonic-buildimage.git
+          git config remote.upstream.pushurl DISABLED
+          git fetch --no-tags --filter=blob:none upstream \
+            +refs/heads/master:refs/remotes/upstream/master
+          status=0
+          bash scripts/fork-refresh-ag9032v1.sh --check --no-fetch \
+            >"$RUNNER_TEMP/replay.md" 2>"$RUNNER_TEMP/replay.err" || status=$?
+          echo "status=$status" >>"$GITHUB_OUTPUT"
+          cat "$RUNNER_TEMP/replay.md" >>"$GITHUB_STEP_SUMMARY"
+
       - name: Report fork and upstream divergence
         uses: actions/github-script@v9
+        env:
+          REPLAY_STATUS: ${{ steps.replay.outputs.status }}
+          REPLAY_REPORT: ${{ runner.temp }}/replay.md
+          REPLAY_ERRORS: ${{ runner.temp }}/replay.err
         with:
           script: |
+            const fs = require("fs");
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const localBranch = context.payload.repository.default_branch;
@@ -28,6 +53,8 @@ jobs:
             const upstreamRepo = "sonic-buildimage";
             const upstreamBranch = "master";
             const issueTitle = "Maintenance: sonic-buildimage fork is behind upstream";
+            // Crossing one of these merge-base ages adds a notifying comment.
+            const ageThresholds = [14, 30, 60, 90];
 
             const [local, upstream, comparison] = await Promise.all([
               github.rest.repos.getBranch({ owner, repo, branch: localBranch }),
@@ -45,25 +72,61 @@ jobs:
 
             const localSha = local.data.commit.sha;
             const upstreamSha = upstream.data.commit.sha;
-            const mergeBaseSha = comparison.data.merge_base_commit.sha;
+            const mergeBase = comparison.data.merge_base_commit;
+            const mergeBaseDate = new Date(mergeBase.commit.committer.date);
+            const ageDays = Math.floor((Date.now() - mergeBaseDate.getTime()) / 86400000);
+            const ageBucket = ageThresholds.filter(days => ageDays >= days).pop() ?? 0;
             const upstreamOnly = comparison.data.ahead_by;
             const forkOnly = comparison.data.behind_by;
             const status = comparison.data.status;
             const comparisonUrl = comparison.data.html_url;
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+
+            const readText = path => {
+              try {
+                return fs.readFileSync(path, "utf8").trim();
+              } catch {
+                return "";
+              }
+            };
+            const replayStatus = process.env.REPLAY_STATUS;
+            let replaySection;
+            let replayKey;
+            if (replayStatus === "0" || replayStatus === "2") {
+              replaySection = readText(process.env.REPLAY_REPORT);
+              replayKey = replaySection.match(/<!-- replay-status: (.*?) -->/)?.[1] ?? "unknown";
+            } else {
+              const errors = readText(process.env.REPLAY_ERRORS).split("\n").slice(-20).join("\n");
+              replaySection = [
+                "### Replay check failed",
+                "",
+                "```",
+                errors || `exit status ${replayStatus || "unknown"}`,
+                "```",
+              ].join("\n");
+              replayKey = "error";
+            }
+            const signature = `age>=${ageBucket};${replayKey}`;
+
             const body = [
               "Weekly comparison with `sonic-net/sonic-buildimage:master`.",
               "",
               `- Fork \`${localBranch}\`: \`${localSha}\``,
               `- Upstream \`${upstreamBranch}\`: \`${upstreamSha}\``,
-              `- Merge base: \`${mergeBaseSha}\``,
+              `- Merge base: \`${mergeBase.sha}\` from ${mergeBaseDate.toISOString().slice(0, 10)}, ` +
+                `**${ageDays} days** old`,
               `- Upstream-only commits: **${upstreamOnly}**`,
               `- Fork-only commits: **${forkOnly}**`,
               `- Status: \`${status}\``,
               "",
-              `[Review comparison](${comparisonUrl})`,
+              `[Review comparison](${comparisonUrl}) · [Workflow run](${runUrl})`,
+              "",
+              replaySection,
               "",
               "Refresh, build, and hardware-test before promotion. " +
                 "This workflow never merges or pushes.",
+              "",
+              `<!-- drift-signature: ${signature} -->`,
             ].join("\n");
 
             const openIssues = await github.paginate(github.rest.issues.listForRepo, {
@@ -78,12 +141,29 @@ jobs:
 
             if (upstreamOnly > 0) {
               if (issue) {
+                const previous = (issue.body ?? "").match(/<!-- drift-signature: (.*?) -->/)?.[1];
                 await github.rest.issues.update({
                   owner,
                   repo,
                   issue_number: issue.number,
                   body,
                 });
+                // Body edits do not notify anyone, so call out real changes.
+                if (previous !== signature) {
+                  await github.rest.issues.createComment({
+                    owner,
+                    repo,
+                    issue_number: issue.number,
+                    body: [
+                      "Upstream drift changed since the last report:",
+                      "",
+                      `- Merge base age: **${ageDays} days** (${upstreamOnly} upstream-only commits)`,
+                      `- Replay: \`${replayKey}\``,
+                      "",
+                      `The issue description has the full report. [Workflow run](${runUrl})`,
+                    ].join("\n"),
+                  });
+                }
               } else {
                 await github.rest.issues.create({ owner, repo, title: issueTitle, body });
               }

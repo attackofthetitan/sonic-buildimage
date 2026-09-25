@@ -8,22 +8,61 @@ kept outside that stack.
 
 | Branch | Purpose |
 | --- | --- |
-| `integration/ag9032v1` | The canonical reusable AG9032v1 patch stack. Refresh this complete range, not individual topic tips. |
+| `integration/ag9032v1` | The canonical reusable AG9032v1 patch stack. Refresh this complete range. |
 | `refresh/ag9032v1` | A disposable candidate rebased onto the selected upstream SHA. |
 | `build/ag9032v1` | The refresh candidate plus local `rules/config` policy. Never promote it. |
 | `local/ag9032v1-build-profile` | The one-commit, local-only `rules/config` policy replayed onto each build candidate. |
 | `promote/master` | A hardware-verified refresh plus one consolidated fork-maintenance commit. |
-| `maintenance/fork` | A pointer to that replayable maintenance commit at the tip of `master`. |
+| `maintenance/fork` | That replayable maintenance commit, on top of the integration tip. |
 | `master` | The verified reusable stack plus fork maintenance. |
 | `archive/*` | Immutable rollback points created before rewritten refs move. |
 
-The legacy `ag9032v1/*` topic branches may remain as historical labels, but
-they are not replay inputs. This avoids silently losing commits when one topic
-branch contains more than one commit.
+The former `ag9032v1/*` topic branches are retired. Never replay topic tips:
+one topic branch could hold several commits, so replaying tips silently lost
+work.
 
 Keep the dynamic-port-breakout fix as one standalone reusable commit on
 `integration/ag9032v1`. Do not combine it with `rules/config`, Debian archive
-compatibility, or the legacy-TH runtime workaround.
+compatibility, or the legacy-TH runtime workaround. Likewise, keep any change
+to a file shared by every platform, such as
+`dockers/docker-platform-monitor/docker_init.j2`, in its own standalone commit
+so it can be proposed upstream and dropped from the stack once merged.
+
+The maintenance commit changes exactly these files, listed in
+`MAINTENANCE_FILES` in the helper:
+
+- `FORK_MAINTENANCE.md`;
+- `scripts/fork-refresh-ag9032v1.sh`;
+- `scripts/build-ag9032v1.sh`;
+- `.github/workflows/upstream-drift.yml`; and
+- the fork workaround in `.github/workflows/protect-file.yml`.
+
+## Worktrees
+
+Use two worktrees of the same repository:
+
+| Worktree | Checked out | Used for |
+| --- | --- | --- |
+| Maintenance, for example `../sonic-buildimage-maint` | `master`, or another stable branch containing the helper | `--check`, prepare, conflict resolution, promotion |
+| Build | `build/ag9032v1` | `make`, which leaves untracked outputs and dirty submodules |
+
+The helper refuses a worktree with any change or untracked file, which a build
+worktree never satisfies, and Git refuses to reset a branch that another
+worktree has checked out. Create the maintenance worktree once:
+
+```bash
+git worktree add ../sonic-buildimage-maint master
+```
+
+Before preparing, detach the build worktree so the build branch is free. The
+helper stops with this command if you forget:
+
+```bash
+git -C <build-worktree> switch --detach
+```
+
+The saved refresh state lives in the shared Git directory, so both worktrees
+see it.
 
 ## One-time push safety
 
@@ -48,29 +87,48 @@ still pushable or any origin push URL does not point to the fork. Fast-forward-
 only pulls prevent an accidental merge; the canonical integration branch tracks
 the fork branch, while disposable refresh branches deliberately track nothing.
 
-## Prepare
+## Check before refreshing
 
-Start from a clean `master` worktree (or another stable branch containing the
-helper). Do not start from a disposable refresh, build, or promotion branch. If
-the breakout fix is not already in the remote integration stack, pass its
-standalone commit. To replace the local build policy in the same guarded
-transaction, also pass its reviewed one-commit revision:
+Preview the next refresh without changing refs, files, or saved state:
 
 ```bash
-bash scripts/fork-refresh-ag9032v1.sh \
-  --breakout-fix <revision> \
-  --local-profile <revision>
+bash scripts/fork-refresh-ag9032v1.sh --check
 ```
 
-If that reviewed profile intentionally changes `DEFAULT_PASSWORD`, explicitly
-add `--allow-default-password`. Do not add the flag to routine profiles.
+The check replays the integration stack onto `upstream/master` in a private
+index and prints a Markdown table. Each commit is `ok`, `dropped` (already
+upstream, so it will disappear from the range-diff), or `conflict` with the
+conflicting paths. It then replays the maintenance commit and the local profile
+on top, reports whether each keeps its stable patch ID, and runs the runtime
+target and breakout metadata checks against the replayed tree. Exit status 2
+means something needs attention. The drift workflow runs the same check weekly.
 
-The helper fetches both remotes, records the reviewed SHAs and requested
-breakout-fix/profile SHAs in `.git`, creates dated local archives for the old
-integration and master tips, and rebases the entire integration range onto the
-fetched `upstream/master`. It then prints a `range-diff` and recreates
-`build/ag9032v1` with only the pinned local profile applied. Without
-`--local-profile`, the selected profile is the reviewed origin tip.
+## Prepare
+
+From the clean maintenance worktree, run:
+
+```bash
+bash scripts/fork-refresh-ag9032v1.sh
+```
+
+To replace the local build policy in the same guarded transaction, pass its
+reviewed one-commit revision with `--local-profile <revision>`. If that
+reviewed profile intentionally changes `DEFAULT_PASSWORD`, explicitly add
+`--allow-default-password`. Do not add the flag to routine profiles.
+
+The helper fetches both remotes and records the reviewed SHAs and the selected
+profile SHA in `.git`. It creates dated local archives for the old integration
+and master tips, reusing an unpublished pair that an aborted run left for the
+same tips. It then rebases the entire integration range onto the fetched
+`upstream/master`, prints a `range-diff`, and recreates `build/ag9032v1` with
+only the pinned local profile applied. Finally it returns to the starting
+branch and prints the build and promotion commands. Without `--local-profile`,
+the selected profile is the reviewed origin tip.
+
+To add or adapt a reusable commit, such as a new standalone fix, add
+`--pause-after-rebase`. The helper stops on `refresh/ag9032v1` after a clean
+rebase. Commit the change there, keep the stack linear, return to the starting
+branch, and run `--resume --no-fetch`. The range-diff shows the addition.
 
 The local profile must be one non-merge commit changing only `rules/config`.
 It may tune build mechanics and optional packages. The helper rejects a
@@ -80,11 +138,13 @@ promotion validation. The helper warns whenever the exception is active because
 the plaintext credential is then present in Git and every resulting image.
 Prefer per-device provisioning and rotate any shared bootstrap password.
 
-The saved state uses a versioned, fail-closed format. Once preparation finishes,
-it seals the exact refresh and build SHAs; moving either candidate requires a
-new build and hardware test. A completed or legacy state is never silently
-reused. Preserve it under another name before beginning the next refresh, for
-example (this also works from a linked worktree):
+The saved state uses a versioned, fail-closed format. Once preparation
+finishes, it seals the exact refresh and build SHAs; moving either candidate
+requires a new build and hardware test. When a completed state's refresh
+candidate is already on `origin/integration/ag9032v1`, prepare preserves it as
+`fork-refresh-ag9032v1.state.promoted-<timestamp>` automatically. Any other
+existing state blocks a fresh prepare: resume it, or preserve it under another
+name first. States written by older helper versions are never resumed.
 
 ```bash
 state="$(git rev-parse --git-common-dir)/fork-refresh-ag9032v1.state"
@@ -109,6 +169,10 @@ git switch <starting-branch-shown-by-helper>
 bash scripts/fork-refresh-ag9032v1.sh --resume --no-fetch
 ```
 
+When a conflict is in a file shared by every platform, start from upstream's
+version and re-apply only the behavior the fork still needs. If that behavior
+is generic, move it into a standalone commit before resuming.
+
 To abandon the refresh without touching a remote ref:
 
 ```bash
@@ -116,42 +180,16 @@ git rebase --abort
 git switch <starting-branch-shown-by-helper>
 ```
 
-For a breakout or build-profile conflict, use `git cherry-pick --continue` or
+For a build-profile conflict, use `git cherry-pick --continue` or
 `git cherry-pick --abort`. After continuing, return to the starting branch and
-run `--resume --no-fetch`. The helper accepts a manually adapted, non-merge
-breakout commit on the recorded pre-pick parent, but restricts it to the source
-patch's paths and calls it out beside the range-diff. The build profile is
-stricter: its exact tip commit must retain the saved profile's stable patch ID.
-If adapting `rules/config` changes that patch ID, abort, review and replace the
-canonical local-profile source, preserve the old state, then start a fresh
-refresh. Inspect `git diff refresh/ag9032v1..build/ag9032v1` and the build tip
-with `git show build/ag9032v1` directly because the stack range-diff does not
-include the build profile. A conflicting `--breakout-fix` override is rejected.
-Keep the dated archive branches until the refreshed image has passed its
-observation period.
-
-## Adopt an existing candidate
-
-`--adopt-existing` is a narrow migration path for refresh/build branches that
-were deliberately prepared before this helper state existed. Run it from the
-committed `promote/master` worktree and name the trusted breakout validator and
-the exact local profile when they are not yet on their canonical remote refs:
-
-```bash
-bash scripts/fork-refresh-ag9032v1.sh --adopt-existing \
-  --breakout-fix <trusted-validator-revision> \
-  --local-profile <reviewed-profile-revision> \
-  --allow-default-password
-```
-
-Omit `--allow-default-password` when the selected profile does not change it.
-
-This mode does not rebase, cherry-pick, or move either candidate. It validates
-the current `refresh/ag9032v1` and `build/ag9032v1` refs, prints the full
-range-diff, creates rollback archives, and seals their exact SHAs. It tolerates
-unrelated generated build residue because validation reads committed objects,
-but the four maintenance files must exactly match `promote/master`. Use normal
-prepare mode after the one-time migration.
+run `--resume --no-fetch`. The build profile's exact tip commit must retain the
+saved profile's stable patch ID. If adapting `rules/config` changes that patch
+ID, abort, review and replace the canonical local-profile source, preserve the
+old state, then start a fresh refresh. Inspect
+`git diff refresh/ag9032v1..build/ag9032v1` and the build tip with
+`git show build/ag9032v1` directly because the stack range-diff does not
+include the build profile. Keep the dated archive branches until the refreshed
+image has passed its observation period.
 
 ## Validate
 
@@ -170,59 +208,47 @@ the reusable refresh tree and stops if the port, HWSKU, platform, or BCM
 metadata is inconsistent. It also requires the platform runtime to remain
 `broadcom-legacy-th`.
 
+### Build
+
+In the build worktree, check out the sealed candidate, synchronize submodules,
+and run the build script from the maintenance worktree:
+
+```bash
+git switch build/ag9032v1
+make init
+bash ../sonic-buildimage-maint/scripts/build-ag9032v1.sh
+```
+
+`make init` runs `git submodule update --init --recursive`. Without it,
+submodules keep whatever commit the previous build left, and the image mixes
+old submodule sources with the refreshed superproject. The build script first
+checks that the worktree is the sealed `build/ag9032v1`, that tracked files
+match it, and that every submodule contains its recorded commit. Build-time
+patch commits on top of a recorded commit, such as FRR's, are allowed.
+`--preflight` stops after these checks.
+
+The script then:
+
+1. moves the AG9032v1 platform `.deb`, the Broadcom installer images and their
+   logs, and the split root-filesystem squashfs files into
+   `target/ag9032v1-prebuild-<timestamp>/`;
+2. rebuilds the platform package and checks that it ships
+   `ag9032v1_wait_pmon_ready.sh` and the pmon `10-ag9032v1-platform-ready.conf`
+   drop-in;
+3. builds `target/sonic-broadcom.bin`, which also emits the legacy-TH image;
+4. verifies the configured default password against the built root
+   filesystem without printing either value; and
+5. prints the SHA-256 of `target/sonic-broadcom-legacy-th.bin`.
+
 SONiC's outer make target considers an existing output complete without
 comparing it to every platform source file. Its split root-filesystem squashfs
 targets also capture the default account password and can remain stale even
-when the aggregate installer is rebuilt. Preserve all previous outputs and
-remove them from the active target paths before rebuilding. Rebuild and inspect
-the AG9032v1 platform package first, then build the Broadcom installer set,
-verify the configured password against the built root filesystem, and checksum
-its machine-specific image:
-
-```bash
-PLATFORM_DEB=target/debs/trixie/platform-modules-ag9032v1_1.1_amd64.deb
-BUILD_TARGET=target/sonic-broadcom.bin
-DNX_IMAGE=target/sonic-broadcom-dnx.bin
-IMAGE=target/sonic-broadcom-legacy-th.bin
-RFS_PREFIX=target/sonic-broadcom.bin
-artifact_archive="target/ag9032v1-prebuild-$(date -u +%Y%m%dT%H%M%SZ)"
-mkdir -p "$artifact_archive"
-for artifact in \
-    "$PLATFORM_DEB" "$BUILD_TARGET" "${BUILD_TARGET}.log" \
-    "$DNX_IMAGE" "$IMAGE" \
-    "${RFS_PREFIX}"__*__rfs.squashfs \
-    "${RFS_PREFIX}"__*__rfs.squashfs.log; do
-    [[ ! -e "$artifact" ]] || mv "$artifact" "$artifact_archive/"
-done
-
-make "$PLATFORM_DEB"
-dpkg-deb --fsys-tarfile "$PLATFORM_DEB" | tar -tf - |
-    grep -Fx './usr/local/bin/ag9032v1_wait_pmon_ready.sh'
-dpkg-deb --fsys-tarfile "$PLATFORM_DEB" | tar -tf - |
-    grep -Fx './lib/systemd/system/pmon.service.d/10-ag9032v1-platform-ready.conf'
-make target/sonic-broadcom.bin
-build_username="$(awk '$1 == "DEFAULT_USERNAME" { value = $3 } END { print value }' rules/config)"
-build_password="$(awk '$1 == "DEFAULT_PASSWORD" { value = $3 } END { print value }' rules/config)"
-shadow_hash="$(sudo awk -F: -v username="$build_username" \
-    '$1 == username { print $2 }' fsroot-broadcom-legacy-th/etc/shadow)"
-if [[ -z "$build_password" ]]; then
-    [[ -z "$shadow_hash" ]]
-else
-    BUILD_PASSWORD="$build_password" SHADOW_HASH="$shadow_hash" perl -e \
-        'exit crypt($ENV{BUILD_PASSWORD}, $ENV{SHADOW_HASH}) eq $ENV{SHADOW_HASH} ? 0 : 1'
-fi
-echo "Default password hash matches rules/config for $build_username"
-test -s target/sonic-broadcom-legacy-th.bin
-sha256sum target/sonic-broadcom-legacy-th.bin
-```
-
-The archive step is deliberate: the platform `.deb` must be regenerated after
-platform-module or packaging changes, and the split root filesystems plus all
+when the aggregate installer is rebuilt. That is why the script moves the old
+outputs aside: the platform `.deb` must be regenerated after platform-module or
+packaging changes, and the split root filesystems plus all
 aggregate/dependent-machine images must be regenerated after the platform
-package or local account policy changes. Keeping the old outputs under a
-timestamped directory preserves rollback evidence without letting make reuse
-them. The password validator compares the configured password to the built
-hash without printing either value.
+package or local account policy changes. The timestamped directory preserves
+rollback evidence without letting make reuse it.
 
 Do not run `make reset` before each build. In this tree it is a destructive
 repository reset, not an ordinary dependency refresh: it removes every
@@ -237,6 +263,8 @@ Install only `target/sonic-broadcom-legacy-th.bin` on the Delta AG9032v1. The
 aggregate target emits that legacy-TH image as a dependent-machine artifact;
 the generic `target/sonic-broadcom.bin` does not select AG9032v1 in its
 `platforms_asic` metadata and carries the wrong SAI/OpenNSL generation.
+
+### Hardware gate
 
 On the rebuilt image, verify the platform API package invariant and the pmon
 self-repair path as part of the boot gate:
@@ -368,48 +396,72 @@ sufficient for promotion.
 
 ## Promote
 
-After hardware verification, create `promote/master` from the reusable
-candidate and add exactly one consolidated maintenance commit:
+After hardware verification, create `promote/master` in the maintenance
+worktree from the reusable candidate, add exactly one consolidated maintenance
+commit, and ask the helper to validate it. Prepare prints these commands with
+pinned SHAs:
 
 ```bash
 git switch -C promote/master refresh/ag9032v1
 git cherry-pick origin/maintenance/fork
-```
-
-During the one-time migration from the existing three-commit maintenance
-history, create one replacement commit instead. The helper requires this exact
-four-file change set:
-
-- `FORK_MAINTENANCE.md`;
-- `scripts/fork-refresh-ag9032v1.sh`;
-- `.github/workflows/upstream-drift.yml`; and
-- the fork workaround in `.github/workflows/protect-file.yml`.
-
-Ask the helper to validate the candidate and print the exact promotion command:
-
-```bash
 bash scripts/fork-refresh-ag9032v1.sh --print-promotion
 ```
 
-It verifies the single maintenance commit and path allowlist, checks that the
-four maintenance files in the worktree exactly match that commit, confirms the
-sealed candidate and reviewed origin tips have not moved, and prints one manual
-`git push --atomic` command. Every updated ref has an explicit lease, including
-the selected local-profile ref and an absence lease for each new immutable
-archive, and every source is a pinned raw SHA. The same transaction publishes
-the dated rollback refs. The helper does not run the command or switch branches.
-It permits unrelated build residue during this final read-only check, but never
-permits uncommitted maintenance content to influence the printed promotion.
+The helper verifies the single maintenance commit and path allowlist, checks
+that the maintenance files in the worktree exactly match that commit, confirms
+the sealed candidate and reviewed origin tips have not moved, and prints one
+manual `git push --atomic` command. Every updated ref has an explicit lease,
+including the selected local-profile ref and an absence lease for each new
+immutable archive, and every source is a pinned raw SHA. The same transaction
+publishes the dated rollback refs. The helper does not run the command or switch
+branches. It permits unrelated build residue during this final read-only check,
+but never permits uncommitted maintenance content to influence the printed
+promotion.
 
-On later refreshes the new maintenance tip must retain the saved
-`origin/maintenance/fork` commit's stable patch ID. If an upstream conflict
-requires a semantic maintenance change, do not weaken the check: review and
-replace the canonical maintenance source with an explicit lease, preserve the
-old refresh state, and start a fresh preparation so the new source SHA is pinned
-before any candidate is built.
+The new maintenance tip must retain the saved `origin/maintenance/fork`
+commit's stable patch ID. If an upstream conflict requires a semantic
+maintenance change, do not weaken the check: publish the change as a
+maintenance-only update (below), preserve the old refresh state, and start a
+fresh preparation so the new source SHA is pinned before any candidate is built.
 
 Read the printed command before copying it. Never replace its leases with plain
 `--force`, and never promote `build/ag9032v1`.
+
+After the push succeeds, bring the local copies of the rewritten refs up to
+date so nobody reads a stale guide or helper from them. Their previous tips are
+in the archives the push just published:
+
+```bash
+git fetch --prune origin
+git switch -C master origin/master
+git branch -f integration/ag9032v1 origin/integration/ag9032v1
+git branch -f maintenance/fork origin/maintenance/fork
+```
+
+## Maintenance-only updates
+
+A change that touches only the maintenance files cannot change the image, so it
+needs no stack refresh or hardware test. Publish it only while no prepared
+candidate is waiting for promotion, because a saved state pins
+`origin/master` and `origin/maintenance/fork`.
+
+```bash
+git switch -C maintenance/fork-next origin/master
+# Edit and test the maintenance files, then:
+git commit -a
+update="$(git rev-parse HEAD)"
+git reset --soft origin/integration/ag9032v1
+git commit -C origin/maintenance/fork
+test "$(git rev-parse HEAD^{tree})" = "$(git rev-parse "$update^{tree}")"
+git push --atomic \
+  --force-with-lease=refs/heads/master:"$(git rev-parse origin/master)" \
+  --force-with-lease=refs/heads/maintenance/fork:"$(git rev-parse origin/maintenance/fork)" \
+  origin "$update:refs/heads/master" "HEAD:refs/heads/maintenance/fork"
+```
+
+`master` fast-forwards to the incremental commit, and `maintenance/fork` is
+replaced by one squashed commit with the same tree on top of the integration
+tip. The next promotion restores `master` to the single-commit shape.
 
 ## Roll back and clean up
 
@@ -418,12 +470,30 @@ the helper output. Verify their SHAs and restore both canonical refs using the
 same atomic, explicit-lease pattern. Do not use `git reset --hard`, delete the
 candidate, or remove archives during diagnosis.
 
-After a successful observation period, stale `refresh/*`, `build/*`, old
-maintenance branches, and superseded topic refs may be pruned separately.
+After the refreshed image passes its observation period, prune separately:
 
-## Drift alert
+- keep the canonical branches above and the archive pair published by the most
+  recent promotion, which is the current rollback point;
+- delete stale local `refresh/*`, `build/*`, and `promote/*` variants, scratch
+  branches, unpublished local archives, and older archive pairs on `origin`;
+- first save anything deleted that no kept ref still reaches:
+
+```bash
+git bundle create ~/sonic-fork-pruned-"$(date -u +%Y%m%d)".bundle \
+  <refs-to-delete...> --not origin/master upstream/master
+```
+
+## GitHub Actions
 
 `.github/workflows/upstream-drift.yml` runs weekly and on manual dispatch. It
-reports the exact fork, upstream, and merge-base SHAs plus both unique-commit
-counts. It maintains an issue without merging, pushing, or changing repository
-contents.
+reports the fork, upstream, and merge-base SHAs, the merge base's age, both
+unique-commit counts, and the `--check` replay report. It keeps one issue up to
+date and adds a comment, which notifies, whenever the merge base crosses 14,
+30, 60, or 90 days old or the replay result changes. It never merges, pushes,
+or changes repository contents.
+
+Upstream workflows that only make sense in `sonic-net/sonic-buildimage` are
+disabled in the fork's Actions settings instead of edited, so refreshes never
+conflict on them: automerge, AutoMergeScan, PreCherryPick, PostCherryPick,
+Labeler, CodeQL, and Semgrep. Check the list again when a refresh brings new
+upstream workflows. `protect-file.yml` stays enabled with its fork workaround.

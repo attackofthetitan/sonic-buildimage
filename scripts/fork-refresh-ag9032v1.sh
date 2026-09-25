@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Prepare AG9032v1 refresh/build candidates and print a guarded promotion.
-# Rebase/cherry-pick rewrite disposable local candidates; the script never
-# pushes, promotes, or deletes refs.
+# Prepare AG9032v1 refresh/build candidates, preview an upstream replay, and
+# print a guarded promotion. Rebase/cherry-pick rewrite disposable local
+# candidates; the script never pushes, promotes, or deletes refs.
 
 set -euo pipefail
 
@@ -12,43 +12,53 @@ readonly BUILD="build/ag9032v1"
 readonly PROMOTE="promote/master"
 readonly MAINTENANCE="maintenance/fork"
 readonly LOCAL_PROFILE="local/ag9032v1-build-profile"
-readonly BUILD_TARGET="target/sonic-broadcom.bin"
-readonly DNX_IMAGE="target/sonic-broadcom-dnx.bin"
-readonly IMAGE="target/sonic-broadcom-legacy-th.bin"
-readonly PLATFORM_DEB="target/debs/trixie/platform-modules-ag9032v1_1.1_amd64.deb"
-readonly RFS_PREFIX="target/sonic-broadcom.bin"
-readonly STATE_VERSION=4
+readonly PLATFORM_DIR="device/delta/x86_64-delta_ag9032v1-r0"
+readonly STATE_VERSION=5
+# Exactly the paths the consolidated maintenance commit changes.
+readonly -a MAINTENANCE_FILES=(
+    .github/workflows/protect-file.yml
+    .github/workflows/upstream-drift.yml
+    FORK_MAINTENANCE.md
+    scripts/build-ag9032v1.sh
+    scripts/fork-refresh-ag9032v1.sh
+)
 
 mode=prepare
 fetch=1
-breakout_fix=""
-breakout_fix_sha=""
-breakout_parent=""
+pause_after_rebase=0
 local_profile=""
 allow_default_password=0
 password_warning_emitted=0
 phase=""
-state_version="$STATE_VERSION"
 old_local_profile_sha=""
 local_profile_sha=""
 maintenance_sha="absent"
 prepared_refresh_sha=""
 prepared_build_sha=""
+replay_index=""
+replay_tip=""
+replay_result=""
+replay_conflict_paths=()
 
 usage() {
     cat <<'EOF'
 Usage:
-  scripts/fork-refresh-ag9032v1.sh [--no-fetch] [--breakout-fix REV] [--local-profile REV] [--allow-default-password]
-  scripts/fork-refresh-ag9032v1.sh --resume [--no-fetch] [--breakout-fix REV] [--local-profile REV]
-  scripts/fork-refresh-ag9032v1.sh --adopt-existing [--no-fetch] [--breakout-fix REV] [--local-profile REV] [--allow-default-password]
+  scripts/fork-refresh-ag9032v1.sh [--no-fetch] [--local-profile REV] [--allow-default-password] [--pause-after-rebase]
+  scripts/fork-refresh-ag9032v1.sh --resume [--no-fetch] [--local-profile REV]
+  scripts/fork-refresh-ag9032v1.sh --check [--no-fetch]
   scripts/fork-refresh-ag9032v1.sh --print-promotion [--no-fetch]
 
 The default mode archives the reviewed remote tips, rebases the entire
 integration stack onto upstream/master, prints a range-diff, and creates a
 local build candidate. These operations create/rewrite local candidate commits.
---resume finishes after manually resolved conflicts.
---adopt-existing validates and seals already-prepared refresh/build candidates
-without rewriting them; use it for a deliberately reviewed one-time migration.
+A completed state whose candidate was already promoted is preserved and moved
+aside automatically.
+--pause-after-rebase stops after a clean rebase so reusable commits can be
+added or adapted on refresh/ag9032v1 before --resume.
+--resume finishes after manually resolved conflicts or a pause.
+--check replays the stack, maintenance commit, and local profile onto
+upstream/master in a private index and prints a Markdown report. It changes no
+refs, worktree files, or saved state. Exit status 2 means attention is needed.
 --allow-default-password explicitly approves a local profile which embeds a
 DEFAULT_PASSWORD change. The approval is saved with the sealed candidate.
 --print-promotion validates candidates and prints, but never runs, an atomic
@@ -59,63 +69,34 @@ EOF
 die() { printf 'error: %s\n' "$*" >&2; exit 1; }
 warn() { printf 'warning: %s\n' "$*" >&2; }
 
-while (($#)); do
-    case "$1" in
-        --resume)
-            [[ "$mode" == prepare ]] || die "choose only one mode"
-            mode=resume
-            ;;
-        --print-promotion)
-            [[ "$mode" == prepare ]] || die "choose only one mode"
-            mode=print-promotion
-            ;;
-        --adopt-existing)
-            [[ "$mode" == prepare ]] || die "choose only one mode"
-            mode=adopt-existing
-            ;;
-        --breakout-fix)
-            shift
-            (($#)) || die "--breakout-fix requires a revision"
-            breakout_fix="$1"
-            ;;
-        --local-profile)
-            shift
-            (($#)) || die "--local-profile requires a revision"
-            local_profile="$1"
-            ;;
-        --allow-default-password) allow_default_password=1 ;;
-        --no-fetch) fetch=0 ;;
-        -h|--help) usage; exit 0 ;;
-        *) die "unknown argument: $1" ;;
-    esac
-    shift
-done
+parse_args() {
+    while (($#)); do
+        case "$1" in
+            --resume|--check|--print-promotion)
+                [[ "$mode" == prepare ]] || die "choose only one mode"
+                mode="${1#--}"
+                ;;
+            --local-profile)
+                shift
+                (($#)) || die "--local-profile requires a revision"
+                local_profile="$1"
+                ;;
+            --allow-default-password) allow_default_password=1 ;;
+            --pause-after-rebase) pause_after_rebase=1 ;;
+            --no-fetch) fetch=0 ;;
+            -h|--help) usage; exit 0 ;;
+            *) die "unknown argument: $1" ;;
+        esac
+        shift
+    done
 
-[[ "$mode" != print-promotion || -z "$breakout_fix" ]] ||
-    die "--breakout-fix is not valid with --print-promotion"
-[[ "$mode" != print-promotion || -z "$local_profile" ]] ||
-    die "--local-profile is not valid with --print-promotion"
-[[ "$allow_default_password" == 0 || "$mode" == prepare || "$mode" == adopt-existing ]] ||
-    die "--allow-default-password is valid only when preparing or adopting candidates"
-
-root="$(git rev-parse --show-toplevel 2>/dev/null)" ||
-    die "run inside sonic-buildimage"
-cd "$root"
-git_dir="$(git rev-parse --git-dir)"
-git_common_dir="$(git rev-parse --git-common-dir)"
-state_file="$git_common_dir/fork-refresh-ag9032v1.state"
-
-if [[ "$mode" == prepare || "$mode" == resume ]]; then
-    clean="$(git status --porcelain=v1 --untracked-files=all)"
-    [[ -z "$clean" ]] || {
-        printf '%s\n' "$clean" >&2
-        die "worktree is not clean"
-    }
-fi
-[[ ! -d "$git_dir/rebase-merge" && ! -d "$git_dir/rebase-apply" ]] ||
-    die "finish or abort the active rebase first"
-[[ ! -f "$git_dir/CHERRY_PICK_HEAD" ]] ||
-    die "finish or abort the active cherry-pick first"
+    [[ -z "$local_profile" || "$mode" == prepare || "$mode" == resume ]] ||
+        die "--local-profile is valid only when preparing or resuming"
+    [[ "$allow_default_password" == 0 || "$mode" == prepare ]] ||
+        die "--allow-default-password is valid only when preparing candidates"
+    [[ "$pause_after_rebase" == 0 || "$mode" == prepare ]] ||
+        die "--pause-after-rebase is valid only when preparing candidates"
+}
 
 url_is() {
     local url="$1" slug="$2"
@@ -141,21 +122,46 @@ remote_urls_are() {
     done
 }
 
-remote_urls_are origin fetch "attackofthetitan/sonic-buildimage"
-remote_urls_are origin push "attackofthetitan/sonic-buildimage"
-remote_urls_are upstream fetch "sonic-net/sonic-buildimage"
-mapfile -t upstream_push_urls < <(
-    git remote get-url --push --all upstream 2>/dev/null
-)
-[[ "${#upstream_push_urls[@]}" == 1 && "${upstream_push_urls[0]}" == DISABLED ]] ||
-    die "upstream push URL must be exactly DISABLED"
+preflight() {
+    root="$(git rev-parse --show-toplevel 2>/dev/null)" ||
+        die "run inside sonic-buildimage"
+    cd "$root"
+    git_dir="$(git rev-parse --git-dir)"
+    git_common_dir="$(git rev-parse --git-common-dir)"
+    state_file="$git_common_dir/fork-refresh-ag9032v1.state"
 
-if ((fetch)); then
-    git fetch --prune upstream
-    git fetch --prune origin
-else
-    warn "--no-fetch uses possibly stale remote-tracking refs"
-fi
+    if [[ "$mode" == prepare || "$mode" == resume ]]; then
+        local clean
+        clean="$(git status --porcelain=v1 --untracked-files=all)"
+        [[ -z "$clean" ]] || {
+            printf '%s\n' "$clean" >&2
+            die "worktree is not clean; run the helper from the dedicated maintenance worktree"
+        }
+    fi
+    if [[ "$mode" != check ]]; then
+        [[ ! -d "$git_dir/rebase-merge" && ! -d "$git_dir/rebase-apply" ]] ||
+            die "finish or abort the active rebase first"
+        [[ ! -f "$git_dir/CHERRY_PICK_HEAD" ]] ||
+            die "finish or abort the active cherry-pick first"
+    fi
+
+    remote_urls_are origin fetch "attackofthetitan/sonic-buildimage"
+    remote_urls_are origin push "attackofthetitan/sonic-buildimage"
+    remote_urls_are upstream fetch "sonic-net/sonic-buildimage"
+    local -a upstream_push_urls=()
+    mapfile -t upstream_push_urls < <(
+        git remote get-url --push --all upstream 2>/dev/null
+    )
+    [[ "${#upstream_push_urls[@]}" == 1 && "${upstream_push_urls[0]}" == DISABLED ]] ||
+        die "upstream push URL must be exactly DISABLED"
+
+    if ((fetch)); then
+        git fetch --prune upstream
+        git fetch --prune origin
+    else
+        warn "--no-fetch uses possibly stale remote-tracking refs"
+    fi
+}
 
 need_ref() {
     git show-ref --verify --quiet "$1" || die "missing required ref: $1"
@@ -163,6 +169,12 @@ need_ref() {
 
 commit_patch_id() {
     git show --format= --no-ext-diff "$1" |
+        git patch-id --stable |
+        awk 'NR == 1 { print $1; found = 1 } END { exit !found }'
+}
+
+range_patch_id() {
+    git diff --no-ext-diff "$1" "$2" |
         git patch-id --stable |
         awk 'NR == 1 { print $1; found = 1 } END { exit !found }'
 }
@@ -176,7 +188,7 @@ validate_profile_source() {
     if git diff --unified=0 "$profile_sha^" "$profile_sha" -- rules/config |
         grep -Eq '^[+-][[:space:]]*(export[[:space:]]+)?DEFAULT_PASSWORD[[:space:]]*(\?|\+|:)?='; then
         [[ "$allow_default_password" == 1 ]] ||
-            die "$LOCAL_PROFILE changes DEFAULT_PASSWORD; review it and rerun prepare/adopt with --allow-default-password"
+            die "$LOCAL_PROFILE changes DEFAULT_PASSWORD; review it and rerun prepare with --allow-default-password"
         if [[ "$password_warning_emitted" == 0 ]]; then
             warn "$LOCAL_PROFILE embeds DEFAULT_PASSWORD in Git and in every resulting image"
             password_warning_emitted=1
@@ -184,20 +196,24 @@ validate_profile_source() {
     fi
 }
 
+state_field() {
+    awk -F= -v key="$1" '$1 == key { value = substr($0, length(key) + 2) } END { print value }' \
+        "$state_file"
+}
+
 read_state() {
     [[ -f "$state_file" ]] || die "no saved refresh state; run prepare mode first"
     state_version=""
     old_integration=""; old_master=""; upstream_sha=""; old_base=""
-    integration_archive=""; master_archive=""; starting_branch=""
-    breakout_fix_sha=""; breakout_parent=""; phase=""
+    integration_archive=""; master_archive=""; starting_branch=""; phase=""
     old_local_profile_sha=""; local_profile_sha=""; maintenance_sha=""
     allow_default_password=""
     prepared_refresh_sha=""; prepared_build_sha=""
     while IFS='=' read -r key value; do
         case "$key" in
             state_version|old_integration|old_master|upstream_sha|old_base|\
-            integration_archive|master_archive|starting_branch|breakout_fix_sha|\
-            breakout_parent|old_local_profile_sha|local_profile_sha|maintenance_sha|\
+            integration_archive|master_archive|starting_branch|\
+            old_local_profile_sha|local_profile_sha|maintenance_sha|\
             allow_default_password|\
             prepared_refresh_sha|prepared_build_sha|phase)
                 printf -v "$key" '%s' "$value"
@@ -209,10 +225,6 @@ read_state() {
     for sha in "$old_integration" "$old_master" "$upstream_sha" "$old_base"; do
         [[ "$sha" =~ ^[0-9a-f]{40}$ ]] || die "invalid saved SHA"
     done
-    [[ -z "$breakout_fix_sha" || "$breakout_fix_sha" =~ ^[0-9a-f]{40}$ ]] ||
-        die "invalid saved breakout-fix SHA"
-    [[ -z "$breakout_parent" || "$breakout_parent" =~ ^[0-9a-f]{40}$ ]] ||
-        die "invalid saved breakout parent SHA"
     [[ "$old_local_profile_sha" =~ ^[0-9a-f]{40}$ ]] ||
         die "invalid saved old local-profile SHA"
     [[ "$local_profile_sha" =~ ^[0-9a-f]{40}$ ]] ||
@@ -221,7 +233,7 @@ read_state() {
         die "invalid saved maintenance SHA"
     [[ "$allow_default_password" == 0 || "$allow_default_password" == 1 ]] ||
         die "invalid saved default-password approval"
-    case "$phase" in rebase|breakout|build|done) ;; *) die "invalid saved phase" ;; esac
+    case "$phase" in rebase|build|done) ;; *) die "invalid saved phase" ;; esac
     if [[ "$phase" == done ]]; then
         [[ "$prepared_refresh_sha" =~ ^[0-9a-f]{40}$ &&
            "$prepared_build_sha" =~ ^[0-9a-f]{40}$ ]] ||
@@ -232,31 +244,50 @@ read_state() {
     fi
     git check-ref-format "refs/heads/$integration_archive" >/dev/null || die "invalid saved archive"
     git check-ref-format "refs/heads/$master_archive" >/dev/null || die "invalid saved archive"
+    git check-ref-format --branch "$starting_branch" >/dev/null || die "invalid saved starting branch"
 }
 
 save_state() {
     local tmp="$state_file.tmp"
-    umask 077
-    {
-        printf 'state_version=%s\n' "$STATE_VERSION"
-        printf 'old_integration=%s\n' "$old_integration"
-        printf 'old_master=%s\n' "$old_master"
-        printf 'upstream_sha=%s\n' "$upstream_sha"
-        printf 'old_base=%s\n' "$old_base"
-        printf 'integration_archive=%s\n' "$integration_archive"
-        printf 'master_archive=%s\n' "$master_archive"
-        printf 'starting_branch=%s\n' "$starting_branch"
-        printf 'breakout_fix_sha=%s\n' "$breakout_fix_sha"
-        printf 'breakout_parent=%s\n' "$breakout_parent"
-        printf 'old_local_profile_sha=%s\n' "$old_local_profile_sha"
-        printf 'local_profile_sha=%s\n' "$local_profile_sha"
-        printf 'maintenance_sha=%s\n' "$maintenance_sha"
-        printf 'allow_default_password=%s\n' "$allow_default_password"
-        printf 'prepared_refresh_sha=%s\n' "$prepared_refresh_sha"
-        printf 'prepared_build_sha=%s\n' "$prepared_build_sha"
-        printf 'phase=%s\n' "$phase"
-    } >"$tmp"
+    (
+        umask 077
+        {
+            printf 'state_version=%s\n' "$STATE_VERSION"
+            printf 'old_integration=%s\n' "$old_integration"
+            printf 'old_master=%s\n' "$old_master"
+            printf 'upstream_sha=%s\n' "$upstream_sha"
+            printf 'old_base=%s\n' "$old_base"
+            printf 'integration_archive=%s\n' "$integration_archive"
+            printf 'master_archive=%s\n' "$master_archive"
+            printf 'starting_branch=%s\n' "$starting_branch"
+            printf 'old_local_profile_sha=%s\n' "$old_local_profile_sha"
+            printf 'local_profile_sha=%s\n' "$local_profile_sha"
+            printf 'maintenance_sha=%s\n' "$maintenance_sha"
+            printf 'allow_default_password=%s\n' "$allow_default_password"
+            printf 'prepared_refresh_sha=%s\n' "$prepared_refresh_sha"
+            printf 'prepared_build_sha=%s\n' "$prepared_build_sha"
+            printf 'phase=%s\n' "$phase"
+        } >"$tmp"
+    )
     mv "$tmp" "$state_file"
+}
+
+# A completed state whose refresh candidate is already on the published
+# integration branch has nothing left to promote. Preserve it under another
+# name instead of asking for a manual move; any other state still blocks.
+rotate_promoted_state() {
+    [[ -e "$state_file" ]] || return 0
+    local saved_refresh preserved
+    saved_refresh="$(state_field prepared_refresh_sha)"
+    if [[ "$(state_field phase)" == done && "$saved_refresh" =~ ^[0-9a-f]{40}$ ]] &&
+        git show-ref --verify --quiet "refs/remotes/origin/$INTEGRATION" &&
+        git merge-base --is-ancestor "$saved_refresh" "refs/remotes/origin/$INTEGRATION" 2>/dev/null; then
+        preserved="$state_file.promoted-$(date -u +%Y%m%dT%H%M%SZ)"
+        mv "$state_file" "$preserved"
+        printf 'Preserved the promoted refresh state as %s\n' "$preserved"
+        return 0
+    fi
+    die "saved refresh state is not promoted; resume it or preserve and move it aside before a fresh prepare"
 }
 
 resolve_refs() {
@@ -306,7 +337,7 @@ resolve_local_profile() {
     if [[ -n "$local_profile" ]]; then
         cli_sha="$(git rev-parse --verify "$local_profile^{commit}")" ||
             die "invalid local-profile revision: $local_profile"
-        if [[ "$mode" == prepare || "$mode" == adopt-existing ]]; then
+        if [[ "$mode" == prepare ]]; then
             local_profile_sha="$cli_sha"
         elif [[ "$cli_sha" != "$local_profile_sha" ]]; then
             die "--local-profile does not match the revision saved during preparation"
@@ -315,55 +346,25 @@ resolve_local_profile() {
     validate_profile_source "$local_profile_sha"
 }
 
-resolve_breakout_fix() {
-    [[ -n "$breakout_fix" ]] || return 0
-    local cli_sha parent_count
-    cli_sha="$(git rev-parse --verify "$breakout_fix^{commit}")" ||
-        die "invalid breakout-fix revision: $breakout_fix"
-    parent_count="$(git rev-list --parents -n1 "$cli_sha" | awk '{print NF - 1}')"
-    ((parent_count == 1)) || die "breakout fix must be one non-merge commit"
-
-    if [[ "$mode" == prepare || "$mode" == adopt-existing ]]; then
-        breakout_fix_sha="$cli_sha"
-    elif [[ "$cli_sha" != "$breakout_fix_sha" ]]; then
-        die "--breakout-fix does not match the revision saved during prepare"
-    fi
-}
-
-breakout_is_applied() {
-    [[ -n "$breakout_fix_sha" ]] || return 0
-    local cherry refresh_tip path
-    local -a source_paths=() candidate_paths=()
-    cherry="$(git cherry "$REFRESH" "$breakout_fix_sha" "$breakout_fix_sha^")"
-    if [[ -z "$cherry" || "${cherry:0:1}" == "-" ]]; then
-        return 0
-    fi
-
-    # A conflict resolution may intentionally adapt the patch to new upstream
-    # code, changing its patch ID. Accept only one resolved, non-merge commit
-    # on the exact pre-pick parent and restrict it to the source patch's paths.
-    [[ -n "$breakout_parent" ]] || return 1
-    refresh_tip="$(git rev-parse "refs/heads/$REFRESH")"
-    [[ "$refresh_tip" != "$breakout_parent" ]] || return 1
-    git merge-base --is-ancestor "$breakout_parent" "$refresh_tip" ||
-        die "$REFRESH diverged from the saved breakout parent"
-    [[ "$(git rev-list --count "$breakout_parent..$refresh_tip")" == 1 ]] ||
-        die "resolved breakout must add exactly one commit"
-    ! git rev-list --min-parents=2 "$breakout_parent..$refresh_tip" | grep -q . ||
-        die "resolved breakout must not be a merge commit"
-
-    mapfile -t source_paths < <(
-        git diff-tree --no-commit-id --name-only -r "$breakout_fix_sha"
-    )
-    mapfile -t candidate_paths < <(
-        git diff --name-only "$breakout_parent..$refresh_tip"
-    )
-    ((${#candidate_paths[@]})) || die "resolved breakout commit is empty"
-    for path in "${candidate_paths[@]}"; do
-        printf '%s\n' "${source_paths[@]}" | grep -Fqx -- "$path" ||
-            die "resolved breakout changed an unexpected path: $path"
-    done
-    warn "accepting one manually adapted breakout commit; review the range-diff"
+# Git refuses to reset a branch that another worktree has checked out. Stop
+# before rewriting anything and say which worktree must detach first.
+ensure_branches_free() {
+    local line path="" branch here
+    here="$(realpath "$root")"
+    while IFS= read -r line; do
+        case "$line" in
+            "worktree "*) path="${line#worktree }" ;;
+            "branch refs/heads/"*)
+                if [[ "$(realpath "$path")" != "$here" ]]; then
+                    for branch in "$@"; do
+                        if [[ "${line#branch refs/heads/}" == "$branch" ]]; then
+                            die "$branch is checked out in $path; run: git -C '$path' switch --detach"
+                        fi
+                    done
+                fi
+                ;;
+        esac
+    done < <(git worktree list --porcelain)
     return 0
 }
 
@@ -401,16 +402,24 @@ Rollback refs: $integration_archive and $master_archive
 EOF
 }
 
+pause_help() {
+    cat >&2 <<EOF
+
+Paused after a clean rebase; no remote ref changed. $REFRESH is checked out
+here. Add or adapt reusable commits, keep the stack linear, then resume:
+  git switch $starting_branch
+  bash scripts/fork-refresh-ag9032v1.sh --resume --no-fetch
+EOF
+}
+
 pick_help() {
-    local candidate="$REFRESH"
-    [[ "$phase" == build ]] && candidate="$BUILD"
     cat >&2 <<EOF
 
 No remote ref changed. Resolve with git add and git cherry-pick --continue,
 then return to the helper branch and resume:
   git switch $starting_branch
   bash scripts/fork-refresh-ag9032v1.sh --resume --no-fetch
-Abort with git cherry-pick --abort. The candidate remains at $candidate.
+Abort with git cherry-pick --abort. The candidate remains at $BUILD.
 EOF
 }
 
@@ -424,29 +433,33 @@ validate_refresh() {
 
 validate_runtime_target() {
     local platform_asic
-    platform_asic="$(
-        git show "refs/heads/$REFRESH:device/delta/x86_64-delta_ag9032v1-r0/platform_asic"
-    )" || die "refresh candidate is missing AG9032v1 platform_asic"
+    platform_asic="$(git show "refs/heads/$REFRESH:$PLATFORM_DIR/platform_asic")" ||
+        die "refresh candidate is missing AG9032v1 platform_asic"
     [[ "$platform_asic" == broadcom-legacy-th ]] ||
         die "AG9032v1 platform_asic must be broadcom-legacy-th, found: $platform_asic"
 }
 
-validate_breakout_metadata() {
-    local trusted_validator_ref="$old_integration"
-    [[ -z "$breakout_fix_sha" ]] || trusted_validator_ref="$breakout_fix_sha"
+# Run the validator from the reviewed integration tip against TREEISH.
+run_breakout_validator() {
+    local treeish="$1"
     (
         tmp_dir="$(mktemp -d -t ag9032v1-validate.XXXXXXXX)"
         trap 'rm -rf "$tmp_dir"' EXIT
-        git archive "$trusted_validator_ref" -- \
+        git archive "$old_integration" -- \
             scripts/validate-ag9032v1-breakout.py | tar -x -C "$tmp_dir"
-        git archive "refs/heads/$REFRESH" -- \
-            device/delta/x86_64-delta_ag9032v1-r0/platform.json \
-            device/delta/x86_64-delta_ag9032v1-r0/Delta-ag9032v1/hwsku.json \
-            device/delta/x86_64-delta_ag9032v1-r0/Delta-ag9032v1/th-ag9032v1-32x100G.config.bcm \
+        git archive "$treeish" -- \
+            "$PLATFORM_DIR/platform.json" \
+            "$PLATFORM_DIR/Delta-ag9032v1/hwsku.json" \
+            "$PLATFORM_DIR/Delta-ag9032v1/th-ag9032v1-32x100G.config.bcm" \
             | tar -x -C "$tmp_dir"
         python3 -B "$tmp_dir/scripts/validate-ag9032v1-breakout.py" \
             --root "$tmp_dir"
-    ) || die "AG9032v1 breakout validation failed"
+    )
+}
+
+validate_breakout_metadata() {
+    run_breakout_validator "refs/heads/$REFRESH" ||
+        die "AG9032v1 breakout validation failed"
 }
 
 validate_build() {
@@ -494,11 +507,7 @@ validate_archives() {
 
 validate_committed_maintenance() {
     local path worktree_blob promoted_blob
-    for path in \
-        .github/workflows/protect-file.yml \
-        .github/workflows/upstream-drift.yml \
-        FORK_MAINTENANCE.md \
-        scripts/fork-refresh-ag9032v1.sh; do
+    for path in "${MAINTENANCE_FILES[@]}"; do
         [[ -f "$path" ]] || die "worktree is missing maintenance file: $path"
         worktree_blob="$(git hash-object "$path")"
         promoted_blob="$(git rev-parse "refs/heads/$PROMOTE:$path")" ||
@@ -508,8 +517,24 @@ validate_committed_maintenance() {
     done
 }
 
+# Reuse an unpublished archive pair for the same tips (left by an aborted
+# prepare) instead of accumulating identical rollback refs.
 create_archives() {
-    local stamp
+    local ref stamp
+    while IFS= read -r ref; do
+        [[ "$ref" == archive/ag9032v1-integration-* ]] || continue
+        stamp="${ref#archive/ag9032v1-integration-}"
+        if [[ "$(git rev-parse -q --verify "refs/heads/archive/master-$stamp" || true)" == "$old_master" ]] &&
+            ! git show-ref --verify --quiet "refs/remotes/origin/$ref" &&
+            ! git show-ref --verify --quiet "refs/remotes/origin/archive/master-$stamp"; then
+            integration_archive="$ref"
+            master_archive="archive/master-$stamp"
+            printf 'Reusing unpublished rollback refs %s and %s\n' \
+                "$integration_archive" "$master_archive"
+            return 0
+        fi
+    done < <(git for-each-ref --points-at "$old_integration" \
+        --format='%(refname:short)' refs/heads/archive/)
     stamp="$(date -u +%Y%m%dT%H%M%SZ)-${old_integration:0:8}"
     integration_archive="archive/ag9032v1-integration-$stamp"
     master_archive="archive/master-$stamp"
@@ -517,12 +542,68 @@ create_archives() {
     git branch "$master_archive" "$old_master"
 }
 
-if [[ "$mode" == prepare ]]; then
-    [[ ! -e "$state_file" ]] ||
-        die "saved refresh state already exists; resume it or preserve and move it aside before a fresh prepare"
+return_to_starting_branch() {
+    [[ "$(git symbolic-ref --quiet --short HEAD || true)" != "$starting_branch" ]] ||
+        return 0
+    git switch --quiet "$starting_branch" ||
+        warn "could not return to $starting_branch; switch manually so $BUILD is free for the build worktree"
+}
+
+print_next_steps() {
+    printf '\nPrepared local candidates; no remote refs changed:\n'
+    printf '  %s @ %s\n' "$REFRESH" "$prepared_refresh_sha"
+    printf '  %s @ %s\n\n' "$BUILD" "$prepared_build_sha"
+    printf 'Build in the build worktree, not in this maintenance worktree:\n'
+    printf '  git switch %s\n' "$BUILD"
+    printf '  make init\n'
+    printf '  bash %q\n\n' "$root/scripts/build-ag9032v1.sh"
+    printf 'After hardware verification, create the promotion candidate here:\n'
+    printf '  git switch -C %s %s\n' "$PROMOTE" "$prepared_refresh_sha"
+    if [[ "$maintenance_sha" != absent ]]; then
+        printf '  git cherry-pick %s\n' "$maintenance_sha"
+    else
+        printf '  # commit the consolidated maintenance change\n'
+    fi
+    printf '  bash scripts/fork-refresh-ag9032v1.sh --print-promotion\n'
+}
+
+# Shared by prepare and resume once the rebase has finished.
+finish_candidates() {
+    local refresh_sha
+    validate_refresh
+    if [[ "$phase" == rebase ]]; then
+        # A finished rebase (manual or paused) leaves REFRESH at the candidate.
+        phase=build
+        save_state
+    fi
+    validate_runtime_target
+    validate_breakout_metadata
+    refresh_sha="$(git rev-parse "refs/heads/$REFRESH")"
+    printf '\nReviewing old and refreshed reusable stacks:\n'
+    git range-diff "$old_base..$old_integration" "$upstream_sha..$refresh_sha"
+    if [[ "$phase" == build ]]; then
+        if ! profile_is_applied; then
+            ensure_branches_free "$BUILD"
+            git switch -C "$BUILD" "$refresh_sha"
+            if ! git cherry-pick "$local_profile_sha"; then pick_help; exit 1; fi
+        fi
+        validate_build
+        prepared_refresh_sha="$refresh_sha"
+        prepared_build_sha="$(git rev-parse "refs/heads/$BUILD")"
+        phase=done
+        save_state
+    else
+        validate_build
+        validate_prepared_tips
+    fi
+    return_to_starting_branch
+    print_next_steps
+}
+
+prepare() {
+    rotate_promoted_state
     resolve_refs
     resolve_local_profile
-    resolve_breakout_fix
     starting_branch="$(git symbolic-ref --quiet --short HEAD)" ||
         die "prepare mode requires a checked-out branch"
     case "$starting_branch" in
@@ -530,7 +611,7 @@ if [[ "$mode" == prepare ]]; then
             die "run prepare from master or another stable branch containing this helper"
             ;;
     esac
-    need_ref "refs/remotes/origin/$INTEGRATION"
+    ensure_branches_free "$REFRESH" "$BUILD"
     create_archives
     phase=rebase
     save_state
@@ -540,175 +621,279 @@ if [[ "$mode" == prepare ]]; then
         rebase_help
         exit 1
     fi
-    breakout_parent="$(git rev-parse "refs/heads/$REFRESH")"
-    phase=breakout
-    save_state
-elif [[ "$mode" == adopt-existing ]]; then
-    [[ ! -e "$state_file" ]] ||
-        die "saved refresh state already exists; preserve and move it aside before adopting candidates"
-    resolve_refs
+    if ((pause_after_rebase)); then
+        pause_help
+        exit 0
+    fi
+    finish_candidates
+}
+
+resume() {
+    read_state
+    validate_reviewed_inputs
     resolve_local_profile
-    resolve_breakout_fix
-    starting_branch="$(git symbolic-ref --quiet --short HEAD)" ||
-        die "adopt-existing mode requires a checked-out branch"
+    finish_candidates
+}
+
+md_cell() {
+    local text="${1//|/\\|}"
+    printf '%s' "${text//$'\n'/ }"
+}
+
+replay_commit_tree() {
+    GIT_AUTHOR_NAME=replay GIT_AUTHOR_EMAIL=replay@localhost \
+    GIT_COMMITTER_NAME=replay GIT_COMMITTER_EMAIL=replay@localhost \
+        git commit-tree "$1" -p "$replay_tip" -m "replay $2"
+}
+
+# Apply COMMIT onto replay_tip in the private index. Sets replay_result to ok,
+# dropped (already upstream), or conflict. Conflicting paths are skipped so
+# later commits still build on the rest of the change.
+replay_commit() {
+    local commit="$1" tree err path
+    local -a excludes=()
+    replay_conflict_paths=()
+    GIT_INDEX_FILE="$replay_index" git read-tree "$replay_tip"
+    if err="$(git diff-tree -p --binary --full-index "$commit^" "$commit" |
+        GIT_INDEX_FILE="$replay_index" git apply --cached --3way 2>&1 >/dev/null)"; then
+        replay_result=ok
+    else
+        replay_result=conflict
+        # Unmerged entries are authoritative. Older Git also reports new files
+        # as missing before its direct-application fallback succeeds, so only
+        # parse the errors when the three-way merge recorded nothing.
+        mapfile -t replay_conflict_paths < <(
+            GIT_INDEX_FILE="$replay_index" git ls-files -u | cut -f2 | sort -u
+        )
+        if ((${#replay_conflict_paths[@]} == 0)); then
+            mapfile -t replay_conflict_paths < <(
+                printf '%s\n' "$err" | sed -nE \
+                    -e 's/^error: patch failed: (.*):[0-9]+$/\1/p' \
+                    -e 's/^error: (.*): (patch does not apply|already exists in index|does not exist in index)$/\1/p' |
+                    sort -u
+            )
+        fi
+        GIT_INDEX_FILE="$replay_index" git read-tree "$replay_tip"
+        for path in "${replay_conflict_paths[@]}"; do
+            excludes+=(":(exclude)$path")
+        done
+        ((${#excludes[@]})) || return 0
+        git diff-tree -p --binary --full-index "$commit^" "$commit" -- . "${excludes[@]}" |
+            GIT_INDEX_FILE="$replay_index" git apply --cached --3way >/dev/null 2>&1 ||
+            return 0
+    fi
+    tree="$(GIT_INDEX_FILE="$replay_index" git write-tree)"
+    if [[ "$tree" == "$(git rev-parse "$replay_tip^{tree}")" ]]; then
+        [[ "$replay_result" == conflict ]] || replay_result=dropped
+        return 0
+    fi
+    replay_tip="$(replay_commit_tree "$tree" "$commit")"
+}
+
+replay_paths_cell() {
+    local path out=""
+    for path in "${replay_conflict_paths[@]}"; do
+        out+="${out:+, }\`$(md_cell "$path")\`"
+    done
+    printf '%s' "$out"
+}
+
+# Report one commit replayed on top of STACK_TIP and whether its stable patch
+# ID survives, since prepare and promotion require an unchanged patch ID.
+replay_extra() {
+    local label="$1" key="$2" ref="$3" stack_tip="$4" sha
+    if ! git show-ref --verify --quiet "$ref"; then
+        printf -- '- %s: `%s` not found\n' "$label" "${ref#refs/remotes/}"
+        return 0
+    fi
+    sha="$(git rev-parse "$ref")"
+    replay_tip="$stack_tip"
+    replay_commit "$sha"
+    case "$replay_result" in
+        ok)
+            if [[ "$(range_patch_id "$stack_tip" "$replay_tip")" == "$(commit_patch_id "$sha")" ]]; then
+                printf -- '- %s `%s`: ok, stable patch ID preserved\n' "$label" "${sha:0:9}"
+                extra_status+="$key=ok;"
+            else
+                printf -- '- %s `%s`: applies, but its **patch ID changes**; replace the canonical commit before preparing\n' \
+                    "$label" "${sha:0:9}"
+                extra_status+="$key=patch-id;"
+                check_status=2
+            fi
+            ;;
+        dropped)
+            printf -- '- %s `%s`: **already upstream**\n' "$label" "${sha:0:9}"
+            extra_status+="$key=dropped;"
+            check_status=2
+            ;;
+        conflict)
+            printf -- '- %s `%s`: **conflict** in %s\n' "$label" "${sha:0:9}" "$(replay_paths_cell)"
+            extra_status+="$key=conflict;"
+            check_status=2
+            ;;
+    esac
+}
+
+check_replay() {
+    local commit stack_tip platform_asic validator_output
+    local -a commits=() conflicts=() dropped=()
+    need_ref "refs/remotes/origin/$INTEGRATION"
+    need_ref refs/remotes/upstream/master
+    old_integration="$(git rev-parse "refs/remotes/origin/$INTEGRATION")"
+    upstream_sha="$(git rev-parse refs/remotes/upstream/master)"
+    old_base="$(git merge-base "$old_integration" "$upstream_sha")" ||
+        die "integration has no upstream merge base"
+    ! git rev-list --min-parents=2 "$old_base..$old_integration" | grep -q . ||
+        die "$INTEGRATION is not a linear stack"
+    mapfile -t commits < <(git rev-list --reverse "$old_base..$old_integration")
+
+    replay_index="$(mktemp -t ag9032v1-replay.XXXXXXXX)"
+    trap 'rm -f "$replay_index"' EXIT
+    replay_tip="$upstream_sha"
+    check_status=0
+    extra_status=""
+
+    printf '### Replay onto upstream `%s`\n\n' "${upstream_sha:0:12}"
+    printf '%d commits from `%s` above merge base `%s`.\n\n' \
+        "${#commits[@]}" "$INTEGRATION" "${old_base:0:12}"
+    printf '| Result | Commit | Subject | Conflicting paths |\n'
+    printf '| --- | --- | --- | --- |\n'
+    for commit in "${commits[@]}"; do
+        replay_commit "$commit"
+        case "$replay_result" in
+            conflict) conflicts+=("${commit:0:9}"); check_status=2 ;;
+            dropped) dropped+=("${commit:0:9}") ;;
+        esac
+        printf '| %s | `%s` | %s | %s |\n' "$replay_result" "${commit:0:9}" \
+            "$(md_cell "$(git log -1 --format=%s "$commit")")" "$(replay_paths_cell)"
+    done
+    stack_tip="$replay_tip"
+    printf '\n'
+    replay_extra "Maintenance commit" maintenance "refs/remotes/origin/$MAINTENANCE" "$stack_tip"
+    replay_extra "Local profile" profile "refs/remotes/origin/$LOCAL_PROFILE" "$stack_tip"
+
+    platform_asic="$(git show "$stack_tip:$PLATFORM_DIR/platform_asic" 2>/dev/null || true)"
+    if [[ "$platform_asic" == broadcom-legacy-th ]]; then
+        printf -- '- Runtime target: `broadcom-legacy-th`\n'
+    else
+        printf -- '- Runtime target: **`%s`**, expected `broadcom-legacy-th`\n' "${platform_asic:-missing}"
+        extra_status+="runtime=wrong;"
+        check_status=2
+    fi
+    if validator_output="$(run_breakout_validator "$stack_tip" 2>&1)"; then
+        printf -- '- Breakout metadata: valid\n'
+    else
+        printf -- '- Breakout metadata: **validation failed**\n\n```\n%s\n```\n' \
+            "$(printf '%s\n' "$validator_output" | tail -n 20)"
+        extra_status+="validator=failed;"
+        check_status=2
+    fi
+
+    if ((${#conflicts[@]})); then
+        printf '\n**%d conflicting commit(s).** Expect to resolve them during the next prepare.\n' \
+            "${#conflicts[@]}"
+    else
+        printf '\n**The stack replays without conflicts.**\n'
+    fi
+    if ((${#dropped[@]})); then
+        printf 'Already upstream and expected to drop: %s\n' "${dropped[*]}"
+    fi
+    local conflict_list="none"
+    if ((${#conflicts[@]})); then
+        conflict_list="$(IFS=,; printf '%s' "${conflicts[*]}")"
+    fi
+    printf '\n<!-- replay-status: conflicts=%s;%s -->\n' "$conflict_list" "$extra_status"
+    exit "$check_status"
+}
+
+print_promotion() {
+    read_state
+    validate_reviewed_inputs
+    [[ "$phase" == done ]] || die "refresh/build preparation is incomplete (phase: $phase)"
+
     validate_committed_maintenance
+    validate_prepared_tips
     validate_refresh
     validate_runtime_target
     validate_breakout_metadata
     validate_build
-    create_archives
-    prepared_refresh_sha="$(git rev-parse "refs/heads/$REFRESH")"
-    prepared_build_sha="$(git rev-parse "refs/heads/$BUILD")"
-    phase=done
-    save_state
-else
-    read_state
-    validate_reviewed_inputs
-    resolve_local_profile
-    [[ -z "$breakout_fix" ]] || resolve_breakout_fix
-fi
+    need_ref "refs/heads/$PROMOTE"
+    validate_archives
+    [[ "$(git rev-parse "refs/remotes/origin/$INTEGRATION")" == "$old_integration" ]] ||
+        die "origin/$INTEGRATION moved; start a new refresh"
+    [[ "$(git rev-parse refs/remotes/origin/master)" == "$old_master" ]] ||
+        die "origin/master moved; start a new refresh"
 
-if [[ "$mode" != print-promotion ]]; then
-    validate_refresh
-    if [[ "$phase" == rebase ]]; then
-        # A successful manual rebase --continue leaves REFRESH at the candidate.
-        breakout_parent="$(git rev-parse "refs/heads/$REFRESH")"
-        phase=breakout
-        save_state
+    local refresh_sha promote_sha path maintenance_path allowed
+    local promoted_patch maintenance_patch
+    local -a changed=()
+    refresh_sha="$prepared_refresh_sha"
+    promote_sha="$(git rev-parse "refs/heads/$PROMOTE")"
+    git merge-base --is-ancestor "$refresh_sha" "$promote_sha" ||
+        die "$PROMOTE is not based on $REFRESH"
+    [[ "$(git rev-list --count "$refresh_sha..$promote_sha")" == 1 ]] ||
+        die "$PROMOTE must add exactly one consolidated maintenance commit"
+    ! git rev-list --min-parents=2 "$refresh_sha..$promote_sha" | grep -q . ||
+        die "$PROMOTE maintenance commit must not be a merge commit"
+
+    mapfile -t changed < <(git diff --name-only "$refresh_sha..$promote_sha")
+    for path in "${changed[@]}"; do
+        allowed=0
+        for maintenance_path in "${MAINTENANCE_FILES[@]}"; do
+            [[ "$path" != "$maintenance_path" ]] || allowed=1
+        done
+        ((allowed)) || die "unexpected integration/master delta: $path"
+    done
+    for maintenance_path in "${MAINTENANCE_FILES[@]}"; do
+        printf '%s\n' "${changed[@]}" | grep -Fqx -- "$maintenance_path" ||
+            die "$PROMOTE maintenance commit is missing: $maintenance_path"
+    done
+
+    if [[ "$maintenance_sha" != absent ]]; then
+        promoted_patch="$(commit_patch_id "$promote_sha")" ||
+            die "$PROMOTE maintenance commit has no stable patch ID"
+        maintenance_patch="$(commit_patch_id "$maintenance_sha")" ||
+            die "$MAINTENANCE has no stable patch ID"
+        [[ "$promoted_patch" == "$maintenance_patch" ]] ||
+            die "$PROMOTE maintenance commit is not patch-equivalent to the reviewed origin tip"
     fi
-    if [[ "$phase" == breakout ]]; then
-        if [[ -n "$breakout_fix_sha" ]] && ! breakout_is_applied; then
-            git switch "$REFRESH"
-            if ! git cherry-pick "$breakout_fix_sha"; then pick_help; exit 1; fi
-        fi
-        phase=build
-        save_state
-    fi
-    validate_refresh
-    validate_runtime_target
-    validate_breakout_metadata
-    refresh_sha="$(git rev-parse "refs/heads/$REFRESH")"
-    printf '\nReviewing old and refreshed reusable stacks:\n'
-    git range-diff "$old_base..$old_integration" "$upstream_sha..$refresh_sha"
-    if [[ "$phase" == build ]]; then
-        if ! profile_is_applied; then
-            git switch -C "$BUILD" "$refresh_sha"
-            if ! git cherry-pick "$local_profile_sha"; then pick_help; exit 1; fi
-        fi
-        validate_build
-        prepared_refresh_sha="$(git rev-parse "refs/heads/$REFRESH")"
-        prepared_build_sha="$(git rev-parse "refs/heads/$BUILD")"
-        phase=done
-        save_state
-    elif [[ "$phase" == done ]]; then
-        validate_build
-        validate_prepared_tips
-    else
-        die "saved refresh phase cannot prepare a build: $phase"
-    fi
-    printf '\nPrepared local candidates; no remote refs changed:\n'
-    printf '  %s @ %s\n' "$REFRESH" "$refresh_sha"
-    printf '  %s @ %s\n\n' "$BUILD" "$(git rev-parse "refs/heads/$BUILD")"
-    printf 'Archive possibly stale outputs and split root filesystems, rebuild the platform package, then build the installer set:\n'
-    printf '  artifact_archive="target/ag9032v1-prebuild-$(date -u +%%Y%%m%%dT%%H%%M%%SZ)"\n'
-    printf '  mkdir -p "$artifact_archive"\n'
-    printf '  for artifact in %s %s %s.log %s %s %s__*__rfs.squashfs %s__*__rfs.squashfs.log; do\n' \
-        "$PLATFORM_DEB" "$BUILD_TARGET" "$BUILD_TARGET" "$DNX_IMAGE" "$IMAGE" "$RFS_PREFIX" "$RFS_PREFIX"
-    printf '    [[ ! -e "$artifact" ]] || mv "$artifact" "$artifact_archive/"\n'
-    printf '  done\n'
-    printf '  make %s\n' "$PLATFORM_DEB"
-    printf "  dpkg-deb --fsys-tarfile %s | tar -tf - | grep -Fx './usr/local/bin/ag9032v1_wait_pmon_ready.sh'\n" "$PLATFORM_DEB"
-    printf "  dpkg-deb --fsys-tarfile %s | tar -tf - | grep -Fx './lib/systemd/system/pmon.service.d/10-ag9032v1-platform-ready.conf'\n" "$PLATFORM_DEB"
-    printf '  make %s\n' "$BUILD_TARGET"
-    cat <<'EOF_PASSWORD_GATE'
-  build_username="$(awk '$1 == "DEFAULT_USERNAME" { value = $3 } END { print value }' rules/config)"
-  build_password="$(awk '$1 == "DEFAULT_PASSWORD" { value = $3 } END { print value }' rules/config)"
-  shadow_hash="$(sudo awk -F: -v username="$build_username" '$1 == username { print $2 }' fsroot-broadcom-legacy-th/etc/shadow)"
-  if [[ -z "$build_password" ]]; then
-    [[ -z "$shadow_hash" ]]
-  else
-    BUILD_PASSWORD="$build_password" SHADOW_HASH="$shadow_hash" perl -e 'exit crypt($ENV{BUILD_PASSWORD}, $ENV{SHADOW_HASH}) eq $ENV{SHADOW_HASH} ? 0 : 1'
-  fi
-  echo "Default password hash matches rules/config for $build_username"
-EOF_PASSWORD_GATE
-    printf '  test -s %s && sha256sum %s\n\n' "$IMAGE" "$IMAGE"
-    printf 'Then create %s and run:\n' "$PROMOTE"
-    printf '  git switch %s\n' "$starting_branch"
-    printf '  bash scripts/fork-refresh-ag9032v1.sh --print-promotion\n'
-    exit 0
-fi
 
-[[ "$phase" == done ]] || die "refresh/build preparation is incomplete (phase: $phase)"
-
-validate_committed_maintenance
-validate_prepared_tips
-validate_refresh
-validate_runtime_target
-validate_breakout_metadata
-validate_build
-need_ref "refs/heads/$PROMOTE"
-validate_archives
-[[ "$(git rev-parse "refs/remotes/origin/$INTEGRATION")" == "$old_integration" ]] ||
-    die "origin/$INTEGRATION moved; start a new refresh"
-[[ "$(git rev-parse refs/remotes/origin/master)" == "$old_master" ]] ||
-    die "origin/master moved; start a new refresh"
-
-refresh_sha="$prepared_refresh_sha"
-promote_sha="$(git rev-parse "refs/heads/$PROMOTE")"
-git merge-base --is-ancestor "$refresh_sha" "$promote_sha" ||
-    die "$PROMOTE is not based on $REFRESH"
-[[ "$(git rev-list --count "$refresh_sha..$promote_sha")" == 1 ]] ||
-    die "$PROMOTE must add exactly one consolidated maintenance commit"
-! git rev-list --min-parents=2 "$refresh_sha..$promote_sha" | grep -q . ||
-    die "$PROMOTE maintenance commit must not be a merge commit"
-
-declare -A maintenance_paths=()
-while IFS= read -r path; do
-    case "$path" in
-        .github/workflows/protect-file.yml|.github/workflows/upstream-drift.yml|\
-        FORK_MAINTENANCE.md|scripts/fork-refresh-ag9032v1.sh)
-            maintenance_paths["$path"]=1
-            ;;
-        *) die "unexpected integration/master delta: $path" ;;
-    esac
-done < <(git diff --name-only "$refresh_sha..$promote_sha")
-for path in \
-    .github/workflows/protect-file.yml \
-    .github/workflows/upstream-drift.yml \
-    FORK_MAINTENANCE.md \
-    scripts/fork-refresh-ag9032v1.sh; do
-    [[ -n "${maintenance_paths[$path]:-}" ]] ||
-        die "$PROMOTE maintenance commit is missing: $path"
-done
-
-if [[ "$maintenance_sha" != absent ]]; then
-    promoted_patch="$(commit_patch_id "$promote_sha")" ||
-        die "$PROMOTE maintenance commit has no stable patch ID"
-    maintenance_patch="$(commit_patch_id "$maintenance_sha")" ||
-        die "$MAINTENANCE has no stable patch ID"
-    [[ "$promoted_patch" == "$maintenance_patch" ]] ||
-        die "$PROMOTE maintenance commit is not patch-equivalent to the reviewed origin tip"
-fi
-
-printf '\nNo push was performed. After final sign-off, run exactly:\n\n'
-printf 'git push --atomic \\\n'
-printf '  --force-with-lease=refs/heads/%s:%s \\\n' "$INTEGRATION" "$old_integration"
-printf '  --force-with-lease=refs/heads/master:%s \\\n' "$old_master"
-printf '  --force-with-lease=refs/heads/%s:%s \\\n' \
-    "$LOCAL_PROFILE" "$old_local_profile_sha"
-if [[ "$maintenance_sha" != absent ]]; then
+    printf '\nNo push was performed. After final sign-off, run exactly:\n\n'
+    printf 'git push --atomic \\\n'
+    printf '  --force-with-lease=refs/heads/%s:%s \\\n' "$INTEGRATION" "$old_integration"
+    printf '  --force-with-lease=refs/heads/master:%s \\\n' "$old_master"
     printf '  --force-with-lease=refs/heads/%s:%s \\\n' \
-        "$MAINTENANCE" "$maintenance_sha"
-else
-    printf '  --force-with-lease=refs/heads/%s: \\\n' "$MAINTENANCE"
-fi
-printf '  --force-with-lease=refs/heads/%s: \\\n' "$integration_archive"
-printf '  --force-with-lease=refs/heads/%s: \\\n' "$master_archive"
-printf '  origin \\\n'
-printf '  %s:refs/heads/%s \\\n' "$prepared_refresh_sha" "$INTEGRATION"
-printf '  %s:refs/heads/master \\\n' "$promote_sha"
-printf '  %s:refs/heads/%s \\\n' "$promote_sha" "$MAINTENANCE"
-printf '  %s:refs/heads/%s \\\n' "$local_profile_sha" "$LOCAL_PROFILE"
-printf '  %s:refs/heads/%s \\\n' "$old_integration" "$integration_archive"
-printf '  %s:refs/heads/%s\n' "$old_master" "$master_archive"
-printf '\nExplicit leases make the command fail if a reviewed remote tip moved.\n'
+        "$LOCAL_PROFILE" "$old_local_profile_sha"
+    if [[ "$maintenance_sha" != absent ]]; then
+        printf '  --force-with-lease=refs/heads/%s:%s \\\n' \
+            "$MAINTENANCE" "$maintenance_sha"
+    else
+        printf '  --force-with-lease=refs/heads/%s: \\\n' "$MAINTENANCE"
+    fi
+    printf '  --force-with-lease=refs/heads/%s: \\\n' "$integration_archive"
+    printf '  --force-with-lease=refs/heads/%s: \\\n' "$master_archive"
+    printf '  origin \\\n'
+    printf '  %s:refs/heads/%s \\\n' "$prepared_refresh_sha" "$INTEGRATION"
+    printf '  %s:refs/heads/master \\\n' "$promote_sha"
+    printf '  %s:refs/heads/%s \\\n' "$promote_sha" "$MAINTENANCE"
+    printf '  %s:refs/heads/%s \\\n' "$local_profile_sha" "$LOCAL_PROFILE"
+    printf '  %s:refs/heads/%s \\\n' "$old_integration" "$integration_archive"
+    printf '  %s:refs/heads/%s\n' "$old_master" "$master_archive"
+    printf '\nExplicit leases make the command fail if a reviewed remote tip moved.\n'
+}
+
+# Everything runs from functions so bash has parsed the whole helper before a
+# branch switch replaces this file on disk.
+main() {
+    parse_args "$@"
+    preflight
+    case "$mode" in
+        prepare) prepare ;;
+        resume) resume ;;
+        check) check_replay ;;
+        print-promotion) print_promotion ;;
+    esac
+}
+
+main "$@"
+exit
